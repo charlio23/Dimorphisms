@@ -3,7 +3,6 @@ public class Dimorphisms {
         javax.swing.SwingUtilities.invokeLater (
                 () -> {
                     System.out.println("Hello World");
-                    
                 });
     }
 }
