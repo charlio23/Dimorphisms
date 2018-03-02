@@ -1,6 +1,5 @@
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -45,6 +44,17 @@ public class ViewController extends Application {
         fooController.setViewController(this);
 
         primaryStage.close();
+        primaryStage.setScene(new Scene(p, 1000, 1000));
+        primaryStage.show();
+    }
+
+    public void firstStage() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Pane p = fxmlLoader.load(getClass().getResource("../resources/MainMenu.fxml").openStream());
+        MainMenu fooController = (MainMenu) fxmlLoader.getController();
+        fooController.setViewController(this);
+
+        primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(p, 300, 275));
         primaryStage.show();
     }

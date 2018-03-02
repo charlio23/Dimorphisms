@@ -9,14 +9,16 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Second">
    <children>
-      <Label layoutX="135.0" layoutY="85.0" text="Braaaaaa" />
-      <LineChart layoutX="24.0" layoutY="6.0">
+      <Label fx:id="label" layoutX="174.0" layoutY="407.0" text="Braaaaaa" />
+      <LineChart fx:id="chart" layoutX="46.0" layoutY="5.0">
         <xAxis>
-          <CategoryAxis side="BOTTOM" />
+          <NumberAxis side="BOTTOM" />
         </xAxis>
         <yAxis>
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
+       <Button layoutX="345.0" layoutY="393.0" mnemonicParsing="false" onAction="#onPressBack" text="BACK" />
+       <Button layoutX="254.0" layoutY="394.0" mnemonicParsing="false" onAction="#onPress" text="Button" />
    </children>
 </AnchorPane>
