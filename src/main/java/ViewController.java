@@ -9,13 +9,14 @@ import java.io.IOException;
 
 public class ViewController extends Application {
 
-    public Stage primaryStage;
+    private Stage primaryStage;
+    private DomainController domainController;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
 
         this.primaryStage = primaryStage;
-
+        domainController = new DomainController();
         FXMLLoader fxmlLoader = new FXMLLoader();
         Pane p = fxmlLoader.load(getClass().getResource("../resources/MainMenu.fxml").openStream());
         MainMenu fooController = (MainMenu) fxmlLoader.getController();
