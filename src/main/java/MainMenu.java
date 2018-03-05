@@ -1,10 +1,12 @@
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 
 import java.io.IOException;
 
 public class MainMenu {
 
+    @FXML private Label label;
     private ViewController viewController;
 
     private Scene scene;
@@ -19,7 +21,7 @@ public class MainMenu {
     }
 
     @FXML
-    public void onViewChange() throws IOException {
-        viewController.changeStage();
+    public void onNewPressed() throws IOException {
+        viewController.newMaterial();
     }
 }
