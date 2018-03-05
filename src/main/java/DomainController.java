@@ -4,10 +4,12 @@ public class DomainController {
 
     private MaterialProperties actualMaterial;
     private ArrayList<MaterialProperties> materials;
+    private DataController dataController;
 
     DomainController(){
         actualMaterial = null;
         materials = new ArrayList<>();
+        this.dataController = new DataController();
     }
 
     public ArrayList<String> listMaterialNames(){
@@ -37,8 +39,14 @@ public class DomainController {
     }
 
     public Boolean saveMaterial() {
+        return dataController.saveMaterial(actualMaterial.dataToString());
+    }
 
+    public ArrayList<String> loadMaterialNames() {
+        return dataController.loadMaterialNames();
+    }
 
-        return true;
+    public MaterialProperties loadMaterial(String name) {
+        return dataController.loadMaterial(name);
     }
 }

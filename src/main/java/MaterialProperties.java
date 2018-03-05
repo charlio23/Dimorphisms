@@ -103,7 +103,6 @@ public class MaterialProperties {
     }
 
     public String dataToString() {
-        Random random = new Random();
-        return String.valueOf(random.nextFloat());
+        return this.name;
     }
 }
