@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="715.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DataEntry">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="256.0" minWidth="10.0" prefWidth="223.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="267.0" minWidth="10.0" prefWidth="238.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="255.0" minWidth="10.0" prefWidth="244.0" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints maxHeight="166.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="244.0" minHeight="10.0" prefHeight="162.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="174.0" minHeight="10.0" prefHeight="102.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="152.0" minHeight="10.0" prefHeight="107.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Pane prefHeight="149.0" prefWidth="209.0" style="-fx-border-color: black;" GridPane.rowIndex="1">
+         <children>
+            <Button layoutX="98.0" layoutY="127.0" mnemonicParsing="false" onAction="#onLiquidVaporAddPressed" text="Add" />
+            <Label layoutX="52.0" layoutY="15.0" text="Liquid - Vapor" />
+            <RadioButton fx:id="liquidVaporLog" layoutX="14.0" layoutY="39.0" mnemonicParsing="false" onAction="#onLiquidVaporLogPressed" text="log p = A + B / (T + C)" />
+            <RadioButton fx:id="liquidVaporLn" layoutX="14.0" layoutY="62.0" mnemonicParsing="false" onAction="#onLiquidVaporLnPressed" text="ln p = A + B / (T + C)" />
+            <TextField fx:id="liquidVaporA" layoutX="28.0" layoutY="90.0" prefHeight="25.0" prefWidth="43.0" />
+            <Label layoutX="11.0" layoutY="95.0" text="A" />
+            <Label layoutX="81.0" layoutY="95.0" text="B" />
+            <TextField fx:id="liquidVaporB" layoutX="98.0" layoutY="90.0" prefHeight="25.0" prefWidth="43.0" />
+            <Label layoutX="154.0" layoutY="95.0" text="C" />
+            <TextField fx:id="liquidVaporC" layoutX="171.0" layoutY="90.0" prefHeight="25.0" prefWidth="43.0" />
+         </children>
+      </Pane>
+      <Pane layoutX="10.0" layoutY="10.0" prefHeight="149.0" prefWidth="209.0" style="-fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <children>
+            <Button layoutX="98.0" layoutY="127.0" mnemonicParsing="false" onAction="#onSolid1VaporAddPressed" text="Add" />
+            <Label alignment="CENTER" layoutX="70.0" layoutY="15.0" text="Solid1 - Vapor" />
+            <RadioButton fx:id="solid1VaporLog" layoutX="14.0" layoutY="39.0" mnemonicParsing="false" onAction="#onSolid1VaporLogPressed" text="log p = A + B / (T + C)" />
+            <RadioButton fx:id="solid1VaporLn" layoutX="14.0" layoutY="62.0" mnemonicParsing="false" onAction="#onSolid1VaporLnPressed" text="ln p = A + B / (T + C)" />
+            <TextField fx:id="solid1VaporA" layoutX="28.0" layoutY="90.0" prefHeight="25.0" prefWidth="43.0" />
+            <Label layoutX="11.0" layoutY="95.0" text="A" />
+            <Label layoutX="81.0" layoutY="95.0" text="B" />
+            <TextField fx:id="solid1VaporB" layoutX="98.0" layoutY="90.0" prefHeight="25.0" prefWidth="43.0" />
+            <Label layoutX="154.0" layoutY="95.0" text="C" />
+            <TextField fx:id="solid1VaporC" layoutX="171.0" layoutY="90.0" prefHeight="25.0" prefWidth="43.0" />
+         </children>
+      </Pane>
+      <Pane layoutX="236.0" layoutY="10.0" prefHeight="149.0" prefWidth="209.0" style="-fx-border-color: black;" GridPane.columnIndex="2" GridPane.rowIndex="1">
+         <children>
+            <Button layoutX="98.0" layoutY="127.0" mnemonicParsing="false" onAction="#onSolid2VaporAddPressed" text="Add" />
+            <Label layoutX="69.0" layoutY="15.0" text="Solid2 - Vapor" />
+            <RadioButton fx:id="solid2VaporLog" layoutX="14.0" layoutY="39.0" mnemonicParsing="false" onAction="#onSolid2VaporLogPressed" text="log p = A + B / (T + C)" />
+            <RadioButton fx:id="solid2VaporLn" layoutX="14.0" layoutY="62.0" mnemonicParsing="false" onAction="#onSolid2VaporLnPressed" text="ln p = A + B / (T + C)" />
+            <TextField fx:id="solid2VaporA" layoutX="28.0" layoutY="90.0" prefHeight="25.0" prefWidth="43.0" />
+            <Label layoutX="11.0" layoutY="95.0" text="A" />
+            <Label layoutX="81.0" layoutY="95.0" text="B" />
+            <TextField fx:id="solid2VaporB" layoutX="98.0" layoutY="90.0" prefHeight="25.0" prefWidth="43.0" />
+            <Label layoutX="154.0" layoutY="95.0" text="C" />
+            <TextField fx:id="solid2VaporC" layoutX="171.0" layoutY="90.0" prefHeight="25.0" prefWidth="43.0" />
+         </children>
+      </Pane>
+      <Label fx:id="materialName" text="Dimorphism_name" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <Label text="Liquid - Solid1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets top="10.0" />
+         </GridPane.margin>
+      </Label>
+      <Label alignment="CENTER" layoutX="82.0" layoutY="275.0" text="Liquid - Solid2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets top="10.0" />
+         </GridPane.margin>
+      </Label>
+      <Label layoutX="316.0" layoutY="275.0" text="Solid1 - Solid2" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets top="10.0" />
+         </GridPane.margin>
+      </Label>
+      <Pane layoutX="10.0" layoutY="208.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: black;" GridPane.rowIndex="2">
+         <children>
+            <Label layoutX="31.0" layoutY="45.0" text="TS1-L-V" />
+            <Label layoutX="31.0" layoutY="73.0" text="dp/dT" />
+            <TextField fx:id="liquidSolid1VaporTemp" layoutX="92.0" layoutY="40.0" prefHeight="25.0" prefWidth="43.0" />
+            <TextField fx:id="liquidSolid1dpdt" layoutX="92.0" layoutY="68.0" prefHeight="25.0" prefWidth="43.0" />
+            <Button layoutX="155.0" layoutY="52.0" mnemonicParsing="false" onAction="#onLiquidSolid1AddPressed" text="Add" />
+         </children>
+      </Pane>
+      <Label alignment="CENTER" layoutX="311.0" layoutY="218.0" text="Msg. Box" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets top="10.0" />
+         </GridPane.margin>
+      </Label>
+      <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: black;" GridPane.rowIndex="3">
+         <children>
+            <Text layoutX="10.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="212.12451171875" />
+         </children></Pane>
+      <Pane prefHeight="137.0" prefWidth="241.0" style="-fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <children>
+            <Button layoutX="66.0" layoutY="21.0" mnemonicParsing="false" onAction="#onViewGraphicPressed" text="View Graphic" />
+            <Button layoutX="59.0" layoutY="61.0" mnemonicParsing="false" onAction="#onStableDiagramPressed" text="Stable Diagram" />
+         </children>
+      </Pane>
+      <Pane prefHeight="135.0" prefWidth="246.0" style="-fx-border-color: black;" GridPane.columnIndex="2" GridPane.rowIndex="3">
+         <children>
+            <Button layoutX="103.0" layoutY="21.0" mnemonicParsing="false" onAction="#onSavePressed" text="Save" />
+            <Button layoutX="106.0" layoutY="60.0" mnemonicParsing="false" onAction="#onExitPressed" text="Exit" />
+         </children>
+      </Pane>
+      <Pane layoutX="11.0" layoutY="207.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <Label layoutX="31.0" layoutY="45.0" text="TS2-L-V" />
+            <Label layoutX="31.0" layoutY="73.0" text="dp/dT" />
+            <TextField fx:id="liquidSolid2VaporTemp" layoutX="92.0" layoutY="40.0" prefHeight="25.0" prefWidth="43.0" />
+            <TextField fx:id="liquidSolid2dpdt" layoutX="92.0" layoutY="68.0" prefHeight="25.0" prefWidth="43.0" />
+            <Button layoutX="155.0" layoutY="52.0" mnemonicParsing="false" onAction="#onLiquidSolid2AddPressed" text="Add" />
+         </children>
+      </Pane>
+      <Pane layoutX="237.0" layoutY="207.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: black;" GridPane.columnIndex="2" GridPane.rowIndex="2">
+         <children>
+            <Label layoutX="19.0" layoutY="45.0" text="TS1-S2-V" />
+            <Label layoutX="31.0" layoutY="73.0" text="dp/dT" />
+            <TextField fx:id="solid1Solid2VaporTemp" layoutX="92.0" layoutY="40.0" prefHeight="25.0" prefWidth="43.0" />
+            <TextField fx:id="solid1Solid2dpdt" layoutX="92.0" layoutY="68.0" prefHeight="25.0" prefWidth="43.0" />
+            <Button layoutX="155.0" layoutY="52.0" mnemonicParsing="false" onAction="#onSolid1Solid2AddPressed" text="Add" />
+         </children>
+      </Pane>
+   </children>
+</GridPane>

@@ -3,6 +3,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -26,7 +27,7 @@ public class ViewController extends Application {
         fooController.setViewController(this);
 
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(p, 300, 275));
+        primaryStage.setScene(new Scene(p, 715, 405));
         primaryStage.show();
     }
 
@@ -43,7 +44,7 @@ public class ViewController extends Application {
 
     public void changeStage() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        Pane p = fxmlLoader.load(getClass().getResource("../resources/Second.fxml").openStream());
+        Pane p = fxmlLoader.load(getClass().getResource("../resources/GraphicView.fxml").openStream());
         GraphicView fooController = (GraphicView) fxmlLoader.getController();
         fooController.setViewController(this);
 
@@ -59,7 +60,7 @@ public class ViewController extends Application {
         fooController.setViewController(this);
 
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(p, 300, 275));
+        primaryStage.setScene(new Scene(p, 715, 405));
         primaryStage.show();
     }
 
@@ -77,12 +78,12 @@ public class ViewController extends Application {
             domainController.createMaterial(result.get());
             domainController.saveMaterial();
             FXMLLoader fxmlLoader = new FXMLLoader();
-            TitledPane p = fxmlLoader.load(getClass().getResource("../resources/DataEntry.fxml").openStream());
+            GridPane p = fxmlLoader.load(getClass().getResource("../resources/DataEntry.fxml").openStream());
             DataEntry fooController = (DataEntry) fxmlLoader.getController();
             fooController.setViewController(this);
             fooController.setMaterialName(result.get());
             primaryStage.setTitle("Hello World");
-            primaryStage.setScene(new Scene(p, 300, 275));
+            primaryStage.setScene(new Scene(p, 715, 405));
             primaryStage.show();
         } else {
             System.out.println("Pressed cancel button");
