@@ -17,7 +17,6 @@ public class MainMenu {
 
     @FXML
     public void onButtonPressed() throws IOException {
-        viewController.call();
         viewController.changeStage();
     }
 

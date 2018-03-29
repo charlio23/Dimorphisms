@@ -31,12 +31,6 @@ public class ViewController extends Application {
         primaryStage.show();
     }
 
-    public void call(){
-        System.out.println("CALL FROM VIEW!");
-    }
-
-
-
     public static void main(String[] args) {
         launch(args);
     }

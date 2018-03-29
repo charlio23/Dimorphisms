@@ -18,7 +18,7 @@ public class DataController {
 
         try{
             output = new BufferedWriter(new FileWriter(path, true));
-            output.append(material + "\n");
+            output.append(material).append("\n");
             output.close();
             return true;
 
