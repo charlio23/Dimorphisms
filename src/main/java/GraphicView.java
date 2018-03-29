@@ -13,7 +13,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.Random;
 
-public class Second {
+public class GraphicView {
 
     private ViewController viewController;
 

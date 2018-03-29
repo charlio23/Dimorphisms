@@ -2,6 +2,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -43,7 +44,7 @@ public class ViewController extends Application {
     public void changeStage() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         Pane p = fxmlLoader.load(getClass().getResource("../resources/Second.fxml").openStream());
-        Second fooController = (Second) fxmlLoader.getController();
+        GraphicView fooController = (GraphicView) fxmlLoader.getController();
         fooController.setViewController(this);
 
         primaryStage.close();
@@ -75,6 +76,14 @@ public class ViewController extends Application {
             System.out.println("Name is " + result.get());
             domainController.createMaterial(result.get());
             domainController.saveMaterial();
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            TitledPane p = fxmlLoader.load(getClass().getResource("../resources/DataEntry.fxml").openStream());
+            DataEntry fooController = (DataEntry) fxmlLoader.getController();
+            fooController.setViewController(this);
+            fooController.setMaterialName(result.get());
+            primaryStage.setTitle("Hello World");
+            primaryStage.setScene(new Scene(p, 300, 275));
+            primaryStage.show();
         } else {
             System.out.println("Pressed cancel button");
         }

@@ -26,24 +26,24 @@ public class MaterialProperties {
         return vaporLiquid;
     }
 
-    public void setVaporLiquid(double A, double B, boolean log) {
-        this.vaporLiquid = new VaporSth(A, B, log);
+    public void setVaporLiquid(double A, double B, double C, boolean log) {
+        this.vaporLiquid = new VaporSth(A, B, C, log);
     }
 
     public VaporSth getVaporSolid1() {
         return vaporSolid1;
     }
 
-    public void setVaporSolid1(double A, double B, boolean log) {
-        this.vaporSolid1 = new VaporSth(A, B, log);
+    public void setVaporSolid1(double A, double B, double C, boolean log) {
+        this.vaporSolid1 = new VaporSth(A, B, C, log);
     }
 
     public VaporSth getVaporSolid2() {
         return vaporSolid2;
     }
 
-    public void setVaporSolid2(double A, double B, boolean log) {
-        this.vaporSolid2 = new VaporSth(A, B, log);
+    public void setVaporSolid2(double A, double B, double C, boolean log) {
+        this.vaporSolid2 = new VaporSth(A, B, C, log);
     }
 
     public double getLiquidSolid1() {
