@@ -1,17 +1,10 @@
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import javax.swing.*;
+import java.io.IOException;
+
 public class DataEntry {
-
-    private static String floatRegExp = "([0-9]*[.])?[0-9]+";
-
-    private static String liquidVaporErr = "Liquid-Vapor input ERROR";
-    private static String solid1VaporErr = "Solid1-Vapor input ERROR";
-    private static String solid2VaporErr = "Solid2-Vapor input ERROR";
-    private static String liquidSolid1Err = "Liquid-Solid1 input ERROR";
-    private static String liquidSolid2Err = "Liquid-Solid2 input ERROR";
-    private static String solid1Solid2Err = "Solid1-Solid2 input ERROR";
-
 
     @FXML private Label materialName;
     @FXML private TextField liquidVaporA;
@@ -94,14 +87,14 @@ public class DataEntry {
     @FXML
     public void onLiquidVaporAddPressed() {
         if (!liquidVaporLn.isSelected() && !liquidVaporLog.isSelected()) {
-            showErrorDialogText(liquidVaporErr,
+            showErrorDialogText(Utils.liquidVaporErr,
                     "You must choose whether it is a ln or a log curve type.");
         } else if (!checkTextIsCorrect(liquidVaporA.getText())){
-            showErrorDialogText(liquidVaporErr,"A field has to be a number.");
+            showErrorDialogText(Utils.liquidVaporErr,"A field has to be a number.");
         } else if (!checkTextIsCorrect(liquidVaporB.getText())){
-            showErrorDialogText(liquidVaporErr,"B field has to be a number.");
+            showErrorDialogText(Utils.liquidVaporErr,"B field has to be a number.");
         } else if (!checkTextIsCorrect(liquidVaporC.getText())){
-            showErrorDialogText(liquidVaporErr,"C field has to be a number.");
+            showErrorDialogText(Utils.liquidVaporErr,"C field has to be a number.");
         } else {
             System.out.println("Call to view");
 
@@ -115,14 +108,14 @@ public class DataEntry {
     @FXML
     public void onSolid1VaporAddPressed() {
         if (!solid1VaporLn.isSelected() && !solid1VaporLog.isSelected()) {
-            showErrorDialogText(solid1VaporErr,
+            showErrorDialogText(Utils.solid1VaporErr,
                     "You must choose whether it is a ln or a log curve type.");
         } else if (!checkTextIsCorrect(solid1VaporA.getText())){
-            showErrorDialogText(solid1VaporErr,"A field has to be a number.");
+            showErrorDialogText(Utils.solid1VaporErr,"A field has to be a number.");
         } else if (!checkTextIsCorrect(solid1VaporB.getText())){
-            showErrorDialogText(solid1VaporErr,"B field has to be a number.");
+            showErrorDialogText(Utils.solid1VaporErr,"B field has to be a number.");
         } else if (!checkTextIsCorrect(solid1VaporC.getText())){
-            showErrorDialogText(solid1VaporErr,"C field has to be a number.");
+            showErrorDialogText(Utils.solid1VaporErr,"C field has to be a number.");
         } else {
             System.out.println("Call to view");
 
@@ -136,14 +129,14 @@ public class DataEntry {
     @FXML
     public void onSolid2VaporAddPressed() {
         if (!solid2VaporLn.isSelected() && !solid2VaporLog.isSelected()) {
-            showErrorDialogText(solid2VaporErr,
+            showErrorDialogText(Utils.solid2VaporErr,
                     "You must choose whether it is a ln or a log curve type.");
         } else if (!checkTextIsCorrect(solid2VaporA.getText())){
-            showErrorDialogText(solid2VaporErr,"A field has to be a number.");
+            showErrorDialogText(Utils.solid2VaporErr,"A field has to be a number.");
         } else if (!checkTextIsCorrect(solid2VaporB.getText())){
-            showErrorDialogText(solid2VaporErr,"B field has to be a number.");
+            showErrorDialogText(Utils.solid2VaporErr,"B field has to be a number.");
         } else if (!checkTextIsCorrect(solid2VaporC.getText())){
-            showErrorDialogText(solid2VaporErr,"C field has to be a number.");
+            showErrorDialogText(Utils.solid2VaporErr,"C field has to be a number.");
         } else {
             System.out.println("Call to view");
         }
@@ -156,10 +149,10 @@ public class DataEntry {
     @FXML
     public void onLiquidSolid1AddPressed() {
         if (!checkTextIsCorrect(liquidSolid1VaporTemp.getText())) {
-            showErrorDialogText(liquidSolid1Err,"Temperature has to be a number.");
+            showErrorDialogText(Utils.liquidSolid1Err,"Temperature has to be a number.");
         }
         else if (!checkTextIsCorrect(liquidSolid1dpdt.getText())) {
-            showErrorDialogText(liquidSolid1Err, "dp/dT has to be a number.");
+            showErrorDialogText(Utils.liquidSolid1Err, "dp/dT has to be a number.");
         } else {
             System.out.println("Call to view");
         }
@@ -172,10 +165,10 @@ public class DataEntry {
     @FXML
     public void onLiquidSolid2AddPressed() {
         if (!checkTextIsCorrect(liquidSolid2VaporTemp.getText())) {
-            showErrorDialogText(liquidSolid2Err,"Temperature has to be a number.");
+            showErrorDialogText(Utils.liquidSolid2Err,"Temperature has to be a number.");
         }
         else if (!checkTextIsCorrect(liquidSolid2dpdt.getText())) {
-            showErrorDialogText(liquidSolid2Err, "dp/dT has to be a number.");
+            showErrorDialogText(Utils.liquidSolid2Err, "dp/dT has to be a number.");
         } else {
             System.out.println("Call to view");
         }
@@ -188,10 +181,10 @@ public class DataEntry {
     @FXML
     public void onSolid1Solid2AddPressed() {
         if (!checkTextIsCorrect(solid1Solid2VaporTemp.getText())) {
-            showErrorDialogText(solid1Solid2Err,"Temperature has to be a number.");
+            showErrorDialogText(Utils.solid1Solid2Err,"Temperature has to be a number.");
         }
         else if (!checkTextIsCorrect(solid1Solid2dpdt.getText())) {
-            showErrorDialogText(solid1Solid2Err, "dp/dT has to be a number.");
+            showErrorDialogText(Utils.solid1Solid2Err, "dp/dT has to be a number.");
         } else {
             System.out.println("Call to view");
         }
@@ -202,11 +195,16 @@ public class DataEntry {
     }
 
     @FXML
-    public void onViewGraphicPressed(){
+    public void onViewGraphicPressed() throws IOException {
         /* TODO
         * call view controller in order to view the graphic
         *
         * */
+        try {
+            viewController.viewGraphic();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -223,6 +221,7 @@ public class DataEntry {
         * call view controller in order to save
         *
         * */
+        viewController.returnMainMenu();
     }
 
     @FXML
@@ -234,7 +233,7 @@ public class DataEntry {
     }
 
     private boolean checkTextIsCorrect(String word) {
-        return word.matches(floatRegExp);
+        return word.matches(Utils.floatRegExp);
     }
 
     private void showErrorDialogText(String title, String message) {

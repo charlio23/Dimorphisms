@@ -16,12 +16,17 @@ public class MainMenu {
     }
 
     @FXML
-    public void onButtonPressed() throws IOException {
-        viewController.changeStage();
+    public void onNewPressed() throws IOException {
+        viewController.newMaterial();
     }
 
     @FXML
-    public void onNewPressed() throws IOException {
+    public void onLoadPressed() throws IOException {
+        viewController.newMaterial();
+    }
+
+    @FXML
+    public void onErasePressed() throws IOException {
         viewController.newMaterial();
     }
 }
