@@ -186,4 +186,7 @@ public class ViewController extends Application {
         return true;
     }
 
+    public boolean saveMaterial() {
+        return domainController.saveMaterial();
+    }
 }

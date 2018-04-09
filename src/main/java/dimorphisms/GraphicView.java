@@ -52,7 +52,7 @@ public class GraphicView {
      * @throws IOException the io exception
      */
     @FXML
-    public void onBackPressed() throws IOException {
+    public void onBackPressed() {
         viewController.returnDataEntry();
     }
 }

@@ -1,5 +1,7 @@
 package dimorphisms;
 
+import java.util.logging.Logger;
+
 /**
  * The type Utils.
  */
@@ -42,4 +44,6 @@ public class Utils {
      * The constant SOLID_1_SOLID_2_ERR.
      */
     public static final String SOLID_1_SOLID_2_ERR = "Solid1-Solid2 input ERROR";
+
+    public static final Logger logger = Logger.getAnonymousLogger();
 }

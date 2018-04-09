@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * The type Data entry.
@@ -285,10 +286,15 @@ public class DataEntry {
      */
     @FXML
     public void onSavePressed(){
-        /* TODO
-        * call view controller in order to save
-        *
-        * */
+        if (viewController.saveMaterial()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Save successful");
+            alert.setHeaderText(null);
+            alert.setContentText("The material has been saved successfully!");
+            alert.showAndWait();
+        } else {
+            showErrorDialogText("Error saving data", "The material could not be saved!");
+        }
     }
 
     /**
@@ -296,11 +302,26 @@ public class DataEntry {
      */
     @FXML
     public void onExitPressed(){
-        /* TODO
-        * call view controller in order to exit
-        *
-        * */
-        viewController.returnMainMenu();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Exiting...");
+        alert.setHeaderText("Would you like to save your data?");
+
+        ButtonType buttonTypeYes = new ButtonType("Yes");
+        ButtonType buttonTypeNo = new ButtonType("No");
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo, buttonTypeCancel);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent()) {
+            if (result.get() == buttonTypeYes) {
+                // ... user chose "Yes"
+                onSavePressed();
+                viewController.returnMainMenu();
+            } else if (result.get() == buttonTypeNo) {
+                // ... user chose "No"
+                viewController.returnMainMenu();
+            }
+        }
+
     }
 
     private boolean checkTextIsCorrect(String word) {

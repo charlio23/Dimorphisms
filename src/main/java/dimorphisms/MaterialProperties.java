@@ -47,13 +47,13 @@ public class MaterialProperties {
     /**
      * Sets vapor liquid.
      *
-     * @param A   the a
-     * @param B   the b
-     * @param C   the c
+     * @param a   the a
+     * @param b   the b
+     * @param c   the c
      * @param log the log
      */
-    public void setVaporLiquid(double A, double B, double C, boolean log) {
-        this.vaporLiquid = new VaporSth(A, B, C, log);
+    public void setVaporLiquid(double a, double b, double c, boolean log) {
+        this.vaporLiquid = new VaporSth(a, b, c, log);
     }
 
     /**
@@ -68,13 +68,13 @@ public class MaterialProperties {
     /**
      * Sets vapor solid 1.
      *
-     * @param A   the a
-     * @param B   the b
-     * @param C   the c
+     * @param a   the a
+     * @param b   the b
+     * @param c   the c
      * @param log the log
      */
-    public void setVaporSolid1(double A, double B, double C, boolean log) {
-        this.vaporSolid1 = new VaporSth(A, B, C, log);
+    public void setVaporSolid1(double a, double b, double c, boolean log) {
+        this.vaporSolid1 = new VaporSth(a, b, c, log);
     }
 
     /**
@@ -89,13 +89,13 @@ public class MaterialProperties {
     /**
      * Sets vapor solid 2.
      *
-     * @param A   the a
-     * @param B   the b
-     * @param C   the c
+     * @param a   the a
+     * @param b   the b
+     * @param c   the c
      * @param log the log
      */
-    public void setVaporSolid2(double A, double B, double C, boolean log) {
-        this.vaporSolid2 = new VaporSth(A, B, C, log);
+    public void setVaporSolid2(double a, double b, double c, boolean log) {
+        this.vaporSolid2 = new VaporSth(a, b, c, log);
     }
 
     /**

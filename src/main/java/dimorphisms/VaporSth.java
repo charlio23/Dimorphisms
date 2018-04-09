@@ -5,23 +5,23 @@ package dimorphisms;
  */
 public class VaporSth {
 
-    private double A;
-    private double B;
-    private double C;
+    private double a;
+    private double b;
+    private double c;
     private boolean log;
 
     /**
      * Instantiates a new Vapor sth.
      *
-     * @param A   the a
-     * @param B   the b
-     * @param C   the c
+     * @param a   the a
+     * @param b   the b
+     * @param c   the c
      * @param log the log
      */
-    VaporSth(double A, double B, double C, boolean log) {
-        this.A = A;
-        this.B = B;
-        this.C = C;
+    VaporSth(double a, double b, double c, boolean log) {
+        this.a = a;
+        this.b = b;
+        this.c = c;
         this.log = log;
     }
 
@@ -31,7 +31,7 @@ public class VaporSth {
      * @return the a
      */
     public double getA() {
-        return A;
+        return a;
     }
 
     /**
@@ -40,7 +40,7 @@ public class VaporSth {
      * @param a the a
      */
     public void setA(double a) {
-        A = a;
+        this.a = a;
     }
 
     /**
@@ -49,7 +49,7 @@ public class VaporSth {
      * @return the b
      */
     public double getB() {
-        return B;
+        return b;
     }
 
     /**
@@ -58,7 +58,7 @@ public class VaporSth {
      * @param b the b
      */
     public void setB(double b) {
-        B = b;
+        this.b = b;
     }
 
     /**
@@ -66,14 +66,14 @@ public class VaporSth {
      *
      * @return the c
      */
-    public double getC() { return C; }
+    public double getC() { return c; }
 
     /**
      * Sets c.
      *
      * @param c the c
      */
-    public void setC(double c) { C = c;}
+    public void setC(double c) { this.c = c;}
 
     /**
      * Is log boolean.

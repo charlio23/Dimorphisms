@@ -2,6 +2,7 @@ package dimorphisms;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 /**
  * The type Data controller.
@@ -27,18 +28,16 @@ public class DataController {
         }
 
 
-        try{
-            output = new BufferedWriter(new FileWriter(path, true));
+        try(FileWriter fileWriter = new FileWriter(path,true);){
+            output = new BufferedWriter(fileWriter);
             output.append(material).append("\n");
             output.close();
             return true;
 
         }
-        catch(Throwable t) {
-            System.out.println("no s'ha pogut guardar l'usuari");
+        catch(Exception e) {
+            Utils.logger.log(Level.SEVERE, "no s'ha pogut guardar l'usuari");
             return false;
-        } finally {
-
         }
     }
 
@@ -65,7 +64,7 @@ public class DataController {
             }
             return null;
         } catch (Exception e) {
-            System.out.println("The file 'users' could not be opened");
+            Utils.logger.log(Level.SEVERE,"The file 'users' could not be opened");
             return null;
         }
     }
@@ -91,7 +90,7 @@ public class DataController {
             }
             return null;
         } catch (Exception e) {
-            System.out.println("The file 'users' could not be opened");
+            Utils.logger.log(Level.SEVERE,"The file 'users' could not be opened");
             return null;
         }
     }

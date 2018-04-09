@@ -8,6 +8,7 @@ import javafx.scene.control.TextInputDialog;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.logging.Level;
 
 /**
  * The type Main menu.
@@ -45,7 +46,7 @@ public class MainMenu {
 
         if (result.isPresent()) {
             if (result.get().matches(Utils.NAME_REG_EXP)) {
-                System.out.println("Name is " + result.get());
+                Utils.logger.log(Level.INFO,"Name is " + result.get());
                 viewController.newMaterial(result.get());
             } else {Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Dimorphism name input ERROR");
@@ -55,7 +56,7 @@ public class MainMenu {
 
             }
         } else {
-            System.out.println("Pressed cancel button");
+            Utils.logger.log(Level.INFO,"Pressed cancel button");
         }
     }
 
