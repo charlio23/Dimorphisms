@@ -4,11 +4,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainMenu">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dimorphisms.MainMenu">
    <children>
       <Button layoutX="274.0" layoutY="166.0" mnemonicParsing="false" onAction="#onNewPressed" text="New" AnchorPane.topAnchor="120.0" />
       <Button layoutX="273.0" layoutY="188.0" mnemonicParsing="false" onAction="#onLoadPressed" text="Load" AnchorPane.topAnchor="200.0" />
-      <Button layoutX="270.0" layoutY="291.0" mnemonicParsing="false" onAction="#onErasePressed" text="Erase" AnchorPane.topAnchor="280.0" />
       <Label layoutX="238.0" layoutY="48.0" text="Dimorphisms" AnchorPane.topAnchor="50.0">
          <font>
             <Font size="18.0" />

@@ -1,10 +1,21 @@
+package dimorphisms;
+
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * The type Data controller.
+ */
 public class DataController {
 
     private static String path = "materialList.txt";
 
+    /**
+     * Save material boolean.
+     *
+     * @param material the material
+     * @return the boolean
+     */
     public boolean saveMaterial(String material) {
         Writer output;
 
@@ -26,9 +37,17 @@ public class DataController {
         catch(Throwable t) {
             System.out.println("no s'ha pogut guardar l'usuari");
             return false;
+        } finally {
+
         }
     }
 
+    /**
+     * Load material material properties.
+     *
+     * @param name the name
+     * @return the material properties
+     */
     public MaterialProperties loadMaterial(String name) {
         File f = new File(path);
         try {
@@ -51,6 +70,11 @@ public class DataController {
         }
     }
 
+    /**
+     * Load material names array list.
+     *
+     * @return the array list
+     */
     public ArrayList<String> loadMaterialNames() {
         ArrayList<String> names = new ArrayList<>();
         File f = new File(path);

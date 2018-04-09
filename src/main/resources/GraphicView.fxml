@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="415.0" prefWidth="715.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GraphicView">
+<AnchorPane prefHeight="415.0" prefWidth="715.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dimorphisms.GraphicView">
    <children>
       <LineChart fx:id="chart" layoutX="202.0" layoutY="5.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
         <xAxis>
