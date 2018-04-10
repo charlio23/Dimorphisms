@@ -57,6 +57,14 @@ public class Utils {
 
     public static final String QUERY_SOLID1_SOLID2 = "solid1-solid2";
 
+    public static final String QUERY_TLV1 = "tlv1";
+
+    public static final String QUERY_TLV2 = "tlv2";
+
+    public static final String QUERY_TV12 = "tV12";
+
+    public static final String QUERY_TL12 = "tL12";
+
     public static final String QUERY_ERROR_LIQUID_SOLID1 = "Error when adding Liquid-Solid1";
 
     public static final String QUERY_ERROR_LIQUID_SOLID2 = "Error when adding Liquid-Solid2";

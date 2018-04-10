@@ -1,10 +1,15 @@
 package dimorphisms;
 
 import java.util.ArrayList;
+import java.util.List;
+
+/* TODO
+Check Project SW structure!!
+ */
 
 public class QueryController {
 
-    private ArrayList<String> queries;
+    private List<String> queries;
     private MaterialProperties materialProperties;
 
     public QueryController(String name) {
@@ -12,11 +17,9 @@ public class QueryController {
         materialProperties = new MaterialProperties(name);
     }
 
-    public QueryController(MaterialProperties materialProperties) {
+    public QueryController(MaterialProperties materialProperties, List<String> queries) {
         this.materialProperties = materialProperties;
-        /* TODO
-        End this method by creating queries
-         */
+        this.queries = queries;
     }
 
     public String makeQueryVaporSth(String query, VaporSth eqCurve) {
@@ -71,58 +74,90 @@ public class QueryController {
 
     private void addLiquidVapor(VaporSth eqCurve) {
         materialProperties.setVaporLiquid(eqCurve.getA(),eqCurve.getB(),eqCurve.getC(),eqCurve.isLog());
+        checkIfWeCanAdd();
         /* TODO
-        look if we can add sth more
-
+        Add to graphic
          */
     }
 
     private void addVaporSolid1(VaporSth eqCurve) {
         materialProperties.setVaporSolid1(eqCurve.getA(),eqCurve.getB(),eqCurve.getC(),eqCurve.isLog());
-                /* TODO
-        look if we can add sth more
-
+        checkIfWeCanAdd();
+        /* TODO
+        Add to graphic
          */
     }
 
     private void addVaporSolid2(VaporSth eqCurve) {
         materialProperties.setVaporSolid2(eqCurve.getA(),eqCurve.getB(),eqCurve.getC(),eqCurve.isLog());
-            /* TODO
-        look if we can add sth more
-
+        checkIfWeCanAdd();
+        /* TODO
+        Add to graphic
          */
     }
 
     private boolean addLiquidSolid1(float temp, float dpdt) {
-        if (queries.contains(Utils.QUERY_LIQUID_VAPOR)) {
-
-
-        } else if (queries.contains(Utils.QUERY_VAPOR_SOLID1)) {
-
-
+        if (queries.contains(Utils.QUERY_LIQUID_VAPOR) ||
+                queries.contains(Utils.QUERY_VAPOR_SOLID1)   ) {
+            materialProperties.setLiquidSolid1(dpdt);
+            materialProperties.setTempLV1(temp);
         } else return false;
-
-            /* TODO
-        look if we can add sth more
-
+        /* TODO
+        Add to graphic
          */
-            return true;
+        checkIfWeCanAdd();
+        return true;
     }
 
     private boolean addLiquidSolid2(float temp, float dpdt) {
-            /* TODO
-        look if we can add sth more
-
+        if (queries.contains(Utils.QUERY_LIQUID_VAPOR) ||
+                queries.contains(Utils.QUERY_VAPOR_SOLID2)   ) {
+            materialProperties.setLiquidSolid2(dpdt);
+            materialProperties.setTempLV2(temp);
+        } else return false;
+        /* TODO
+        Add to graphic
          */
+        checkIfWeCanAdd();
         return true;
     }
 
     private boolean addSolid1Solid2(float temp, float dpdt) {
-            /* TODO
-        look if we can add sth more
-
+        if (queries.contains(Utils.QUERY_VAPOR_SOLID1) ||
+                queries.contains(Utils.QUERY_VAPOR_SOLID2)) {
+            materialProperties.setLiquidSolid2(dpdt);
+            materialProperties.setTempLV2(temp);
+        } else return false;
+        /* TODO
+        Add to graphic
          */
+        checkIfWeCanAdd();
         return true;
+    }
+
+    private void checkIfWeCanAdd(){
+        /* TODO
+        Implement checkIfWeCanAdd
+         */
+        /*
+        String lastQuery = queries.get(queries.size()-1);
+        switch (lastQuery) {
+            case Utils.QUERY_LIQUID_VAPOR:
+                if (queries.contains(Utils.QUERY_VAPOR_SOLID1)) {
+
+                } else if (queries.contains())
+            case Utils.QUERY_VAPOR_SOLID1:
+
+            case Utils.QUERY_VAPOR_SOLID2:
+
+
+            case Utils.QUERY_LIQUID_SOLID1:
+
+            case Utils.QUERY_LIQUID_SOLID2:
+
+            case Utils.QUERY_SOLID1_SOLID2:
+        }
+        */
     }
 
 
