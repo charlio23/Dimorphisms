@@ -45,5 +45,27 @@ public class Utils {
      */
     public static final String SOLID_1_SOLID_2_ERR = "Solid1-Solid2 input ERROR";
 
+    public static final String QUERY_LIQUID_VAPOR = "liguid-vapor";
+
+    public static final String QUERY_VAPOR_SOLID1 = "vapor-solid1";
+
+    public static final String QUERY_VAPOR_SOLID2 = "vapor-solid2";
+
+    public static final String QUERY_LIQUID_SOLID1 = "liquid-solid1";
+
+    public static final String QUERY_LIQUID_SOLID2 = "vapor-solid2";
+
+    public static final String QUERY_SOLID1_SOLID2 = "solid1-solid2";
+
+    public static final String QUERY_ERROR_LIQUID_SOLID1 = "Error when adding Liquid-Solid1";
+
+    public static final String QUERY_ERROR_LIQUID_SOLID2 = "Error when adding Liquid-Solid2";
+
+    public static final String QUERY_ERROR_SOLID1_SOLID2 = "Error when adding Solid1-Solid2";
+
+    public static final String QUERY_ERROR_UNEXPECTED = "Unexpected Error";
+
+    public static final String QUERY_SUCCESS = "success";
+
     public static final Logger logger = Logger.getAnonymousLogger();
 }
