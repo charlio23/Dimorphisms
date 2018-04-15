@@ -57,6 +57,12 @@ public class Utils {
 
     public static final String QUERY_SOLID1_SOLID2 = "solid1-solid2";
 
+    public static final String QUERY_CURVE_LIQUID_SOLID1 = "curve-liquid-solid1";
+
+    public static final String QUERY_CURVE_LIQUID_SOLID2 = "curve-vapor-solid2";
+
+    public static final String QUERY_CURVE_SOLID1_SOLID2 = "curve-solid1-solid2";
+
     public static final String QUERY_TLV1 = "tlv1";
 
     public static final String QUERY_TLV2 = "tlv2";
@@ -65,15 +71,42 @@ public class Utils {
 
     public static final String QUERY_TL12 = "tL12";
 
+    public static final String QUERY_PLV1 = "plv1";
+
+    public static final String QUERY_PLV2 = "plv2";
+
+    public static final String QUERY_PV12 = "pV12";
+
+    public static final String QUERY_PL12 = "pL12";
+
+
+    public static final String QUERY_ERROR_LIQUID_VAPOR = "Error when adding Liquid-Vapor";
+
+    public static final String QUERY_ERROR_VAPOR_SOLID1 = "Error when adding Vapor-Solid1";
+
+    public static final String QUERY_ERROR_VAPOR_SOLID2 = "Error when adding Vapor-Solid2";
+
     public static final String QUERY_ERROR_LIQUID_SOLID1 = "Error when adding Liquid-Solid1";
 
     public static final String QUERY_ERROR_LIQUID_SOLID2 = "Error when adding Liquid-Solid2";
 
     public static final String QUERY_ERROR_SOLID1_SOLID2 = "Error when adding Solid1-Solid2";
 
+    public static final String QUERY_ERROR_TLV1 = "Error when adding TLV1";
+
+    public static final String QUERY_ERROR_TLV2 = "Error when adding TLV2";
+
+    public static final String QUERY_ERROR_TL12 = "Error when adding TL12";
+
+    public static final String QUERY_ERROR_TV12 = "Error when adding TV12";
+
     public static final String QUERY_ERROR_UNEXPECTED = "Unexpected Error";
 
+    public static final String QUERY_ERROR_CONFLICT = "Conflict Error";
+
     public static final String QUERY_SUCCESS = "success";
+
+    public static final boolean ISLOG_DEFAULT_VALUE = false;
 
     public static final Logger logger = Logger.getAnonymousLogger();
 }

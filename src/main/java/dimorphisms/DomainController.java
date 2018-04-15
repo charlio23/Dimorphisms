@@ -5,6 +5,11 @@ import java.util.ArrayList;
 /**
  * The type Domain controller.
  */
+/* TODO
+    Update DomainController functionality to what it is supposed to do.
+    Remind: DomainController -> Interacts with DB and Domain to resolve View queries.
+    Change all structure.
+ */
 public class DomainController {
 
     private MaterialProperties actualMaterial;

@@ -16,6 +16,10 @@ public class MaterialProperties {
     private double tempLV2;
     private double tempV12;
     private double tempL12;
+    private double pressLV1;
+    private double pressLV2;
+    private double pressV12;
+    private double pressL12;
 
     /**
      * Instantiates a new Material properties.
@@ -231,5 +235,37 @@ public class MaterialProperties {
      */
     public String dataToString() {
         return this.name;
+    }
+
+    public double getPressLV1() {
+        return pressLV1;
+    }
+
+    public void setPressLV1(double pressLV1) {
+        this.pressLV1 = pressLV1;
+    }
+
+    public double getPressLV2() {
+        return pressLV2;
+    }
+
+    public void setPressLV2(double pressLV2) {
+        this.pressLV2 = pressLV2;
+    }
+
+    public double getPressV12() {
+        return pressV12;
+    }
+
+    public void setPressV12(double pressV12) {
+        this.pressV12 = pressV12;
+    }
+
+    public double getPressL12() {
+        return pressL12;
+    }
+
+    public void setPressL12(double pressL12) {
+        this.pressL12 = pressL12;
     }
 }

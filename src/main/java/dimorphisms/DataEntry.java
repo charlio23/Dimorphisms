@@ -136,11 +136,11 @@ public class DataEntry {
 
         }
 
-        float A = Float.parseFloat(liquidVaporA.getText());
-        float B = Float.parseFloat(liquidVaporB.getText());
-        float C = Float.parseFloat(liquidVaporC.getText());
+        float a = Float.parseFloat(liquidVaporA.getText());
+        float b = Float.parseFloat(liquidVaporB.getText());
+        float c = Float.parseFloat(liquidVaporC.getText());
         boolean isLog = liquidVaporLog.isSelected();
-        viewController.addLiquidVapor(A, B, C, isLog);
+        viewController.addLiquidVapor(a, b, c, isLog);
     }
 
     /**
@@ -162,11 +162,11 @@ public class DataEntry {
 
         }
 
-        float A = Float.parseFloat(solid1VaporA.getText());
-        float B = Float.parseFloat(solid1VaporB.getText());
-        float C = Float.parseFloat(solid1VaporC.getText());
+        float a = Float.parseFloat(solid1VaporA.getText());
+        float b = Float.parseFloat(solid1VaporB.getText());
+        float c = Float.parseFloat(solid1VaporC.getText());
         boolean isLog = solid1VaporLog.isSelected();
-        viewController.addSolid1Vapor(A, B, C, isLog);
+        viewController.addSolid1Vapor(a, b, c, isLog);
     }
 
     /**
