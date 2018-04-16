@@ -34,14 +34,14 @@ public class GraphicView {
         XYChart.Series series = new XYChart.Series();
         Random random = new Random();
 
-        series.getData().add(new XYChart.Data(random.nextFloat(),random.nextFloat()));
-        series.getData().add(new XYChart.Data(random.nextFloat(),random.nextFloat()));
-        series.getData().add(new XYChart.Data(random.nextFloat(),random.nextFloat()));
-        series.getData().add(new XYChart.Data(random.nextFloat(),random.nextFloat()));
-        series.getData().add(new XYChart.Data(random.nextFloat(),random.nextFloat()));
-        series.getData().add(new XYChart.Data(random.nextFloat(),random.nextFloat()));
-        series.getData().add(new XYChart.Data(random.nextFloat(),random.nextFloat()));
-        series.getData().add(new XYChart.Data(random.nextFloat(),random.nextFloat()));
+        series.getData().add(new XYChart.Data<>(random.nextFloat(),random.nextFloat()));
+        series.getData().add(new XYChart.Data<>(random.nextFloat(),random.nextFloat()));
+        series.getData().add(new XYChart.Data<>(random.nextFloat(),random.nextFloat()));
+        series.getData().add(new XYChart.Data<>(random.nextFloat(),random.nextFloat()));
+        series.getData().add(new XYChart.Data<>(random.nextFloat(),random.nextFloat()));
+        series.getData().add(new XYChart.Data<>(random.nextFloat(),random.nextFloat()));
+        series.getData().add(new XYChart.Data<>(random.nextFloat(),random.nextFloat()));
+        series.getData().add(new XYChart.Data<>(random.nextFloat(),random.nextFloat()));
 
         chart.getData().add(series);
     }
