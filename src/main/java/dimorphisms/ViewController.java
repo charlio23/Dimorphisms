@@ -3,6 +3,7 @@ package dimorphisms;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -19,6 +20,7 @@ public class ViewController extends Application {
     private DomainController domainController;
     private Scene dataEntryScene;
     private Scene mainMenuScene;
+    private Scene graphicViewScene;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -53,7 +55,6 @@ public class ViewController extends Application {
      */
     public void newMaterial(String materialName) throws IOException {
 
-                domainController.newMaterial(materialName);
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 GridPane pane = fxmlLoader.load(getClass().getResource("../../resources/DataEntry.fxml").openStream());
                 DataEntry dataEntry = (DataEntry) fxmlLoader.getController();
@@ -63,6 +64,12 @@ public class ViewController extends Application {
                 dataEntryScene = new Scene(pane, 715, 415);
                 primaryStage.setScene(dataEntryScene);
                 primaryStage.show();
+                fxmlLoader = new FXMLLoader();
+                Pane p = fxmlLoader.load(getClass().getResource("../../resources/GraphicView.fxml").openStream());
+                GraphicView fooController = (GraphicView) fxmlLoader.getController();
+                LineChart graphic = fooController.setViewController(this);
+                graphicViewScene = new Scene(p,715,415);
+                domainController.newMaterial(materialName, graphic);
     }
 
     /**
@@ -71,15 +78,7 @@ public class ViewController extends Application {
      * @throws IOException the io exception
      */
     public void viewGraphic() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        Pane p = fxmlLoader.load(getClass().getResource("../../resources/GraphicView.fxml").openStream());
-        GraphicView fooController = (GraphicView) fxmlLoader.getController();
-        fooController.setViewController(this);
-
-        primaryStage.close();
-        primaryStage.setTitle("Graphic View");
-        primaryStage.setScene(new Scene(p, 715, 415));
-        primaryStage.show();
+        primaryStage.setScene(graphicViewScene);
     }
 
     /**
@@ -124,6 +123,7 @@ public class ViewController extends Application {
      * @return the boolean
      */
     public boolean addSolid1Vapor(float a, float b, float c, boolean isLog) {
+        domainController.addVaporSolid1(a,b,c,isLog);
         return true;
     }
 
@@ -137,6 +137,7 @@ public class ViewController extends Application {
      * @return the boolean
      */
     public boolean addSolid2Vapor(float a, float b, float c, boolean isLog) {
+        domainController.addVaporSolid2(a,b,c,isLog);
         return true;
     }
 
@@ -150,6 +151,7 @@ public class ViewController extends Application {
      * @return the boolean
      */
     public boolean addLiquidVapor(float a, float b, float c, boolean isLog) {
+        domainController.addLiquidVapor(a,b,c,isLog);
         return true;
     }
 
@@ -161,6 +163,8 @@ public class ViewController extends Application {
      * @return the boolean
      */
     public boolean addLiquidSolid1(float temp, float dpdt) {
+        domainController.addTempLV1(temp);
+        domainController.addLiquidSolid1(dpdt);
         return true;
     }
 
@@ -172,6 +176,8 @@ public class ViewController extends Application {
      * @return the boolean
      */
     public boolean addLiquidSolid2(float temp, float dpdt) {
+        domainController.addTempLV2(temp);
+        domainController.addLiquidSolid2(dpdt);
         return true;
     }
 
@@ -183,10 +189,16 @@ public class ViewController extends Application {
      * @return the boolean
      */
     public boolean addSolid1Solid2(float temp, float dpdt) {
+        domainController.addTempV12(temp);
+        domainController.addSolid1Solid2(dpdt);
         return true;
     }
 
     public boolean saveMaterial() {
         return domainController.saveMaterial();
+    }
+
+    public LineChart getGraphic() {
+        return domainController.getGraphic();
     }
 }

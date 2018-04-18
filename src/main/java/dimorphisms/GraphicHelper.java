@@ -14,21 +14,19 @@ public class GraphicHelper {
     private Map<String,Integer> dataMapping;
     private Integer curveNumber;
 
-    public GraphicHelper() {
+    public GraphicHelper(LineChart materialGraphic) {
         curveNumber = 0;
         dataMapping = new HashMap<>();
-        NumberAxis xAxis = new NumberAxis();
-        NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("T");
-        yAxis.setLabel("P");
-        materialGraphic = new LineChart<>(xAxis,yAxis);
+        this.materialGraphic = materialGraphic;
+        materialGraphic.getXAxis().setLabel("T");
+        materialGraphic.getYAxis().setLabel("P");
 
     }
 
     public LineChart getLinearGraphic(){
         return materialGraphic;
     }
-    
+
     public void addCurve(String name, double[] values) {
         XYChart.Series<Double,Double> series = new XYChart.Series<>();
         double temperature = Utils.TEMPERATURE_ORIGIN;

@@ -1,5 +1,7 @@
 package dimorphisms;
 
+import static java.lang.StrictMath.exp;
+
 public class FuncHelper {
 
     private MaterialProperties materialProperties;
@@ -11,7 +13,7 @@ public class FuncHelper {
         return 0;
     }
 
-    public static double calculateTriplePointPressure(VaporSth curve, float temp) {
+    public static double calculateTriplePointPressure(VaporSth curve, double temp) {
         return 0;
     }
 
@@ -41,5 +43,16 @@ public class FuncHelper {
 
     public double calculateDpdtLiquidSolid2() {
         return 0;
+    }
+
+    public static double[] getArrayFromVaporCurve(VaporSth eqCurve) {
+        double[] result = new double[10000];
+        double temperature = Utils.TEMPERATURE_ORIGIN;
+        for (int i = 0; i < 10000; ++i) {
+            double value = eqCurve.getA() - eqCurve.getB()/(eqCurve.getC() + temperature);
+            result[i] = exp(value);
+            temperature += Utils.TEMPERATURE_STEP;
+        }
+        return result;
     }
 }

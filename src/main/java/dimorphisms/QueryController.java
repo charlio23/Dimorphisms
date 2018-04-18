@@ -1,5 +1,7 @@
 package dimorphisms;
 
+import javafx.scene.chart.LineChart;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +19,11 @@ public class QueryController {
     private MaterialProperties materialProperties;
     private GraphicHelper graphic;
     private FuncHelper funcHelper;
-    public QueryController(String name) {
+
+    public QueryController(String name, LineChart graphic) {
         queries = new ArrayList<>();
         materialProperties = new MaterialProperties(name);
-        graphic = new GraphicHelper();
+        this.graphic = new GraphicHelper(graphic);
         funcHelper = new FuncHelper(materialProperties);
     }
 
@@ -100,6 +103,10 @@ public class QueryController {
         }
     }
 
+    public LineChart getGraphic() {
+        return graphic.getLinearGraphic();
+    }
+
     private void addLiquidVapor(VaporSth eqCurve, boolean original) {
         if (original) {
             queries.add(Utils.QUERY_LIQUID_VAPOR);
@@ -107,9 +114,7 @@ public class QueryController {
             queries.add("#" + Utils.QUERY_LIQUID_VAPOR);
         }
         materialProperties.setVaporLiquid(eqCurve.getA(),eqCurve.getB(),eqCurve.getC(),eqCurve.isLog());
-        /* TODO
-        Add to graphic
-         */
+        graphic.addCurve(Utils.QUERY_LIQUID_VAPOR,FuncHelper.getArrayFromVaporCurve(eqCurve));
         checkIfWeCanAdd();
     }
 
@@ -120,9 +125,7 @@ public class QueryController {
             queries.add("#" + Utils.QUERY_VAPOR_SOLID1);
         }
         materialProperties.setVaporSolid1(eqCurve.getA(),eqCurve.getB(),eqCurve.getC(),eqCurve.isLog());
-        /* TODO
-        Add to graphic
-         */
+        graphic.addCurve(Utils.QUERY_VAPOR_SOLID1,FuncHelper.getArrayFromVaporCurve(eqCurve));
         checkIfWeCanAdd();
     }
 
@@ -133,9 +136,7 @@ public class QueryController {
             queries.add("#" + Utils.QUERY_VAPOR_SOLID2);
         }
         materialProperties.setVaporSolid2(eqCurve.getA(),eqCurve.getB(),eqCurve.getC(),eqCurve.isLog());
-        /* TODO
-        Add to graphic
-         */
+        graphic.addCurve(Utils.QUERY_VAPOR_SOLID2,FuncHelper.getArrayFromVaporCurve(eqCurve));
         checkIfWeCanAdd();
     }
 
@@ -146,9 +147,6 @@ public class QueryController {
             queries.add("#" + Utils.QUERY_LIQUID_SOLID1);
         }
         materialProperties.setLiquidSolid1(dpdt);
-        /* TODO
-        Add to graphic
-         */
         checkIfWeCanAdd();
 
     }
@@ -160,9 +158,6 @@ public class QueryController {
             queries.add("#" + Utils.QUERY_LIQUID_SOLID1);
         }
         materialProperties.setLiquidSolid2(dpdt);
-        /* TODO
-        Add to graphic
-         */
         checkIfWeCanAdd();
 
     }
@@ -174,9 +169,6 @@ public class QueryController {
             queries.add("#" + Utils.QUERY_SOLID1_SOLID2);
         }
         materialProperties.setSolid1Solid2(dpdt);
-        /* TODO
-        Add to graphic
-         */
         checkIfWeCanAdd();
 
     }
@@ -189,9 +181,6 @@ public class QueryController {
             queries.add("#" + Utils.QUERY_TLV1);
         }
         materialProperties.setTempLV1(temp);
-        /* TODO
-        Add to graphic
-         */
         checkIfWeCanAdd();
     }
 
@@ -203,9 +192,6 @@ public class QueryController {
             queries.add("#" + Utils.QUERY_TLV2);
         }
         materialProperties.setTempLV2(temp);
-        /* TODO
-        Add to graphic
-         */
         checkIfWeCanAdd();
     }
 
@@ -217,9 +203,6 @@ public class QueryController {
             queries.add("#" + Utils.QUERY_TV12);
         }
         materialProperties.setTempV12(temp);
-        /* TODO
-        Add to graphic
-         */
         checkIfWeCanAdd();
     }
 
@@ -230,42 +213,34 @@ public class QueryController {
             queries.add("#" + Utils.QUERY_TL12);
         }
         materialProperties.setTempL12(temp);
-        /* TODO
-        Add to graphic
-         */
         checkIfWeCanAdd();
     }
 
     private void addPLV1(double press) {
         queries.add("#" + Utils.QUERY_PLV1);
         materialProperties.setPressLV1(press);
-        /* TODO
-        Add to graphic
-         */
+        graphic.addPoint(Utils.QUERY_TLV1,materialProperties.getTempLV1(),press);
     }
 
     private void addPLV2(double press) {
         queries.add("#" + Utils.QUERY_PLV2);
         materialProperties.setPressLV2(press);
-        /* TODO
-        Add to graphic
-         */
+        graphic.addPoint(Utils.QUERY_TLV2,materialProperties.getTempLV2(),press);
+
     }
 
     private void addPV12(double press) {
         queries.add("#" + Utils.QUERY_PV12);
         materialProperties.setPressV12(press);
-        /* TODO
-        Add to graphic
-         */
+        graphic.addPoint(Utils.QUERY_TV12,materialProperties.getTempV12(),press);
+
     }
 
     private void addPL12(double press) {
         queries.add("#" + Utils.QUERY_PL12);
         materialProperties.setPressL12(press);
-        /* TODO
-        Add to graphic
-         */
+        graphic.addPoint(Utils.QUERY_TV12,materialProperties.getTempL12(),press);
+
     }
 
     private void addCurveLiquidSolid1() {
@@ -291,22 +266,50 @@ public class QueryController {
 
 
     private void checkIfWeCanAdd(){
+        //afegir PressLV1
+        if(queries.contains(Utils.QUERY_TLV1) && !queries.contains("#" + Utils.QUERY_PLV1)) {
+            if (queries.contains(Utils.QUERY_LIQUID_VAPOR) ||
+                    queries.contains("#" + Utils.QUERY_LIQUID_VAPOR)) {
+                double pointPressure = FuncHelper.calculateTriplePointPressure(materialProperties.getVaporLiquid(),materialProperties.getTempLV1());
+                addPLV1(pointPressure);
+            }
+            if (queries.contains(Utils.QUERY_VAPOR_SOLID1) ||
+                    queries.contains("#" + Utils.QUERY_VAPOR_SOLID1)) {
+                double pointPressure = FuncHelper.calculateTriplePointPressure(materialProperties.getVaporSolid1(),materialProperties.getTempLV1());
+                addPLV1(pointPressure);
+            }
+        }
+
+        //afegir PressLV2
+        else if(queries.contains(Utils.QUERY_TLV2) && !queries.contains("#" + Utils.QUERY_PLV2)) {
+            if (queries.contains(Utils.QUERY_LIQUID_VAPOR) ||
+                    queries.contains("#" + Utils.QUERY_LIQUID_VAPOR)) {
+                double pointPressure = FuncHelper.calculateTriplePointPressure(materialProperties.getVaporLiquid(),materialProperties.getTempLV2());
+                addPLV2(pointPressure);
+            }
+            if (queries.contains(Utils.QUERY_VAPOR_SOLID2) ||
+                    queries.contains("#" + Utils.QUERY_VAPOR_SOLID2)) {
+                double pointPressure = FuncHelper.calculateTriplePointPressure(materialProperties.getVaporSolid2(),materialProperties.getTempLV2());
+                addPLV2(pointPressure);
+            }
+        }
+
         //afegir LV
-        if (canAddLiquidVapor()) {
+        else if (canAddLiquidVapor()) {
             double valueB = (log(materialProperties.getPressLV1()/materialProperties.getPressLV2()))/((1/materialProperties.getTempLV2())-(1/materialProperties.getTempLV1()));
             double valueA = log(materialProperties.getPressLV1()) + valueB/materialProperties.getTempLV1();
             double valueC = 0;
             addLiquidVapor(new VaporSth(valueA,valueB,valueC,Utils.ISLOG_DEFAULT_VALUE),false);
         }
         //afegir V1
-        if (canAddVaporSolid1()) {
+        else if (canAddVaporSolid1()) {
             double valueB = (log(materialProperties.getPressLV1()/materialProperties.getPressV12()))/((1/materialProperties.getTempV12())-(1/materialProperties.getTempLV1()));
             double valueA = log(materialProperties.getPressLV1()) + valueB/materialProperties.getTempLV1();
             double valueC = 0;
             addVaporSolid1(new VaporSth(valueA,valueB,valueC,Utils.ISLOG_DEFAULT_VALUE),false);
         }
         //afegir V2
-        if (canAddVaporSolid2()) {
+        else if (canAddVaporSolid2()) {
             double valueB = (log(materialProperties.getPressLV2()/materialProperties.getPressV12()))/((1/materialProperties.getTempV12())-(1/materialProperties.getTempLV2()));
             double valueA = log(materialProperties.getPressLV2()) + valueB/materialProperties.getTempLV2();
             double valueC = 0;
@@ -314,81 +317,81 @@ public class QueryController {
         }
 
         //afegir tempLV1
-        if (canAddTLV1()) {
+        else if (canAddTLV1()) {
             addTLV1(FuncHelper.calculateTriplePointTemp(materialProperties.getVaporLiquid(),materialProperties.getVaporSolid1()),false);
         }
         //afegir tempLV2
-        if (canAddTLV2()) {
+        else if (canAddTLV2()) {
             addTLV2(FuncHelper.calculateTriplePointTemp(materialProperties.getVaporLiquid(),materialProperties.getVaporSolid2()),false);
         }
         //afegir tempV12
-        if (canAddTV12()) {
+        else if (canAddTV12()) {
             addTV12(FuncHelper.calculateTriplePointTemp(materialProperties.getVaporSolid1(),materialProperties.getVaporSolid2()),false);
         }
         //afegir tempL12
-        if (canAddTL12()) {
+        else if (canAddTL12()) {
             addTL12(funcHelper.calculateTL12(),false);
         }
         //afegir 12
-        if (canAddSolid1Solid2()) {
+        else if (canAddSolid1Solid2()) {
             addSolid1Solid2(funcHelper.calculateDpdtSolid1Solid2(),false);
         }
         //afegir L1
-        if (canAddLiquidSolid1()) {
+        else if (canAddLiquidSolid1()) {
             addLiquidSolid1(funcHelper.calculateDpdtLiquidSolid1(),false);
 
         }
         //afegir L2
-        if (canAddLiquidSolid2()) {
+        else if (canAddLiquidSolid2()) {
             addLiquidSolid1(funcHelper.calculateDpdtLiquidSolid2(),false);
         }
 
     }
 
     private boolean canAddLiquidVapor() {
-        return (queries.contains(Utils.QUERY_VAPOR_SOLID1) || queries.contains("#" + Utils.QUERY_VAPOR_SOLID1) &&
-                queries.contains(Utils.QUERY_VAPOR_SOLID2) || queries.contains("#" + Utils.QUERY_VAPOR_SOLID2) &&
-                queries.contains(Utils.QUERY_TLV1) || queries.contains("#" + Utils.QUERY_TLV1) &&
-                queries.contains(Utils.QUERY_TLV2) || queries.contains("#" + Utils.QUERY_TLV2) &&
-                !(queries.contains(Utils.QUERY_LIQUID_VAPOR) || queries.contains("#" + Utils.QUERY_LIQUID_VAPOR)));
+        return ((queries.contains(Utils.QUERY_VAPOR_SOLID1) || queries.contains("#" + Utils.QUERY_VAPOR_SOLID1)) &&
+                (queries.contains(Utils.QUERY_VAPOR_SOLID2) || queries.contains("#" + Utils.QUERY_VAPOR_SOLID2)) &&
+                (queries.contains(Utils.QUERY_TLV1) || queries.contains("#" + Utils.QUERY_TLV1)) &&
+                (queries.contains(Utils.QUERY_TLV2) || queries.contains("#" + Utils.QUERY_TLV2)) &&
+                (!(queries.contains(Utils.QUERY_LIQUID_VAPOR) || queries.contains("#" + Utils.QUERY_LIQUID_VAPOR))));
 
     }
 
     private boolean canAddVaporSolid1() {
-        return (queries.contains(Utils.QUERY_LIQUID_VAPOR) || queries.contains("#" + Utils.QUERY_LIQUID_VAPOR) &&
-                queries.contains(Utils.QUERY_VAPOR_SOLID2) || queries.contains("#" + Utils.QUERY_VAPOR_SOLID2) &&
-                queries.contains(Utils.QUERY_TLV1) || queries.contains("#" + Utils.QUERY_TLV1) &&
-                queries.contains(Utils.QUERY_TV12) || queries.contains("#" + Utils.QUERY_TV12) &&
-                !(queries.contains(Utils.QUERY_VAPOR_SOLID1) || queries.contains("#" + Utils.QUERY_VAPOR_SOLID1)));
+        return ((queries.contains(Utils.QUERY_LIQUID_VAPOR) || queries.contains("#" + Utils.QUERY_LIQUID_VAPOR)) &&
+                (queries.contains(Utils.QUERY_VAPOR_SOLID2) || queries.contains("#" + Utils.QUERY_VAPOR_SOLID2)) &&
+                (queries.contains(Utils.QUERY_TLV1) || queries.contains("#" + Utils.QUERY_TLV1)) &&
+                (queries.contains(Utils.QUERY_TV12) || queries.contains("#" + Utils.QUERY_TV12)) &&
+                (!(queries.contains(Utils.QUERY_VAPOR_SOLID1) || queries.contains("#" + Utils.QUERY_VAPOR_SOLID1))));
 
     }
 
     private boolean canAddVaporSolid2() {
-        return (queries.contains(Utils.QUERY_LIQUID_VAPOR) || queries.contains("#" + Utils.QUERY_LIQUID_VAPOR) &&
-                queries.contains(Utils.QUERY_VAPOR_SOLID1) || queries.contains("#" + Utils.QUERY_VAPOR_SOLID1) &&
-                queries.contains(Utils.QUERY_TLV2) || queries.contains("#" + Utils.QUERY_TLV2) &&
-                queries.contains(Utils.QUERY_TV12) || queries.contains("#" + Utils.QUERY_TV12) &&
-                !(queries.contains(Utils.QUERY_VAPOR_SOLID2) || queries.contains("#" + Utils.QUERY_VAPOR_SOLID2)));
+        return ((queries.contains(Utils.QUERY_LIQUID_VAPOR) || queries.contains("#" + Utils.QUERY_LIQUID_VAPOR)) &&
+                (queries.contains(Utils.QUERY_VAPOR_SOLID1) || queries.contains("#" + Utils.QUERY_VAPOR_SOLID1)) &&
+                (queries.contains(Utils.QUERY_TLV2) || queries.contains("#" + Utils.QUERY_TLV2)) &&
+                (queries.contains(Utils.QUERY_TV12) || queries.contains("#" + Utils.QUERY_TV12)) &&
+                (!(queries.contains(Utils.QUERY_VAPOR_SOLID2) || queries.contains("#" + Utils.QUERY_VAPOR_SOLID2))));
     }
 
     private boolean canAddTLV1() {
-        return (queries.contains(Utils.QUERY_LIQUID_VAPOR) || queries.contains("#" + Utils.QUERY_LIQUID_VAPOR) &&
-                queries.contains(Utils.QUERY_VAPOR_SOLID1) || queries.contains("#" + Utils.QUERY_VAPOR_SOLID1) &&
-                !(queries.contains(Utils.QUERY_TLV1) || queries.contains("#" + Utils.QUERY_TLV1)));
+        return ((queries.contains(Utils.QUERY_LIQUID_VAPOR) || queries.contains("#" + Utils.QUERY_LIQUID_VAPOR)) &&
+                (queries.contains(Utils.QUERY_VAPOR_SOLID1) || queries.contains("#" + Utils.QUERY_VAPOR_SOLID1)) &&
+                (!(queries.contains(Utils.QUERY_TLV1) || queries.contains("#" + Utils.QUERY_TLV1))));
 
     }
 
     private boolean canAddTLV2() {
-        return (queries.contains(Utils.QUERY_LIQUID_VAPOR) || queries.contains("#" + Utils.QUERY_LIQUID_VAPOR) &&
-                queries.contains(Utils.QUERY_VAPOR_SOLID2) || queries.contains("#" + Utils.QUERY_VAPOR_SOLID2) &&
-                !(queries.contains(Utils.QUERY_TLV2) || queries.contains("#" + Utils.QUERY_TLV2)));
+        return ((queries.contains(Utils.QUERY_LIQUID_VAPOR) || queries.contains("#" + Utils.QUERY_LIQUID_VAPOR)) &&
+                (queries.contains(Utils.QUERY_VAPOR_SOLID2) || queries.contains("#" + Utils.QUERY_VAPOR_SOLID2)) &&
+                (!(queries.contains(Utils.QUERY_TLV2) || queries.contains("#" + Utils.QUERY_TLV2))));
 
     }
 
     private boolean canAddTV12() {
-        return (queries.contains(Utils.QUERY_VAPOR_SOLID1) || queries.contains("#" + Utils.QUERY_VAPOR_SOLID1) &&
-                queries.contains(Utils.QUERY_VAPOR_SOLID2) || queries.contains("#" + Utils.QUERY_VAPOR_SOLID2) &&
-                !(queries.contains(Utils.QUERY_TV12) || queries.contains("#" + Utils.QUERY_TV12)));
+        return ((queries.contains(Utils.QUERY_VAPOR_SOLID1) || queries.contains("#" + Utils.QUERY_VAPOR_SOLID1)) &&
+                (queries.contains(Utils.QUERY_VAPOR_SOLID2) || queries.contains("#" + Utils.QUERY_VAPOR_SOLID2)) &&
+                (!(queries.contains(Utils.QUERY_TV12) || queries.contains("#" + Utils.QUERY_TV12))));
 
     }
 
@@ -400,19 +403,19 @@ public class QueryController {
     private boolean canAddSolid1Solid2() {
         return (queries.contains("#" + Utils.QUERY_PL12) &&
                 queries.contains("#" + Utils.QUERY_PV12) &&
-                !(queries.contains(Utils.QUERY_SOLID1_SOLID2) || queries.contains("#" + Utils.QUERY_SOLID1_SOLID2)));
+                (!(queries.contains(Utils.QUERY_SOLID1_SOLID2) || queries.contains("#" + Utils.QUERY_SOLID1_SOLID2))));
     }
 
     private boolean canAddLiquidSolid1() {
         return (queries.contains("#" + Utils.QUERY_PL12) &&
                 queries.contains("#" + Utils.QUERY_PLV1) &&
-                !(queries.contains(Utils.QUERY_LIQUID_SOLID1) || queries.contains("#" + Utils.QUERY_LIQUID_SOLID1)));
+                (!(queries.contains(Utils.QUERY_LIQUID_SOLID1) || queries.contains("#" + Utils.QUERY_LIQUID_SOLID1))));
     }
 
     private boolean canAddLiquidSolid2() {
         return (queries.contains("#" + Utils.QUERY_PL12) &&
                 queries.contains("#" + Utils.QUERY_PLV2) &&
-                !(queries.contains(Utils.QUERY_LIQUID_SOLID2) || queries.contains("#" + Utils.QUERY_LIQUID_SOLID2)));
+                (!(queries.contains(Utils.QUERY_LIQUID_SOLID2) || queries.contains("#" + Utils.QUERY_LIQUID_SOLID2))));
     }
 
     private void removeCalculatedQueries() {
