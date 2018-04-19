@@ -1,6 +1,8 @@
 package dimorphisms;
 
+import static java.lang.Math.log;
 import static java.lang.StrictMath.exp;
+import static java.lang.StrictMath.pow;
 
 public class FuncHelper {
 
@@ -9,12 +11,23 @@ public class FuncHelper {
     public FuncHelper(MaterialProperties materialProperties) {
         this.materialProperties = materialProperties;
     }
+
     public static double calculateTriplePointTemp(VaporSth curve1, VaporSth curve2) {
-        return 0;
+        if ((curve1.isLog() && curve2.isLog()) || (!curve1.isLog() && !curve2.isLog())){
+            return (curve1.getB()-curve2.getB())/(curve1.getA()-curve2.getA());
+        }else if (curve1.isLog() && !curve2.isLog()){
+            return (curve1.getB()*log(10)-curve2.getB())/(curve1.getA()*log(10)-curve2.getA());
+        }else{
+            return (curve1.getB()-curve2.getB()*log(10))/(curve1.getA()-curve2.getA()*log(10));
+        }
     }
 
     public static double calculateTriplePointPressure(VaporSth curve, double temp) {
-        return 0;
+        if (curve.isLog()) {
+            return pow(10,curve.getA() - curve.getB()/(temp + curve.getC()));
+        } else {
+            return exp(curve.getA() - curve.getB()/(temp + curve.getC()));
+        }
     }
 
     public double calculateTL12() {

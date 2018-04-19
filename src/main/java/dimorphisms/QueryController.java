@@ -267,35 +267,14 @@ public class QueryController {
 
     private void checkIfWeCanAdd(){
         //afegir PressLV1
-        if(queries.contains(Utils.QUERY_TLV1) && !queries.contains("#" + Utils.QUERY_PLV1)) {
-            if (queries.contains(Utils.QUERY_LIQUID_VAPOR) ||
-                    queries.contains("#" + Utils.QUERY_LIQUID_VAPOR)) {
-                double pointPressure = FuncHelper.calculateTriplePointPressure(materialProperties.getVaporLiquid(),materialProperties.getTempLV1());
-                addPLV1(pointPressure);
-            }
-            if (queries.contains(Utils.QUERY_VAPOR_SOLID1) ||
-                    queries.contains("#" + Utils.QUERY_VAPOR_SOLID1)) {
-                double pointPressure = FuncHelper.calculateTriplePointPressure(materialProperties.getVaporSolid1(),materialProperties.getTempLV1());
-                addPLV1(pointPressure);
-            }
-        }
+        if(tryAddPressLV1()) return;
 
         //afegir PressLV2
-        else if(queries.contains(Utils.QUERY_TLV2) && !queries.contains("#" + Utils.QUERY_PLV2)) {
-            if (queries.contains(Utils.QUERY_LIQUID_VAPOR) ||
-                    queries.contains("#" + Utils.QUERY_LIQUID_VAPOR)) {
-                double pointPressure = FuncHelper.calculateTriplePointPressure(materialProperties.getVaporLiquid(),materialProperties.getTempLV2());
-                addPLV2(pointPressure);
-            }
-            if (queries.contains(Utils.QUERY_VAPOR_SOLID2) ||
-                    queries.contains("#" + Utils.QUERY_VAPOR_SOLID2)) {
-                double pointPressure = FuncHelper.calculateTriplePointPressure(materialProperties.getVaporSolid2(),materialProperties.getTempLV2());
-                addPLV2(pointPressure);
-            }
-        }
-
+        if(tryAddPressLV2()) return;
+        //afegir Press V12
+        if (tryAddPressV12()) return;
         //afegir LV
-        else if (canAddLiquidVapor()) {
+        if (canAddLiquidVapor()) {
             double valueB = (log(materialProperties.getPressLV1()/materialProperties.getPressLV2()))/((1/materialProperties.getTempLV2())-(1/materialProperties.getTempLV1()));
             double valueA = log(materialProperties.getPressLV1()) + valueB/materialProperties.getTempLV1();
             double valueC = 0;
@@ -346,6 +325,57 @@ public class QueryController {
             addLiquidSolid1(funcHelper.calculateDpdtLiquidSolid2(),false);
         }
 
+    }
+
+    private boolean tryAddPressLV1() {
+        if((queries.contains(Utils.QUERY_TLV1) || queries.contains("#" + Utils.QUERY_TLV1)) && !queries.contains("#" + Utils.QUERY_PLV1)) {
+            if (queries.contains(Utils.QUERY_LIQUID_VAPOR) ||
+                    queries.contains("#" + Utils.QUERY_LIQUID_VAPOR)) {
+                double pointPressure = FuncHelper.calculateTriplePointPressure(materialProperties.getVaporLiquid(),materialProperties.getTempLV1());
+                addPLV1(pointPressure);
+                return true;
+            } else if (queries.contains(Utils.QUERY_VAPOR_SOLID1) ||
+                    queries.contains("#" + Utils.QUERY_VAPOR_SOLID1)) {
+                double pointPressure = FuncHelper.calculateTriplePointPressure(materialProperties.getVaporSolid1(),materialProperties.getTempLV1());
+                addPLV1(pointPressure);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean tryAddPressLV2() {
+        if((queries.contains(Utils.QUERY_TLV2) || queries.contains("#" + Utils.QUERY_TLV2)) && !queries.contains("#" + Utils.QUERY_PLV2)) {
+            if (queries.contains(Utils.QUERY_LIQUID_VAPOR) ||
+                    queries.contains("#" + Utils.QUERY_LIQUID_VAPOR)) {
+                double pointPressure = FuncHelper.calculateTriplePointPressure(materialProperties.getVaporLiquid(),materialProperties.getTempLV2());
+                addPLV2(pointPressure);
+                return true;
+            } else if (queries.contains(Utils.QUERY_VAPOR_SOLID2) ||
+                    queries.contains("#" + Utils.QUERY_VAPOR_SOLID2)) {
+                double pointPressure = FuncHelper.calculateTriplePointPressure(materialProperties.getVaporSolid2(),materialProperties.getTempLV2());
+                addPLV2(pointPressure);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean tryAddPressV12() {
+        if((queries.contains(Utils.QUERY_TV12) || queries.contains("#" + Utils.QUERY_TV12)) && !queries.contains("#" + Utils.QUERY_PV12)) {
+            if (queries.contains(Utils.QUERY_VAPOR_SOLID1) ||
+                    queries.contains("#" + Utils.QUERY_VAPOR_SOLID1)) {
+                double pointPressure = FuncHelper.calculateTriplePointPressure(materialProperties.getVaporSolid1(),materialProperties.getTempV12());
+                addPV12(pointPressure);
+                return true;
+            } else if (queries.contains(Utils.QUERY_VAPOR_SOLID2) ||
+                    queries.contains("#" + Utils.QUERY_VAPOR_SOLID2)) {
+                double pointPressure = FuncHelper.calculateTriplePointPressure(materialProperties.getVaporSolid2(),materialProperties.getTempV12());
+                addPV12(pointPressure);
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean canAddLiquidVapor() {
@@ -418,14 +448,18 @@ public class QueryController {
                 (!(queries.contains(Utils.QUERY_LIQUID_SOLID2) || queries.contains("#" + Utils.QUERY_LIQUID_SOLID2))));
     }
 
+    /* TODO
+    check this method performance
+     */
     private void removeCalculatedQueries() {
-        for (int i = 0; i < queries.size() - 1; ++i) {
+        int i = 0;
+        while (i < queries.size() - 1) {
             if (queries.get(i).charAt(0) == '#') {
+                graphic.removeInfo(queries.get(i).substring(1));
                 queries.remove(i);
-                /* TODO
-                remove from graphic too
-                 */
+
             }
+            ++i;
         }
     }
 /*

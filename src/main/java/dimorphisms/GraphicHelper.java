@@ -55,6 +55,14 @@ public class GraphicHelper {
             ++curveNumber;
         }
     }
+    /* TODO
+    we will reimplement this methon in the future
+     */
+    public void removeInfo(String name) {
+        Integer position = dataMapping.get(name);
+        if (position == null) return;
+        materialGraphic.getData().set(position,null);
+    }
 
     /* TODO
     Check the need of other methods such as:
