@@ -68,4 +68,15 @@ public class FuncHelper {
         }
         return result;
     }
+
+    public static double[] getArrayFromLine(double pointTemp, double pointPress, double p) {
+        double[] result = new double[Utils.TEMPERATURE_SIZE];
+        double temperature = Utils.TEMPERATURE_ORIGIN;
+        for (int i = 0; i < Utils.TEMPERATURE_SIZE; ++i) {
+            double value = p*(temperature - pointTemp) + pointPress;
+            result[i] = value;
+            temperature += Utils.TEMPERATURE_STEP;
+        }
+        return result;
+    }
 }

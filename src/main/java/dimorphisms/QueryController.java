@@ -213,6 +213,10 @@ public class QueryController {
             queries.add("#" + Utils.QUERY_TL12);
         }
         materialProperties.setTempL12(temp);
+        /* TODO
+        implement pressure calculation
+         */
+        addPL12(0);
         checkIfWeCanAdd();
     }
 
@@ -245,16 +249,14 @@ public class QueryController {
 
     private void addCurveLiquidSolid1() {
         queries.add("#" + Utils.QUERY_CURVE_LIQUID_SOLID1);
-        /* TODO
-        Add to graphic
-         */
+        graphic.addCurve(Utils.QUERY_LIQUID_SOLID1,FuncHelper.getArrayFromLine(materialProperties.getTempLV1(),materialProperties.getPressLV1(),materialProperties.getLiquidSolid1()));
+        checkIfWeCanAdd();
     }
 
     private void addCurveLiquidSolid2() {
         queries.add("#" + Utils.QUERY_CURVE_LIQUID_SOLID2);
-        /* TODO
-        Add to graphic
-         */
+        graphic.addCurve(Utils.QUERY_LIQUID_SOLID2,FuncHelper.getArrayFromLine(materialProperties.getTempLV1(),materialProperties.getPressLV2(),materialProperties.getLiquidSolid2()));
+        checkIfWeCanAdd();
     }
 
     private void addCurveSolid1Solid2() {
@@ -325,6 +327,18 @@ public class QueryController {
         //afegir L2
         else if (canAddLiquidSolid2()) {
             addLiquidSolid1(funcHelper.calculateDpdtLiquidSolid2(),false);
+        }
+        //paint L1
+        else if(canPaintLiquidSolid1()){
+            addCurveLiquidSolid1();
+        }
+        //paint L2
+        else if(canPaintLiquidSolid2()){
+            addCurveLiquidSolid2();
+        }
+        //paint 12
+        else if(canPaintSolid1Solid2()){
+            addCurveSolid1Solid2();
         }
 
     }
@@ -429,7 +443,9 @@ public class QueryController {
 
     private boolean canAddTL12() {
         return (queries.contains("#" + Utils.QUERY_CURVE_LIQUID_SOLID1) &&
-                queries.contains("#" + Utils.QUERY_CURVE_LIQUID_SOLID2));
+                queries.contains("#" + Utils.QUERY_CURVE_LIQUID_SOLID2) &&
+                (!queries.contains("#" + Utils.QUERY_TL12)));
+
     }
 
     private boolean canAddSolid1Solid2() {
@@ -449,6 +465,28 @@ public class QueryController {
                 queries.contains("#" + Utils.QUERY_PLV2) &&
                 (!(queries.contains(Utils.QUERY_LIQUID_SOLID2) || queries.contains("#" + Utils.QUERY_LIQUID_SOLID2))));
     }
+
+
+    private boolean canPaintLiquidSolid1() {
+        return (queries.contains("#" + Utils.QUERY_PLV1) &&
+                (queries.contains(Utils.QUERY_LIQUID_SOLID1) || queries.contains("#" + Utils.QUERY_LIQUID_SOLID1)) &&
+                (!queries.contains("#" + Utils.QUERY_CURVE_LIQUID_SOLID1)));
+    }
+
+
+    private boolean canPaintLiquidSolid2() {
+        return (queries.contains("#" + Utils.QUERY_PLV2) &&
+                (queries.contains(Utils.QUERY_LIQUID_SOLID2) || queries.contains("#" + Utils.QUERY_LIQUID_SOLID2)) &&
+                (!queries.contains("#" + Utils.QUERY_CURVE_LIQUID_SOLID2)));
+    }
+
+
+    private boolean canPaintSolid1Solid2() {
+        return (queries.contains("#" + Utils.QUERY_PV12) &&
+                (queries.contains(Utils.QUERY_SOLID1_SOLID2) || queries.contains("#" + Utils.QUERY_SOLID1_SOLID2)) &&
+                (!queries.contains("#" + Utils.QUERY_CURVE_SOLID1_SOLID2)));
+    }
+
 
     /* TODO
     check this method performance
