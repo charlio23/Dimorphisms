@@ -2,6 +2,8 @@ package dimorphisms;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
@@ -12,16 +14,16 @@ public class GraphicView {
 
     private ViewController viewController;
 
-    @FXML private LineChart chart;
+    @FXML private BorderPane graphicPane;
 
     /**
      * Sets view controller.
      *
      * @param viewController the view controller
      */
-    public LineChart setViewController(ViewController viewController) {
+    public void setViewController(ViewController viewController) {
         this.viewController = viewController;
-        return chart;
+        graphicPane.setCenter(viewController.getGraphic());
     }
 
     /**

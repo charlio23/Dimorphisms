@@ -20,10 +20,10 @@ public class QueryController {
     private GraphicHelper graphic;
     private FuncHelper funcHelper;
 
-    public QueryController(String name, LineChart graphic) {
+    public QueryController(String name) {
         queries = new ArrayList<>();
         materialProperties = new MaterialProperties(name);
-        this.graphic = new GraphicHelper(graphic);
+        this.graphic = new GraphicHelper();
         funcHelper = new FuncHelper(materialProperties);
     }
 
@@ -264,7 +264,9 @@ public class QueryController {
          */
     }
 
-
+    /* TODO
+    we need to add tryAddCurveETC...
+     */
     private void checkIfWeCanAdd(){
         //afegir PressLV1
         if(tryAddPressLV1()) return;

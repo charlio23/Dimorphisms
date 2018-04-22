@@ -108,9 +108,13 @@ public class Utils {
 
     public static final boolean ISLOG_DEFAULT_VALUE = false;
 
-    public static final double TEMPERATURE_ORIGIN = 0;
+    public static final double TEMPERATURE_ORIGIN = 50;
 
-    public static final double TEMPERATURE_STEP = 0.1;
+    public static final double TEMPERATURE_FINAL = 2000;
+
+    public static final double TEMPERATURE_STEP = 0.5;
+
+    public static final int TEMPERATURE_SIZE = (int) ((TEMPERATURE_FINAL-TEMPERATURE_ORIGIN)/TEMPERATURE_STEP);
 
     public static final Logger logger = Logger.getAnonymousLogger();
 }

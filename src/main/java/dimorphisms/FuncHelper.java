@@ -59,9 +59,9 @@ public class FuncHelper {
     }
 
     public static double[] getArrayFromVaporCurve(VaporSth eqCurve) {
-        double[] result = new double[10000];
+        double[] result = new double[Utils.TEMPERATURE_SIZE];
         double temperature = Utils.TEMPERATURE_ORIGIN;
-        for (int i = 0; i < 10000; ++i) {
+        for (int i = 0; i < Utils.TEMPERATURE_SIZE; ++i) {
             double value = eqCurve.getA() - eqCurve.getB()/(eqCurve.getC() + temperature);
             result[i] = exp(value);
             temperature += Utils.TEMPERATURE_STEP;

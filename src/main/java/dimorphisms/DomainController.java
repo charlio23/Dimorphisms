@@ -23,7 +23,6 @@ public class DomainController {
      * Instantiates a new Domain controller.
      */
     DomainController(){
-        queryController = null;
         materialNames = new ArrayList<>();
         this.dataController = new DataController();
     }
@@ -43,11 +42,11 @@ public class DomainController {
      * @param materialName the material name
      * @return the boolean
      */
-    public Boolean newMaterial(String materialName, LineChart graphic) {
+    public Boolean newMaterial(String materialName) {
         for (String name: materialNames) {
             if (materialName.equals(name)) return false;
         }
-        queryController = new QueryController(materialName, graphic);
+        queryController = new QueryController(materialName);
         return true;
     }
 

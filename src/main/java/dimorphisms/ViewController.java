@@ -64,12 +64,13 @@ public class ViewController extends Application {
                 dataEntryScene = new Scene(pane, 715, 415);
                 primaryStage.setScene(dataEntryScene);
                 primaryStage.show();
+                domainController.newMaterial(materialName);
                 fxmlLoader = new FXMLLoader();
                 Pane p = fxmlLoader.load(getClass().getResource("../../resources/GraphicView.fxml").openStream());
                 GraphicView fooController = (GraphicView) fxmlLoader.getController();
-                LineChart graphic = fooController.setViewController(this);
+                fooController.setViewController(this);
                 graphicViewScene = new Scene(p,715,415);
-                domainController.newMaterial(materialName, graphic);
+
     }
 
     /**
