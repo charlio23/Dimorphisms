@@ -35,9 +35,11 @@ public class GraphicHelper {
                 "    -fx-effect: null;\n" +
                 "}\n" +
                 ".default-color0.chart-series-line { -fx-stroke: #e9967a; }\n");
+        //this is used for reversing the second log scale
+        //materialLinearGraphic.setScaleY(-1);
+        materialLinearGraphic.setCreateSymbols(false);
         this.materialLogGraphic = new LineChart<>(xAxis,yAxisLog);
         this.materialLogGraphic = new LineChart<>(xAxis,yAxisLog);
-        materialLogGraphic.setCreateSymbols(false);
         materialLogGraphic.setStyle(".chart-series-line {    \n" +
                 "    -fx-stroke-width: 2px;\n" +
                 "    -fx-effect: null;\n" +

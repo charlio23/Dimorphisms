@@ -28,7 +28,7 @@ public class ViewController extends Application {
         this.primaryStage = primaryStage;
         domainController = new DomainController();
         FXMLLoader fxmlLoader = new FXMLLoader();
-        Pane p = fxmlLoader.load(getClass().getResource("../../resources/MainMenu.fxml").openStream());
+        Pane p = fxmlLoader.load(getClass().getResource("/MainMenu.fxml").openStream());
         MainMenu fooController = (MainMenu) fxmlLoader.getController();
         fooController.setViewController(this);
 
@@ -56,7 +56,7 @@ public class ViewController extends Application {
     public void newMaterial(String materialName) throws IOException {
 
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                GridPane pane = fxmlLoader.load(getClass().getResource("../../resources/DataEntry.fxml").openStream());
+                GridPane pane = fxmlLoader.load(getClass().getResource("/DataEntry.fxml").openStream());
                 DataEntry dataEntry = (DataEntry) fxmlLoader.getController();
                 dataEntry.setViewController(this);
                 dataEntry.setMaterialName(materialName);
@@ -66,7 +66,7 @@ public class ViewController extends Application {
                 primaryStage.show();
                 domainController.newMaterial(materialName);
                 fxmlLoader = new FXMLLoader();
-                Pane p = fxmlLoader.load(getClass().getResource("../../resources/GraphicView.fxml").openStream());
+                Pane p = fxmlLoader.load(getClass().getResource("/GraphicView.fxml").openStream());
                 GraphicView fooController = (GraphicView) fxmlLoader.getController();
                 fooController.setViewController(this);
                 graphicViewScene = new Scene(p,715,415);
@@ -89,7 +89,7 @@ public class ViewController extends Application {
      */
     public void viewStableDiagram() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        Pane p = fxmlLoader.load(getClass().getResource("../../resources/GraphicView.fxml").openStream());
+        Pane p = fxmlLoader.load(getClass().getResource("/GraphicView.fxml").openStream());
         GraphicView fooController = (GraphicView) fxmlLoader.getController();
         fooController.setViewController(this);
 
