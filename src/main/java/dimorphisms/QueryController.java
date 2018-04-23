@@ -103,8 +103,12 @@ public class QueryController {
         }
     }
 
-    public LineChart getGraphic() {
+    public LineChart getLinearGraphic() {
         return graphic.getLinearGraphic();
+    }
+
+    public LineChart[] getLogGraphic() {
+        return graphic.getLogGraphic();
     }
 
     private void addLiquidVapor(VaporSth eqCurve, boolean original) {

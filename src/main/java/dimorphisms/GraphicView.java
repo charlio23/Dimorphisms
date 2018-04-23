@@ -23,14 +23,22 @@ public class GraphicView {
      */
     public void setViewController(ViewController viewController) {
         this.viewController = viewController;
-        graphicPane.setCenter(viewController.getGraphic());
+        graphicPane.setCenter(viewController.getLinearGraphic());
     }
 
-    /**
-     * On press.
-     */
-    public void onPress(){
+    @FXML
+    public void onLinearScalePress(){
+        graphicPane.setCenter(viewController.getLinearGraphic());
+        graphicPane.setTop(null);
+        graphicPane.setBottom(null);
+    }
 
+    @FXML
+    public void onLogScalePress() {
+        LineChart[] lineCharts = viewController.getLogGraphic();
+        graphicPane.setCenter(null);
+        graphicPane.setTop(lineCharts[0]);
+        graphicPane.setBottom(lineCharts[1]);
     }
 
     /**

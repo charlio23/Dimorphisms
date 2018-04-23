@@ -1,5 +1,6 @@
 package dimorphisms;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -187,11 +188,11 @@ public class DataEntry {
             System.out.println("Call to view");
         }
 
-        float A = Float.parseFloat(solid2VaporA.getText());
-        float B = Float.parseFloat(solid2VaporB.getText());
-        float C = Float.parseFloat(solid2VaporC.getText());
+        float a = Float.parseFloat(solid2VaporA.getText());
+        float b = Float.parseFloat(solid2VaporB.getText());
+        float c = Float.parseFloat(solid2VaporC.getText());
         boolean isLog = solid2VaporLog.isSelected();
-        viewController.addSolid2Vapor(A, B, C, isLog);
+        viewController.addSolid2Vapor(a, b, c, isLog);
     }
 
     /**
@@ -199,18 +200,14 @@ public class DataEntry {
      */
     @FXML
     public void onLiquidSolid1AddPressed() {
-        if (!checkTextIsCorrect(liquidSolid1VaporTemp.getText())) {
-            showErrorDialogText(Utils.LIQUID_SOLID_1_ERR,"Temperature has to be a number.");
-        }
-        else if (!checkTextIsCorrect(liquidSolid1dpdt.getText())) {
+        if (!checkTextIsCorrect(liquidSolid1dpdt.getText())) {
             showErrorDialogText(Utils.LIQUID_SOLID_1_ERR, "dp/dT has to be a number.");
         } else {
             System.out.println("Call to view");
         }
 
-        float temp = Float.parseFloat(liquidSolid1VaporTemp.getText());
         float dpdt = Float.parseFloat(liquidSolid1dpdt.getText());
-        viewController.addLiquidSolid1(temp, dpdt);
+        viewController.addLiquidSolid1(dpdt);
     }
 
     /**
@@ -218,18 +215,14 @@ public class DataEntry {
      */
     @FXML
     public void onLiquidSolid2AddPressed() {
-        if (!checkTextIsCorrect(liquidSolid2VaporTemp.getText())) {
-            showErrorDialogText(Utils.LIQUID_SOLID_2_ERR,"Temperature has to be a number.");
-        }
-        else if (!checkTextIsCorrect(liquidSolid2dpdt.getText())) {
+        if (!checkTextIsCorrect(liquidSolid2dpdt.getText())) {
             showErrorDialogText(Utils.LIQUID_SOLID_2_ERR, "dp/dT has to be a number.");
         } else {
             System.out.println("Call to view");
         }
 
-        float temp = Float.parseFloat(liquidSolid2VaporTemp.getText());
         float dpdt = Float.parseFloat(liquidSolid2dpdt.getText());
-        viewController.addLiquidSolid2(temp, dpdt);
+        viewController.addLiquidSolid2(dpdt);
     }
 
     /**
@@ -237,18 +230,41 @@ public class DataEntry {
      */
     @FXML
     public void onSolid1Solid2AddPressed() {
-        if (!checkTextIsCorrect(solid1Solid2VaporTemp.getText())) {
-            showErrorDialogText(Utils.SOLID_1_SOLID_2_ERR,"Temperature has to be a number.");
-        }
-        else if (!checkTextIsCorrect(solid1Solid2dpdt.getText())) {
+        if (!checkTextIsCorrect(solid1Solid2dpdt.getText())) {
             showErrorDialogText(Utils.SOLID_1_SOLID_2_ERR, "dp/dT has to be a number.");
         } else {
             System.out.println("Call to view");
         }
 
-        float temp = Float.parseFloat(solid1Solid2VaporTemp.getText());
         float dpdt = Float.parseFloat(solid1Solid2dpdt.getText());
-        viewController.addSolid1Solid2(temp, dpdt);
+        viewController.addSolid1Solid2(dpdt);
+    }
+
+    @FXML
+    public void onSolid1Solid2VaporTempAddPressed() {
+        if (!checkTextIsCorrect(solid1Solid2VaporTemp.getText())) {
+            showErrorDialogText(Utils.SOLID_1_SOLID_2_ERR,"Temperature has to be a number.");
+        }
+        float temp = Float.parseFloat(solid1Solid2VaporTemp.getText());
+        viewController.addSolid1Solid2VaporTemp(temp);
+    }
+
+    @FXML
+    public void onLiquidSolid1VaporTempAddPressed() {
+        if (!checkTextIsCorrect(liquidSolid1VaporTemp.getText())) {
+            showErrorDialogText(Utils.LIQUID_SOLID_1_ERR,"Temperature has to be a number.");
+        }
+        float temp = Float.parseFloat(liquidSolid1VaporTemp.getText());
+        viewController.addLiquidSolid1VaporTemp(temp);
+    }
+
+    @FXML
+    public void onLiquidSolid2VaporTempAddPressed() {
+        if (!checkTextIsCorrect(liquidSolid1VaporTemp.getText())) {
+            showErrorDialogText(Utils.LIQUID_SOLID_1_ERR,"Temperature has to be a number.");
+        }
+        float temp = Float.parseFloat(liquidSolid1VaporTemp.getText());
+        viewController.addLiquidSolid2VaporTemp(temp);
     }
 
     /**
@@ -335,5 +351,4 @@ public class DataEntry {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
 }

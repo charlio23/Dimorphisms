@@ -50,8 +50,12 @@ public class DomainController {
         return true;
     }
 
-    public LineChart getGraphic() {
-        return queryController.getGraphic();
+    public LineChart getLinearGraphic() {
+        return queryController.getLinearGraphic();
+    }
+
+    public LineChart[] getLogGraphic() {
+        return queryController.getLogGraphic();
     }
 
     /**

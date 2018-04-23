@@ -159,12 +159,10 @@ public class ViewController extends Application {
     /**
      * Add liquid solid 1 boolean.
      *
-     * @param temp the temp
      * @param dpdt the dpdt
      * @return the boolean
      */
-    public boolean addLiquidSolid1(float temp, float dpdt) {
-        domainController.addTempLV1(temp);
+    public boolean addLiquidSolid1(float dpdt) {
         domainController.addLiquidSolid1(dpdt);
         return true;
     }
@@ -172,12 +170,10 @@ public class ViewController extends Application {
     /**
      * Add liquid solid 2 boolean.
      *
-     * @param temp the temp
      * @param dpdt the dpdt
      * @return the boolean
      */
-    public boolean addLiquidSolid2(float temp, float dpdt) {
-        domainController.addTempLV2(temp);
+    public boolean addLiquidSolid2(float dpdt) {
         domainController.addLiquidSolid2(dpdt);
         return true;
     }
@@ -185,12 +181,10 @@ public class ViewController extends Application {
     /**
      * Add solid 1 solid 2 boolean.
      *
-     * @param temp the temp
      * @param dpdt the dpdt
      * @return the boolean
      */
-    public boolean addSolid1Solid2(float temp, float dpdt) {
-        domainController.addTempV12(temp);
+    public boolean addSolid1Solid2(float dpdt) {
         domainController.addSolid1Solid2(dpdt);
         return true;
     }
@@ -199,7 +193,23 @@ public class ViewController extends Application {
         return domainController.saveMaterial();
     }
 
-    public LineChart getGraphic() {
-        return domainController.getGraphic();
+    public LineChart getLinearGraphic() {
+        return domainController.getLinearGraphic();
+    }
+
+    public LineChart[] getLogGraphic() {
+        return domainController.getLogGraphic();
+    }
+
+    public void addLiquidSolid1VaporTemp(float temp) {
+        domainController.addTempLV1(temp);
+    }
+
+    public void addLiquidSolid2VaporTemp(float temp) {
+        domainController.addTempLV2(temp);
+    }
+
+    public void addSolid1Solid2VaporTemp(float temp) {
+        domainController.addTempV12(temp);
     }
 }

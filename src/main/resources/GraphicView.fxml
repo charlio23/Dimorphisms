@@ -7,8 +7,9 @@
 
 <AnchorPane prefHeight="415.0" prefWidth="715.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dimorphisms.GraphicView">
    <children>
-      <BorderPane fx:id="graphicPane" layoutX="271.0" layoutY="18.0" prefHeight="379.0" prefWidth="429.0" />
+      <BorderPane fx:id="graphicPane" layoutX="195.0" layoutY="18.0" prefHeight="379.0" prefWidth="505.0" />
        <Button layoutX="83.0" layoutY="342.0" mnemonicParsing="false" onAction="#onBackPressed" text="Back" />
-       <Button layoutX="75.0" layoutY="59.0" mnemonicParsing="false" onAction="#onPress" text="Button" />
+      <Button layoutX="75.0" layoutY="102.0" mnemonicParsing="false" onAction="#onLinearScalePress" text="Linear" />
+      <Button layoutX="84.0" layoutY="143.0" mnemonicParsing="false" onAction="#onLogScalePress" text="Log" />
    </children>
 </AnchorPane>

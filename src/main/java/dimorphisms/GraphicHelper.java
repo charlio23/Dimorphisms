@@ -7,13 +7,12 @@ import javafx.scene.chart.XYChart;
 import java.util.HashMap;
 import java.util.Map;
 
-import static java.lang.StrictMath.log;
-
 
 public class GraphicHelper {
 
     private LineChart<Number,Number> materialLinearGraphic;
-    private LineChart<Number,Number> materialLogGraphic;
+    private LineChart<Number,Number> materialLogGraphicPositive;
+    private LineChart<Number,Number> materialLogGraphicNegative;
 
     private Map<String,Integer> dataMapping;
     private Integer curveNumber;
@@ -35,16 +34,22 @@ public class GraphicHelper {
                 "    -fx-effect: null;\n" +
                 "}\n" +
                 ".default-color0.chart-series-line { -fx-stroke: #e9967a; }\n");
-        //this is used for reversing the second log scale
-        //materialLinearGraphic.setScaleY(-1);
         materialLinearGraphic.setCreateSymbols(false);
-        this.materialLogGraphic = new LineChart<>(xAxis,yAxisLog);
-        this.materialLogGraphic = new LineChart<>(xAxis,yAxisLog);
-        materialLogGraphic.setStyle(".chart-series-line {    \n" +
+
+        this.materialLogGraphicPositive = new LineChart<>(xAxis,yAxisLog);
+        this.materialLogGraphicNegative = new LineChart<>(xAxis,yAxisLog);
+        materialLogGraphicPositive.setStyle(".chart-series-line {    \n" +
                 "    -fx-stroke-width: 2px;\n" +
                 "    -fx-effect: null;\n" +
                 "}\n" +
                 ".default-color0.chart-series-line { -fx-stroke: #e9967a; }\n");
+        materialLogGraphicNegative.setStyle(".chart-series-line {    \n" +
+                "    -fx-stroke-width: 2px;\n" +
+                "    -fx-effect: null;\n" +
+                "}\n" +
+                ".default-color0.chart-series-line { -fx-stroke: #e9967a; }\n");
+        materialLogGraphicNegative.setScaleY(-1);
+        materialLogGraphicNegative.getXAxis().setVisible(false);
 
     }
 
@@ -52,25 +57,39 @@ public class GraphicHelper {
         return materialLinearGraphic;
     }
 
-    public LineChart getLogGraphic() {
-        return materialLogGraphic;
+    public LineChart[] getLogGraphic() {
+        return new LineChart[]{materialLogGraphicPositive, materialLogGraphicNegative};
     }
 
     public void addCurve(String name, double[] values) {
-        XYChart.Series<Number,Number> series = new XYChart.Series<>();
+        XYChart.Series<Number,Number> seriesTotal = new XYChart.Series<>();
+        XYChart.Series<Number,Number> seriesPositive = new XYChart.Series<>();
+        XYChart.Series<Number,Number> seriesNegative = new XYChart.Series<>();
         double temperature = Utils.TEMPERATURE_ORIGIN;
         if (values[values.length-1] > maxValue) maxValue =values[values.length-1];
         for (double value: values) {
             XYChart.Data<Number,Number> point = new XYChart.Data<>(temperature, value);
-            series.getData().add(point);
+            seriesTotal.getData().add(point);
+            if (value > 0) {
+                seriesPositive.getData().add(point);
+            } else if (value < 0) {
+                seriesNegative.getData().add(point);
+            }
             temperature = temperature + Utils.TEMPERATURE_STEP;
         }
+
+
         //we substitute the value if it was there
         if (dataMapping.containsKey(name)) {
-            materialLinearGraphic.getData().set(dataMapping.get(name),series);
+            materialLogGraphicNegative.getData().set(dataMapping.get(name),seriesNegative);
+            materialLogGraphicPositive.getData().set(dataMapping.get(name),seriesPositive);
+            materialLinearGraphic.getData().set(dataMapping.get(name),seriesTotal);
+
         } else {
             dataMapping.put(name,curveNumber);
-            materialLinearGraphic.getData().add(series);
+            materialLogGraphicNegative.getData().add(seriesNegative);
+            materialLogGraphicPositive.getData().add(seriesPositive);
+            materialLinearGraphic.getData().add(seriesTotal);
             ++curveNumber;
         }
     }
@@ -80,9 +99,20 @@ public class GraphicHelper {
         series.getData().add(new XYChart.Data<>(temp,press));
         if (dataMapping.containsKey(name)) {
             materialLinearGraphic.getData().set(dataMapping.get(name),series);
+            if (press > 0) {
+                materialLogGraphicPositive.getData().set(dataMapping.get(name),series);
+            } else {
+                materialLogGraphicNegative.getData().set(dataMapping.get(name),series);
+            }
         } else {
             dataMapping.put(name,curveNumber);
             materialLinearGraphic.getData().add(series);
+            if (press > 0) {
+                materialLogGraphicPositive.getData().set(dataMapping.get(name),series);
+            } else {
+                materialLogGraphicNegative.getData().set(dataMapping.get(name),series);
+            }
+
             ++curveNumber;
         }
     }
@@ -99,8 +129,6 @@ public class GraphicHelper {
 
     /* TODO
     Check the need of other methods such as:
-        - change to log scale (how?)
-        - change axis labels
         - series stroke and styling
         - etc
      */
