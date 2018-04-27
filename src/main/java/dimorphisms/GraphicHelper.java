@@ -4,23 +4,15 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
-import java.util.HashMap;
-import java.util.Map;
-
-
 public class GraphicHelper {
 
     private LineChart<Number,Number> materialLinearGraphic;
     private LineChart<Number,Number> materialLogGraphicPositive;
     private LineChart<Number,Number> materialLogGraphicNegative;
 
-    private Map<String,Integer> dataMapping;
-    private Integer curveNumber;
     private double maxValue;
 
     public GraphicHelper() {
-        curveNumber = 0;
-        dataMapping = new HashMap<>();
         NumberAxis xAxis = new NumberAxis();
         xAxis.setLabel("T");
         NumberAxis yAxis = new NumberAxis();
@@ -65,6 +57,9 @@ public class GraphicHelper {
         XYChart.Series<Number,Number> seriesTotal = new XYChart.Series<>();
         XYChart.Series<Number,Number> seriesPositive = new XYChart.Series<>();
         XYChart.Series<Number,Number> seriesNegative = new XYChart.Series<>();
+        seriesTotal.setName(name);
+        seriesNegative.setName(name);
+        seriesPositive.setName(name);
         double temperature = Utils.TEMPERATURE_ORIGIN;
         if (values[values.length-1] > maxValue) maxValue =values[values.length-1];
         for (double value: values) {
@@ -78,51 +73,100 @@ public class GraphicHelper {
             temperature = temperature + Utils.TEMPERATURE_STEP;
         }
 
-
-        //we substitute the value if it was there
-        if (dataMapping.containsKey(name)) {
-            materialLogGraphicNegative.getData().set(dataMapping.get(name),seriesNegative);
-            materialLogGraphicPositive.getData().set(dataMapping.get(name),seriesPositive);
-            materialLinearGraphic.getData().set(dataMapping.get(name),seriesTotal);
-
-        } else {
-            dataMapping.put(name,curveNumber);
-            materialLogGraphicNegative.getData().add(seriesNegative);
-            materialLogGraphicPositive.getData().add(seriesPositive);
+        //We find in what position the series is
+        // (if it exists on the graphic)
+        int positionLinear = getPositionLinear(name);
+        int positionLogPositive = getPositionLogPositive(name);
+        int positionLogNegative = getPositionLogNegative(name);
+        if (positionLinear == -1) {
             materialLinearGraphic.getData().add(seriesTotal);
-            ++curveNumber;
+        } else {
+            materialLinearGraphic.getData().set(positionLinear,seriesTotal);
+        }
+
+        if (positionLogPositive == -1) {
+            materialLogGraphicPositive.getData().add(seriesPositive);
+        } else {
+            materialLogGraphicPositive.getData().set(positionLogPositive,seriesPositive);
+        }
+
+        if (positionLogNegative == -1) {
+            materialLogGraphicNegative.getData().add(seriesNegative);
+        } else {
+            materialLogGraphicNegative.getData().set(positionLogNegative,seriesNegative);
         }
     }
     
     public void addPoint(String name, double temp, double press) {
         XYChart.Series<Number,Number> series = new XYChart.Series<>();
+        series.setName(name);
         series.getData().add(new XYChart.Data<>(temp,press));
-        if (dataMapping.containsKey(name)) {
-            materialLinearGraphic.getData().set(dataMapping.get(name),series);
-            if (press > 0) {
-                materialLogGraphicPositive.getData().set(dataMapping.get(name),series);
+        //We find in what position the series is
+        // (if it exists on the graphic)
+        int positionLinear = getPositionLinear(name);
+        if (positionLinear == -1) {
+            materialLinearGraphic.getData().add(series);
+        } else {
+            materialLinearGraphic.getData().set(positionLinear,series);
+        }
+        if (press > 0) {
+            int positionLogPositive = getPositionLogPositive(name);
+            if (positionLogPositive == -1) {
+                materialLogGraphicPositive.getData().add(series);
             } else {
-                materialLogGraphicNegative.getData().set(dataMapping.get(name),series);
+                materialLogGraphicPositive.getData().set(positionLogPositive, series);
             }
         } else {
-            dataMapping.put(name,curveNumber);
-            materialLinearGraphic.getData().add(series);
-            if (press > 0) {
-                materialLogGraphicPositive.getData().set(dataMapping.get(name),series);
+            int positionLogNegative = getPositionLogNegative(name);
+            if (positionLogNegative == -1) {
+                materialLogGraphicNegative.getData().add(series);
             } else {
-                materialLogGraphicNegative.getData().set(dataMapping.get(name),series);
+                materialLogGraphicNegative.getData().set(positionLogNegative, series);
             }
-
-            ++curveNumber;
         }
     }
-    /* TODO
-    we will reimplement this methon in the future
-     */
+
     public void removeInfo(String name) {
-        Integer position = dataMapping.get(name);
-        if (position == null) return;
-        materialLinearGraphic.getData().set(position,null);
+        int positionLinear = getPositionLinear(name);
+        int positionLogPositive = getPositionLogPositive(name);
+        int positionLogNegative = getPositionLogNegative(name);
+        if (positionLinear != -1) {
+            materialLinearGraphic.getData().remove(positionLinear);
+        }
+        if (positionLogPositive != -1) {
+            materialLogGraphicPositive.getData().remove(positionLogPositive);
+        }
+        if (positionLogNegative != -1) {
+            materialLogGraphicNegative.getData().remove(positionLogNegative);
+        }
+
+    }
+
+    private int getPositionLinear(String word) {
+        for (int i = 0; i < materialLinearGraphic.getData().size(); ++i) {
+            if (materialLinearGraphic.getData().get(i).getName().equals(word)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private int getPositionLogPositive(String word) {
+        for (int i = 0; i < materialLogGraphicPositive.getData().size(); ++i) {
+            if (materialLogGraphicPositive.getData().get(i).getName().equals(word)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private int getPositionLogNegative(String word) {
+        for (int i = 0; i < materialLogGraphicNegative.getData().size(); ++i) {
+            if (materialLogGraphicNegative.getData().get(i).getName().equals(word)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
 

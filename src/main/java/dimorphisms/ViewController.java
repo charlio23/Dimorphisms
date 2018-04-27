@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -25,6 +26,7 @@ public class ViewController extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
+        primaryStage.getIcons().add(new Image("/startIcon.png"));
         this.primaryStage = primaryStage;
         domainController = new DomainController();
         FXMLLoader fxmlLoader = new FXMLLoader();

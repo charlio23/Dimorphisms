@@ -45,7 +45,7 @@ public class Utils {
      */
     public static final String SOLID_1_SOLID_2_ERR = "Solid1-Solid2 input ERROR";
 
-    public static final String QUERY_LIQUID_VAPOR = "liguid-vapor";
+    public static final String QUERY_LIQUID_VAPOR = "liquid-vapor";
 
     public static final String QUERY_VAPOR_SOLID1 = "vapor-solid1";
 
