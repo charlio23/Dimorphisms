@@ -53,7 +53,7 @@ public class Utils {
 
     public static final String QUERY_LIQUID_SOLID1 = "liquid-solid1";
 
-    public static final String QUERY_LIQUID_SOLID2 = "vapor-solid2";
+    public static final String QUERY_LIQUID_SOLID2 = "liquid-solid2";
 
     public static final String QUERY_SOLID1_SOLID2 = "solid1-solid2";
 
@@ -78,7 +78,6 @@ public class Utils {
     public static final String QUERY_PV12 = "pV12";
 
     public static final String QUERY_PL12 = "pL12";
-
 
     public static final String QUERY_ERROR_LIQUID_VAPOR = "Error when adding Liquid-Vapor";
 

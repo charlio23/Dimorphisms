@@ -13,6 +13,12 @@ import static java.lang.Math.log;
      This is the program nucleus, all main calls should be processed here.
  */
 
+/* TODO
+    change var names:
+        liquid-solidX cannot refer to dP/dT, better say dPdTLiquidSolidX
+        curve-liquid-solidX has to refer to liquid-solidX
+ */
+
 public class QueryController {
 
     private List<String> queries;
@@ -157,9 +163,9 @@ public class QueryController {
 
     private void addLiquidSolid2(double dpdt, boolean original) {
         if (original) {
-            queries.add(Utils.QUERY_LIQUID_SOLID1);
+            queries.add(Utils.QUERY_LIQUID_SOLID2);
         } else {
-            queries.add("#" + Utils.QUERY_LIQUID_SOLID1);
+            queries.add("#" + Utils.QUERY_LIQUID_SOLID2);
         }
         materialProperties.setLiquidSolid2(dpdt);
         checkIfWeCanAdd();
@@ -217,10 +223,7 @@ public class QueryController {
             queries.add("#" + Utils.QUERY_TL12);
         }
         materialProperties.setTempL12(temp);
-        /* TODO
-        implement pressure calculation
-         */
-        addPL12(0);
+        addPL12(funcHelper.calculatePL12());
         checkIfWeCanAdd();
     }
 
@@ -228,46 +231,47 @@ public class QueryController {
         queries.add("#" + Utils.QUERY_PLV1);
         materialProperties.setPressLV1(press);
         graphic.addPoint(Utils.QUERY_TLV1,materialProperties.getTempLV1(),press);
+        checkIfWeCanAdd();
     }
 
     private void addPLV2(double press) {
         queries.add("#" + Utils.QUERY_PLV2);
         materialProperties.setPressLV2(press);
         graphic.addPoint(Utils.QUERY_TLV2,materialProperties.getTempLV2(),press);
-
+        checkIfWeCanAdd();
     }
 
     private void addPV12(double press) {
         queries.add("#" + Utils.QUERY_PV12);
         materialProperties.setPressV12(press);
         graphic.addPoint(Utils.QUERY_TV12,materialProperties.getTempV12(),press);
-
+        checkIfWeCanAdd();
     }
 
     private void addPL12(double press) {
         queries.add("#" + Utils.QUERY_PL12);
         materialProperties.setPressL12(press);
-        graphic.addPoint(Utils.QUERY_TV12,materialProperties.getTempL12(),press);
+        graphic.addPoint(Utils.QUERY_TL12,materialProperties.getTempL12(),press);
+        checkIfWeCanAdd();
 
     }
 
     private void addCurveLiquidSolid1() {
         queries.add("#" + Utils.QUERY_CURVE_LIQUID_SOLID1);
-        graphic.addCurve(Utils.QUERY_LIQUID_SOLID1,FuncHelper.getArrayFromLine(materialProperties.getTempLV1(),materialProperties.getPressLV1(),materialProperties.getLiquidSolid1()));
+        graphic.addCurve(Utils.QUERY_CURVE_LIQUID_SOLID1,FuncHelper.getArrayFromLine(materialProperties.getTempLV1(),materialProperties.getPressLV1(),materialProperties.getLiquidSolid1()));
         checkIfWeCanAdd();
     }
 
     private void addCurveLiquidSolid2() {
         queries.add("#" + Utils.QUERY_CURVE_LIQUID_SOLID2);
-        graphic.addCurve(Utils.QUERY_LIQUID_SOLID2,FuncHelper.getArrayFromLine(materialProperties.getTempLV1(),materialProperties.getPressLV2(),materialProperties.getLiquidSolid2()));
+        graphic.addCurve(Utils.QUERY_CURVE_LIQUID_SOLID2,FuncHelper.getArrayFromLine(materialProperties.getTempLV2(),materialProperties.getPressLV2(),materialProperties.getLiquidSolid2()));
         checkIfWeCanAdd();
     }
 
     private void addCurveSolid1Solid2() {
         queries.add("#" + Utils.QUERY_CURVE_SOLID1_SOLID2);
-        /* TODO
-        Add to graphic
-         */
+        graphic.addCurve(Utils.QUERY_CURVE_SOLID1_SOLID2,FuncHelper.getArrayFromLine(materialProperties.getTempV12(),materialProperties.getPressV12(),materialProperties.getSolid1Solid2()));
+        checkIfWeCanAdd();
     }
 
     /* TODO
@@ -330,7 +334,7 @@ public class QueryController {
         }
         //afegir L2
         else if (canAddLiquidSolid2()) {
-            addLiquidSolid1(funcHelper.calculateDpdtLiquidSolid2(),false);
+            addLiquidSolid2(funcHelper.calculateDpdtLiquidSolid2(),false);
         }
         //paint L1
         else if(canPaintLiquidSolid1()){
@@ -497,14 +501,18 @@ public class QueryController {
      */
     private void removeCalculatedQueries() {
         int i = 0;
-        while (i < queries.size() - 1) {
+        while (i < queries.size()) {
             if (queries.get(i).charAt(0) == '#') {
                 graphic.removeInfo(queries.get(i).substring(1));
                 queries.remove(i);
 
             }
-            ++i;
+            else ++i;
         }
+    }
+
+    public void changeScale() {
+        graphic.setScale();
     }
 /*
     void recalcula(){

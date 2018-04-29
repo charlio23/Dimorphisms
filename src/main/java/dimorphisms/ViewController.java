@@ -214,4 +214,8 @@ public class ViewController extends Application {
     public void addSolid1Solid2VaporTemp(float temp) {
         domainController.addTempV12(temp);
     }
+
+    public void changeScale() {
+        domainController.changeScale();
+    }
 }

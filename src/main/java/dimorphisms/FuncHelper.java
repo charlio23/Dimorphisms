@@ -47,15 +47,21 @@ public class FuncHelper {
     }
 
     public double calculateDpdtSolid1Solid2() {
-        return 0;
+        double term1 = materialProperties.getPressL12() - materialProperties.getPressV12();
+        double term2 = materialProperties.getTempL12() - materialProperties.getTempV12();
+        return term1/term2;
     }
 
-    public double calculateDpdtLiquidSolid1() {
-        return 0;
+    public double   calculateDpdtLiquidSolid1() {
+        double term1 = materialProperties.getPressL12() - materialProperties.getPressLV1();
+        double term2 = materialProperties.getTempL12() - materialProperties.getTempLV1();
+        return term1/term2;
     }
 
     public double calculateDpdtLiquidSolid2() {
-        return 0;
+        double term1 = materialProperties.getPressL12() - materialProperties.getPressLV2();
+        double term2 = materialProperties.getTempL12() - materialProperties.getTempLV2();
+        return term1/term2;
     }
 
     public static double[] getArrayFromVaporCurve(VaporSth eqCurve) {

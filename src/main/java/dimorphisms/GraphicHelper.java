@@ -4,6 +4,8 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
+import java.util.logging.Level;
+
 public class GraphicHelper {
 
     private LineChart<Number,Number> materialLinearGraphic;
@@ -17,31 +19,17 @@ public class GraphicHelper {
         xAxis.setLabel("T");
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("P");
-        LogarithmicNumberAxis yAxisLog = new LogarithmicNumberAxis(2e-2,1e10);
-        yAxisLog.setLabel("P");
-        this.materialLinearGraphic = new LineChart<>(xAxis,yAxis);
-        materialLinearGraphic.setCreateSymbols(false);
-        materialLinearGraphic.setStyle(".chart-series-line {    \n" +
-                "    -fx-stroke-width: 2px;\n" +
-                "    -fx-effect: null;\n" +
-                "}\n" +
-                ".default-color0.chart-series-line { -fx-stroke: #e9967a; }\n");
-        materialLinearGraphic.setCreateSymbols(false);
-
-        this.materialLogGraphicPositive = new LineChart<>(xAxis,yAxisLog);
-        this.materialLogGraphicNegative = new LineChart<>(xAxis,yAxisLog);
-        materialLogGraphicPositive.setStyle(".chart-series-line {    \n" +
-                "    -fx-stroke-width: 2px;\n" +
-                "    -fx-effect: null;\n" +
-                "}\n" +
-                ".default-color0.chart-series-line { -fx-stroke: #e9967a; }\n");
-        materialLogGraphicNegative.setStyle(".chart-series-line {    \n" +
-                "    -fx-stroke-width: 2px;\n" +
-                "    -fx-effect: null;\n" +
-                "}\n" +
-                ".default-color0.chart-series-line { -fx-stroke: #e9967a; }\n");
-        materialLogGraphicNegative.setScaleY(-1);
-        materialLogGraphicNegative.getXAxis().setVisible(false);
+        materialLinearGraphic = new LineChart<>(xAxis,yAxis);
+        LogarithmicNumberAxis yAxisLogPositive = new LogarithmicNumberAxis(2e-2,1e10);
+        yAxisLogPositive.setLabel("P");
+        NumberAxis xAxisLogPositive = new NumberAxis();
+        xAxis.setLabel("T");
+        materialLogGraphicPositive = new LineChart<>(xAxisLogPositive,yAxisLogPositive);
+        NumberAxis xAxisLogNegative = new NumberAxis();
+        xAxis.setLabel("T");
+        LogarithmicNumberAxis yAxisLogNegative = new LogarithmicNumberAxis(2e-2,1e10);
+        yAxisLogNegative.setLabel("P");
+        materialLogGraphicNegative = new LineChart<>(xAxisLogNegative,yAxisLogNegative);
 
     }
 
@@ -53,6 +41,22 @@ public class GraphicHelper {
         return new LineChart[]{materialLogGraphicPositive, materialLogGraphicNegative};
     }
 
+    /* TODO
+    Here is how we can change scale ... it seems ...
+     */
+    public void setScale(){
+        NumberAxis xAxis = (NumberAxis) materialLinearGraphic.getXAxis();
+        NumberAxis yAxis = (NumberAxis) materialLinearGraphic.getYAxis();
+        xAxis.setAutoRanging(false);
+        yAxis.setAutoRanging(false);
+        xAxis.setLowerBound(20);
+        xAxis.setUpperBound(30);
+        yAxis.setLowerBound(20);
+        yAxis.setUpperBound(30);
+        Utils.logger.log(Level.INFO,String.valueOf(xAxis.getLowerBound()));
+        Utils.logger.log(Level.INFO,String.valueOf(xAxis.getUpperBound()));
+
+    }
     public void addCurve(String name, double[] values) {
         XYChart.Series<Number,Number> seriesTotal = new XYChart.Series<>();
         XYChart.Series<Number,Number> seriesPositive = new XYChart.Series<>();

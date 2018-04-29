@@ -11,5 +11,6 @@
        <Button layoutX="83.0" layoutY="342.0" mnemonicParsing="false" onAction="#onBackPressed" text="Back" />
       <Button layoutX="75.0" layoutY="102.0" mnemonicParsing="false" onAction="#onLinearScalePress" text="Linear" />
       <Button layoutX="84.0" layoutY="143.0" mnemonicParsing="false" onAction="#onLogScalePress" text="Log" />
+      <Button layoutX="72.0" layoutY="197.0" mnemonicParsing="false" onAction="#onChangeScalePress" text="Linear" />
    </children>
 </AnchorPane>

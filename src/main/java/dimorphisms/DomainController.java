@@ -138,4 +138,8 @@ public class DomainController {
         String s = queryController.makeQueryOther(Utils.QUERY_SOLID1_SOLID2,temp);
         Utils.logger.log(Level.INFO,s);
     }
+
+    public void changeScale() {
+        queryController.changeScale();
+    }
 }

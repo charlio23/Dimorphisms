@@ -29,16 +29,18 @@ public class GraphicView {
     @FXML
     public void onLinearScalePress(){
         graphicPane.setCenter(viewController.getLinearGraphic());
-        graphicPane.setTop(null);
-        graphicPane.setBottom(null);
     }
 
     @FXML
     public void onLogScalePress() {
         LineChart[] lineCharts = viewController.getLogGraphic();
-        graphicPane.setCenter(null);
-        graphicPane.setTop(lineCharts[0]);
-        graphicPane.setBottom(lineCharts[1]);
+        graphicPane.setCenter(lineCharts[0]);
+
+    }
+
+    @FXML
+    public void onChangeScalePress(){
+        viewController.changeScale();
     }
 
     /**
