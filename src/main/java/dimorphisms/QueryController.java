@@ -511,8 +511,12 @@ public class QueryController {
         }
     }
 
-    public void changeScale() {
-        graphic.setScale();
+    public void changeScale(double xMin, double xMax, double yMin, double yMax) {
+        graphic.setScale(xMin, xMax, yMin, yMax);
+    }
+
+    public void autoScale() {
+        graphic.autoScale();
     }
 /*
     void recalcula(){

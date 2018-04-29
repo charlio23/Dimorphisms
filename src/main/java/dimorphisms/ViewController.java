@@ -215,7 +215,11 @@ public class ViewController extends Application {
         domainController.addTempV12(temp);
     }
 
-    public void changeScale() {
-        domainController.changeScale();
+    public void changeScale(double xMin, double xMax, double yMin, double yMax) {
+        domainController.changeScale(xMin, xMax, yMin, yMax);;
+    }
+
+    public void autoScale() {
+        domainController.autoScale();
     }
 }

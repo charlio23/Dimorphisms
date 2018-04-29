@@ -20,14 +20,14 @@ public class GraphicHelper {
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("P");
         materialLinearGraphic = new LineChart<>(xAxis,yAxis);
-        LogarithmicNumberAxis yAxisLogPositive = new LogarithmicNumberAxis(2e-2,1e10);
+        LogarithmicNumberAxis yAxisLogPositive = new LogarithmicNumberAxis(1e-3,1e12);
         yAxisLogPositive.setLabel("P");
         NumberAxis xAxisLogPositive = new NumberAxis();
         xAxis.setLabel("T");
         materialLogGraphicPositive = new LineChart<>(xAxisLogPositive,yAxisLogPositive);
         NumberAxis xAxisLogNegative = new NumberAxis();
         xAxis.setLabel("T");
-        LogarithmicNumberAxis yAxisLogNegative = new LogarithmicNumberAxis(2e-2,1e10);
+        LogarithmicNumberAxis yAxisLogNegative = new LogarithmicNumberAxis(1e-3,1e12);
         yAxisLogNegative.setLabel("P");
         materialLogGraphicNegative = new LineChart<>(xAxisLogNegative,yAxisLogNegative);
 
@@ -44,15 +44,23 @@ public class GraphicHelper {
     /* TODO
     Here is how we can change scale ... it seems ...
      */
-    public void setScale(){
+    public void setScale(double xMin, double xMax, double yMin, double yMax){
         NumberAxis xAxis = (NumberAxis) materialLinearGraphic.getXAxis();
         NumberAxis yAxis = (NumberAxis) materialLinearGraphic.getYAxis();
+        NumberAxis xAxisLog = (NumberAxis) materialLogGraphicPositive.getXAxis();
+        LogarithmicNumberAxis yAxisLog = (LogarithmicNumberAxis) materialLogGraphicPositive.getYAxis();
         xAxis.setAutoRanging(false);
+        xAxisLog.setAutoRanging(false);
         yAxis.setAutoRanging(false);
-        xAxis.setLowerBound(20);
-        xAxis.setUpperBound(30);
-        yAxis.setLowerBound(20);
-        yAxis.setUpperBound(30);
+        yAxisLog.setAutoRanging(false);
+        xAxis.setLowerBound(xMin);
+        xAxis.setUpperBound(xMax);
+        xAxisLog.setLowerBound(xMin);
+        xAxisLog.setUpperBound(xMax);
+        yAxis.setLowerBound(yMin);
+        yAxis.setUpperBound(yMax);
+        yAxisLog.setLowerBound(yMin);
+        yAxisLog.setUpperBound(yMax);
         Utils.logger.log(Level.INFO,String.valueOf(xAxis.getLowerBound()));
         Utils.logger.log(Level.INFO,String.valueOf(xAxis.getUpperBound()));
 
@@ -171,6 +179,17 @@ public class GraphicHelper {
             }
         }
         return -1;
+    }
+
+    public void autoScale() {
+        NumberAxis xAxis = (NumberAxis) materialLinearGraphic.getXAxis();
+        NumberAxis yAxis = (NumberAxis) materialLinearGraphic.getYAxis();
+        NumberAxis xAxisLog = (NumberAxis) materialLogGraphicPositive.getXAxis();
+        LogarithmicNumberAxis yAxisLog = (LogarithmicNumberAxis) materialLogGraphicPositive.getYAxis();
+        xAxis.setAutoRanging(true);
+        yAxis.setAutoRanging(true);
+        xAxisLog.setAutoRanging(true);
+        yAxisLog.setAutoRanging(true);
     }
 
 

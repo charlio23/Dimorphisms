@@ -139,7 +139,11 @@ public class DomainController {
         Utils.logger.log(Level.INFO,s);
     }
 
-    public void changeScale() {
-        queryController.changeScale();
+    public void changeScale(double xMin, double xMax, double yMin, double yMax) {
+        queryController.changeScale(xMin, xMax, yMin, yMax);
+    }
+
+    public void autoScale() {
+        queryController.autoScale();
     }
 }
