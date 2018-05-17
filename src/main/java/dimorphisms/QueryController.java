@@ -495,10 +495,6 @@ public class QueryController {
                 (!queries.contains("#" + Utils.QUERY_CURVE_SOLID1_SOLID2)));
     }
 
-
-    /* TODO
-    check this method performance
-     */
     private void removeCalculatedQueries() {
         int i = 0;
         while (i < queries.size()) {

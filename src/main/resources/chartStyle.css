@@ -1,0 +1,25 @@
+.line-chart {
+
+}
+
+.triple-point {
+    -fx-stroke-width: 10px;
+}
+
+.curve {
+    -fx-stroke-width: 2px;
+}
+
+.stable {
+    -fx-stroke-width: 2px;
+}
+
+.meta-stable {
+    -fx-stroke-width: 2px;
+    -fx-stroke-dash-array: 12 12;
+}
+
+.super-meta-stable {
+    -fx-stroke-width: 1px;
+    -fx-stroke-dash-array: 2 10;
+}

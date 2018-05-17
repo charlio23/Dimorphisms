@@ -3,6 +3,7 @@ package dimorphisms;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.shape.Circle;
 
 import java.util.logging.Level;
 
@@ -30,7 +31,12 @@ public class GraphicHelper {
         LogarithmicNumberAxis yAxisLogNegative = new LogarithmicNumberAxis(1e-3,1e12);
         yAxisLogNegative.setLabel("P");
         materialLogGraphicNegative = new LineChart<>(xAxisLogNegative,yAxisLogNegative);
-
+        materialLinearGraphic.setCreateSymbols(false);
+        materialLogGraphicPositive.setCreateSymbols(false);
+        materialLogGraphicNegative.setCreateSymbols(false);
+        materialLinearGraphic.setAnimated(false);
+        materialLogGraphicNegative.setAnimated(false);
+        materialLogGraphicPositive.setAnimated(false);
     }
 
     public LineChart getLinearGraphic(){
@@ -41,9 +47,6 @@ public class GraphicHelper {
         return new LineChart[]{materialLogGraphicPositive, materialLogGraphicNegative};
     }
 
-    /* TODO
-    Here is how we can change scale ... it seems ...
-     */
     public void setScale(double xMin, double xMax, double yMin, double yMax){
         NumberAxis xAxis = (NumberAxis) materialLinearGraphic.getXAxis();
         NumberAxis yAxis = (NumberAxis) materialLinearGraphic.getYAxis();
@@ -107,35 +110,40 @@ public class GraphicHelper {
         } else {
             materialLogGraphicNegative.getData().set(positionLogNegative,seriesNegative);
         }
+        updateCss();
     }
     
     public void addPoint(String name, double temp, double press) {
-        XYChart.Series<Number,Number> series = new XYChart.Series<>();
-        series.setName(name);
-        series.getData().add(new XYChart.Data<>(temp,press));
+        XYChart.Series<Number,Number> seriesLinear = new XYChart.Series<>();
+        XYChart.Series<Number,Number> seriesLog = new XYChart.Series<>();
+        seriesLinear.setName(name);
+        seriesLog.setName(name);
+        seriesLinear.getData().add(new XYChart.Data<>(temp, press));
+        seriesLog.getData().add(new XYChart.Data<>(temp, press));
         //We find in what position the series is
         // (if it exists on the graphic)
         int positionLinear = getPositionLinear(name);
         if (positionLinear == -1) {
-            materialLinearGraphic.getData().add(series);
+            materialLinearGraphic.getData().add(seriesLinear);
         } else {
-            materialLinearGraphic.getData().set(positionLinear,series);
+            materialLinearGraphic.getData().set(positionLinear,seriesLinear);
         }
         if (press > 0) {
             int positionLogPositive = getPositionLogPositive(name);
             if (positionLogPositive == -1) {
-                materialLogGraphicPositive.getData().add(series);
+                materialLogGraphicPositive.getData().add(seriesLog);
             } else {
-                materialLogGraphicPositive.getData().set(positionLogPositive, series);
+                materialLogGraphicPositive.getData().set(positionLogPositive, seriesLog);
             }
         } else {
             int positionLogNegative = getPositionLogNegative(name);
             if (positionLogNegative == -1) {
-                materialLogGraphicNegative.getData().add(series);
+                materialLogGraphicNegative.getData().add(seriesLog);
             } else {
-                materialLogGraphicNegative.getData().set(positionLogNegative, series);
+                materialLogGraphicNegative.getData().set(positionLogNegative, seriesLog);
             }
         }
+        updateCss();
     }
 
     public void removeInfo(String name) {
@@ -192,11 +200,24 @@ public class GraphicHelper {
         yAxisLog.setAutoRanging(true);
     }
 
-
-
-    /* TODO
-    Check the need of other methods such as:
-        - series stroke and styling
-        - etc
-     */
+    private void updateCss() {
+        for(XYChart.Series series : materialLinearGraphic.getData()) {
+            if (series.getName().equals(Utils.QUERY_TLV1) || series.getName().equals(Utils.QUERY_TLV2) ||
+                    series.getName().equals(Utils.QUERY_TV12) || series.getName().equals(Utils.QUERY_TL12)) {
+                series.getNode().getStyleClass().add("triple-point");
+            } else series.getNode().getStyleClass().add("curve");
+        }
+        for(XYChart.Series series : materialLogGraphicPositive.getData()) {
+            if (series.getName().equals(Utils.QUERY_TLV1) || series.getName().equals(Utils.QUERY_TLV2) ||
+                    series.getName().equals(Utils.QUERY_TV12) || series.getName().equals(Utils.QUERY_TL12)) {
+                series.getNode().getStyleClass().add("triple-point");
+            } else series.getNode().getStyleClass().add("curve");
+        }
+        for(XYChart.Series series : materialLogGraphicNegative.getData()) {
+            if (series.getName().equals(Utils.QUERY_TLV1) || series.getName().equals(Utils.QUERY_TLV2) ||
+                    series.getName().equals(Utils.QUERY_TV12) || series.getName().equals(Utils.QUERY_TL12)) {
+                series.getNode().getStyleClass().add("triple-point");
+            } else series.getNode().getStyleClass().add("curve");
+        }
+    }
 }

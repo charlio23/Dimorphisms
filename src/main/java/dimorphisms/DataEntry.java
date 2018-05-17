@@ -260,10 +260,10 @@ public class DataEntry {
 
     @FXML
     public void onLiquidSolid2VaporTempAddPressed() {
-        if (!checkTextIsCorrect(liquidSolid1VaporTemp.getText())) {
-            showErrorDialogText(Utils.LIQUID_SOLID_1_ERR,"Temperature has to be a number.");
+        if (!checkTextIsCorrect(liquidSolid2VaporTemp.getText())) {
+            showErrorDialogText(Utils.LIQUID_SOLID_2_ERR,"Temperature has to be a number.");
         }
-        float temp = Float.parseFloat(liquidSolid1VaporTemp.getText());
+        float temp = Float.parseFloat(liquidSolid2VaporTemp.getText());
         viewController.addLiquidSolid2VaporTemp(temp);
     }
 

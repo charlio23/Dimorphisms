@@ -36,6 +36,7 @@ public class ViewController extends Application {
 
         primaryStage.setTitle("Main Menu");
         mainMenuScene = new Scene(p,715,415);
+        mainMenuScene.getStylesheets().add("/mainMenuStyle.css");
         primaryStage.setScene(mainMenuScene);
         primaryStage.show();
     }
@@ -72,6 +73,7 @@ public class ViewController extends Application {
                 GraphicView fooController = (GraphicView) fxmlLoader.getController();
                 fooController.setViewController(this);
                 graphicViewScene = new Scene(p,715,415);
+                graphicViewScene.getStylesheets().add("/chartStyle.css");
 
     }
 
@@ -216,7 +218,7 @@ public class ViewController extends Application {
     }
 
     public void changeScale(double xMin, double xMax, double yMin, double yMax) {
-        domainController.changeScale(xMin, xMax, yMin, yMax);;
+        domainController.changeScale(xMin, xMax, yMin, yMax);
     }
 
     public void autoScale() {

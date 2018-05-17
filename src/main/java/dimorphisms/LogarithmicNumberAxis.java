@@ -139,10 +139,7 @@ public class LogarithmicNumberAxis extends ValueAxis<Number> {
      */
     @Override
     protected String getTickMarkLabel(Number value) {
-        NumberFormat formatter = NumberFormat.getInstance();
-        formatter.setMaximumIntegerDigits(10);
-        formatter.setMinimumIntegerDigits(1);
-        return formatter.format(value);
+        return String.format("%6.0e",value);
     }
 
     /**
