@@ -17,19 +17,19 @@ public class GraphicHelper {
 
     public GraphicHelper() {
         NumberAxis xAxis = new NumberAxis();
-        xAxis.setLabel("T");
+        xAxis.setLabel("T (K)");
         NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("P");
+        yAxis.setLabel("P (MPa)");
         materialLinearGraphic = new LineChart<>(xAxis,yAxis);
         LogarithmicNumberAxis yAxisLogPositive = new LogarithmicNumberAxis(1e-3,1e12);
-        yAxisLogPositive.setLabel("P");
+        yAxisLogPositive.setLabel("P (MPa)");
         NumberAxis xAxisLogPositive = new NumberAxis();
-        xAxis.setLabel("T");
+        xAxis.setLabel("T (K)");
         materialLogGraphicPositive = new LineChart<>(xAxisLogPositive,yAxisLogPositive);
         NumberAxis xAxisLogNegative = new NumberAxis();
-        xAxis.setLabel("T");
+        xAxis.setLabel("T (K)");
         LogarithmicNumberAxis yAxisLogNegative = new LogarithmicNumberAxis(1e-3,1e12);
-        yAxisLogNegative.setLabel("P");
+        yAxisLogNegative.setLabel("P (MPa)");
         materialLogGraphicNegative = new LineChart<>(xAxisLogNegative,yAxisLogNegative);
         materialLinearGraphic.setCreateSymbols(false);
         materialLogGraphicPositive.setCreateSymbols(false);
