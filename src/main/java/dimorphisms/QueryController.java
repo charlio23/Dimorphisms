@@ -25,6 +25,7 @@ public class QueryController {
     private MaterialProperties materialProperties;
     private GraphicHelper graphic;
     private FuncHelper funcHelper;
+    private DiagramGenerator diagramGenerator;
 
     public QueryController(String name) {
         queries = new ArrayList<>();
@@ -39,6 +40,10 @@ public class QueryController {
         /* TODO
         Make queries to update graphic
          */
+    }
+
+    public MaterialProperties getMaterialProperties() {
+        return materialProperties;
     }
 
     public String makeQueryVaporSth(String query, VaporSth eqCurve) {

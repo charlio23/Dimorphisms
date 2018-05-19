@@ -115,5 +115,25 @@ public class Utils {
 
     public static final int TEMPERATURE_SIZE = (int) ((TEMPERATURE_FINAL-TEMPERATURE_ORIGIN)/TEMPERATURE_STEP);
 
+    public static final int DATA_SIZE = 1000;
+
+    public static final int STABLE = 0;
+
+    public static final int META_STABLE = 1;
+
+    public static final int SUPER_META_STABLE = 2;
+
     public static final Logger logger = Logger.getAnonymousLogger();
+
+    public static final String TOPOLOGY_TEXT_1 = "The topology of this material is enantiotropic. As we can see, Vapor-Solid1-Solid2 and Liquid-Solid1-Solid2 triple points are stable.";
+
+    public static final String TOPOLOGY_TEXT_2 = "The topology of this material is overall enantiotropic. As we can see, Vapor-Solid1-Solid2 triple point is stable whereas Liquid-Solid1-Solid2 is meta-stable.";
+
+    public static final String TOPOLOGY_TEXT_3 = "The topology of this material is monotropic. As we can see, Vapor-Solid1-Solid2 triple point is meta-stable whereas Liquid-Solid1-Solid2 is stable.";
+
+    public static final String TOPOLOGY_TEXT_4 = "The topology of this material is overall monotropic. As we can see, Vapor-Solid1-Solid2 and Liquid-Solid1-Solid2 triple points are meta-stable and as a result, the whole Solid2 phase is meta-stable.";
+
+    public static final String TOPOLOGY_TEXT = "In the following image we can see a qualitative description of the stability of material.";
+
+    public static final String TOPOLOGY_ADITIONAL_INFO = "The phases I and II may be in different positions with respect to the real stable diagram.";
 }

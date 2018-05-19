@@ -13,5 +13,6 @@
       <Button layoutX="84.0" layoutY="143.0" mnemonicParsing="false" onAction="#onLogScalePress" text="Log" />
       <Button layoutX="46.0" layoutY="203.0" mnemonicParsing="false" onAction="#onChangeScalePress" text="Change Scale" />
       <Button layoutX="57.0" layoutY="238.0" mnemonicParsing="false" onAction="#onAutoScalePress" text="Auto Scale" />
+      <Button fx:id="viewTopology" layoutX="44.0" layoutY="281.0" mnemonicParsing="false" onAction="#onViewTopologyPressed" text="View Topology" />
    </children>
 </AnchorPane>

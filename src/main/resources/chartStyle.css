@@ -2,27 +2,27 @@
 
 }
 
-.default-color0.chart-series-line { -fx-stroke: #e6194b; }
-.default-color1.chart-series-line { -fx-stroke: #3cb44b; }
-.default-color2.chart-series-line { -fx-stroke: #ffe119; }
-.default-color3.chart-series-line { -fx-stroke: #0082c8; }
-.default-color4.chart-series-line { -fx-stroke: #f58231; }
-.default-color5.chart-series-line { -fx-stroke: #911eb4; }
-.default-color6.chart-series-line { -fx-stroke: #46f0f0; }
-.default-color7.chart-series-line { -fx-stroke: #800000; }
-.default-color8.chart-series-line { -fx-stroke: #e6beff; }
-.default-color9.chart-series-line { -fx-stroke: #008080; }
+.chart-series-line.series0  { -fx-stroke: #e6194b; }
+.chart-series-line.series1  { -fx-stroke: #3cb44b; }
+.chart-series-line.series2  { -fx-stroke: #ffe119; }
+.chart-series-line.series3  { -fx-stroke: #0082c8; }
+.chart-series-line.series4  { -fx-stroke: #f58231; }
+.chart-series-line.series5  { -fx-stroke: #911eb4; }
+.chart-series-line.series6  { -fx-stroke: #46f0f0; }
+.chart-series-line.series7  { -fx-stroke: #800000; }
+.chart-series-line.series8  { -fx-stroke: #e6beff; }
+.chart-series-line.series9  { -fx-stroke: #008080; }
 
-.default-color0.chart-line-symbol { -fx-background-color: #e6194b, white; }
-.default-color1.chart-line-symbol { -fx-background-color: #3cb44b, white; }
-.default-color2.chart-line-symbol { -fx-background-color: #ffe119, white; }
-.default-color3.chart-line-symbol { -fx-background-color: #0082c8, white; }
-.default-color4.chart-line-symbol { -fx-background-color: #f58231, white; }
-.default-color5.chart-line-symbol { -fx-background-color: #911eb4, white; }
-.default-color6.chart-line-symbol { -fx-background-color: #46f0f0, white; }
-.default-color7.chart-line-symbol { -fx-background-color: #800000, white; }
-.default-color8.chart-line-symbol { -fx-background-color: #e6beff, white; }
-.default-color9.chart-line-symbol { -fx-background-color: #008080, white; }
+.chart-line-symbol.series0 { -fx-background-color: #e6194b, white; }
+.chart-line-symbol.series1 { -fx-background-color: #3cb44b, white; }
+.chart-line-symbol.series2 { -fx-background-color: #ffe119, white; }
+.chart-line-symbol.series3 { -fx-background-color: #0082c8, white; }
+.chart-line-symbol.series4 { -fx-background-color: #f58231, white; }
+.chart-line-symbol.series5 { -fx-background-color: #911eb4, white; }
+.chart-line-symbol.series6 { -fx-background-color: #46f0f0, white; }
+.chart-line-symbol.series7 { -fx-background-color: #800000, white; }
+.chart-line-symbol.series8 { -fx-background-color: #e6beff, white; }
+.chart-line-symbol.series9 { -fx-background-color: #008080, white; }
 
 .triple-point {
     -fx-stroke-width: 6px;

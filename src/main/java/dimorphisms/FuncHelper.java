@@ -75,6 +75,18 @@ public class FuncHelper {
         return result;
     }
 
+    public static double[] getArrayFromVaporCurve(double init, double fin, VaporSth eqCurve) {
+        double[] result = new double[Utils.DATA_SIZE];
+        double temperature = init;
+        double step = (fin - init)/Utils.DATA_SIZE;
+        for (int i = 0; i < Utils.DATA_SIZE; ++i) {
+            double value = eqCurve.getA() - eqCurve.getB()/(eqCurve.getC() + temperature);
+            result[i] = exp(value);
+            temperature += step;
+        }
+        return result;
+    }
+
     public static double[] getArrayFromLine(double pointTemp, double pointPress, double p) {
         double[] result = new double[Utils.TEMPERATURE_SIZE];
         double temperature = Utils.TEMPERATURE_ORIGIN;
@@ -82,6 +94,18 @@ public class FuncHelper {
             double value = p*(temperature - pointTemp) + pointPress;
             result[i] = value;
             temperature += Utils.TEMPERATURE_STEP;
+        }
+        return result;
+    }
+
+    public static double[] getArrayFromLine(double init, double fin, double pressIni ,double curve) {
+        double[] result = new double[Utils.DATA_SIZE];
+        double temperature = init;
+        double step = (fin - init)/Utils.DATA_SIZE;
+        for (int i = 0; i < Utils.DATA_SIZE; ++i) {
+            double value = curve*(temperature - init) + pressIni;
+            result[i] = value;
+            temperature += step;
         }
         return result;
     }

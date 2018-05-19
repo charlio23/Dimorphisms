@@ -71,7 +71,7 @@ public class ViewController extends Application {
                 fxmlLoader = new FXMLLoader();
                 Pane p = fxmlLoader.load(getClass().getResource("/GraphicView.fxml").openStream());
                 GraphicView fooController = (GraphicView) fxmlLoader.getController();
-                fooController.setViewController(this);
+                fooController.setViewController(this, true);
                 graphicViewScene = new Scene(p,715,415);
                 graphicViewScene.getStylesheets().add("/chartStyle.css");
 
@@ -95,11 +95,14 @@ public class ViewController extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader();
         Pane p = fxmlLoader.load(getClass().getResource("/GraphicView.fxml").openStream());
         GraphicView fooController = (GraphicView) fxmlLoader.getController();
-        fooController.setViewController(this);
+        fooController.setViewController(this, false);
 
         primaryStage.close();
         primaryStage.setTitle("Stable Diagram");
-        primaryStage.setScene(new Scene(p, 715, 415));
+        Scene stableDiagramScene = new Scene(p,715,415);
+        stableDiagramScene.getStylesheets().add("/stabDiagramStyle.css");
+
+        primaryStage.setScene(stableDiagramScene);
         primaryStage.show();
     }
 
@@ -197,8 +200,8 @@ public class ViewController extends Application {
         return domainController.saveMaterial();
     }
 
-    public LineChart getLinearGraphic() {
-        return domainController.getLinearGraphic();
+    public LineChart getLinearGraphic(boolean graphic) {
+        return domainController.getLinearGraphic(graphic);
     }
 
     public LineChart[] getLogGraphic() {
@@ -217,11 +220,15 @@ public class ViewController extends Application {
         domainController.addTempV12(temp);
     }
 
-    public void changeScale(double xMin, double xMax, double yMin, double yMax) {
-        domainController.changeScale(xMin, xMax, yMin, yMax);
+    public void changeScale(double xMin, double xMax, double yMin, double yMax, boolean graphic) {
+        domainController.changeScale(xMin, xMax, yMin, yMax, graphic);
     }
 
-    public void autoScale() {
-        domainController.autoScale();
+    public void autoScale(boolean graphic) {
+        domainController.autoScale(graphic);
+    }
+
+    public int getTopology() {
+        return domainController.getTopology();
     }
 }

@@ -3,7 +3,6 @@ package dimorphisms;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.shape.Circle;
 
 import java.util.logging.Level;
 
@@ -66,8 +65,8 @@ public class GraphicHelper {
         yAxisLog.setUpperBound(yMax);
         Utils.logger.log(Level.INFO,String.valueOf(xAxis.getLowerBound()));
         Utils.logger.log(Level.INFO,String.valueOf(xAxis.getUpperBound()));
-
     }
+
     public void addCurve(String name, double[] values) {
         XYChart.Series<Number,Number> seriesTotal = new XYChart.Series<>();
         XYChart.Series<Number,Number> seriesPositive = new XYChart.Series<>();
