@@ -1,18 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dimorphisms.MainMenu">
+<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #D3D3D3;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dimorphisms.MainMenu">
    <children>
-      <Button id="bevel-grey" layoutX="274.0" layoutY="166.0" mnemonicParsing="false" onAction="#onNewPressed" text="New" AnchorPane.topAnchor="120.0" />
-      <Button id="bevel-grey" layoutX="273.0" layoutY="188.0" mnemonicParsing="false" onAction="#onLoadPressed" text="Load" AnchorPane.topAnchor="200.0" />
-      <Label layoutX="238.0" layoutY="48.0" text="Dimorphisms" AnchorPane.topAnchor="50.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
+      <BorderPane prefHeight="500.0" prefWidth="800.0">
+         <center>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="520.0" spacing="50.0" style="-fx-background-color: #D3D3D3;" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="Dimorphisms">
+                     <font>
+                        <Font name="SansSerif Bold" size="25.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Label>
+                  <Button id="bevel-grey" mnemonicParsing="false" onAction="#onNewPressed" prefWidth="80.0" style="-fx-background-color: #00bfff; -fx-background-radius: 3em;" text="New" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font name="SansSerif Bold" size="13.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button id="bevel-grey" mnemonicParsing="false" onAction="#onLoadPressed" prefWidth="80.0" style="-fx-background-color: #00bfff; -fx-background-radius: 3em;" text="Load">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+               </children>
+               <padding>
+                  <Insets top="30.0" />
+               </padding>
+            </VBox>
+         </center>
+         <bottom>
+            <AnchorPane opacity="0.0" prefHeight="30.0" prefWidth="700.0" BorderPane.alignment="CENTER" />
+         </bottom>
+         <left>
+            <AnchorPane opacity="0.0" prefHeight="200.0" prefWidth="25.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <AnchorPane opacity="0.0" prefHeight="338.0" prefWidth="25.0" BorderPane.alignment="CENTER" />
+         </right>
+         <top>
+            <AnchorPane opacity="0.0" prefHeight="49.0" prefWidth="800.0" BorderPane.alignment="CENTER" />
+         </top>
+      </BorderPane>
    </children>
+   <effect>
+      <InnerShadow color="#0099eb" height="118.29" radius="58.67" width="118.39" />
+   </effect>
 </AnchorPane>

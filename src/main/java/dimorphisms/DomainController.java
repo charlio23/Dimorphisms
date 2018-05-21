@@ -99,61 +99,61 @@ public class DomainController {
         return dataController.loadMaterialNames();
     }
 
-    public void addLiquidVapor(float a, float b, float c, boolean isLog) {
+    public ArrayList<String> addLiquidVapor(float a, float b, float c, boolean isLog) {
         VaporSth eqCurve = new VaporSth(a,b,c,isLog);
-        String s = queryController.makeQueryVaporSth(Utils.QUERY_LIQUID_VAPOR,eqCurve);
-        Utils.logger.log(Level.INFO,s);
         unUpdateDiagram();
+        return queryController.makeQueryVaporSth(Utils.QUERY_LIQUID_VAPOR,eqCurve);
+
     }
 
-    public void addVaporSolid1(float a, float b, float c, boolean isLog) {
+    public ArrayList<String> addVaporSolid1(float a, float b, float c, boolean isLog) {
         VaporSth eqCurve = new VaporSth(a,b,c,isLog);
-        String s = queryController.makeQueryVaporSth(Utils.QUERY_VAPOR_SOLID1,eqCurve);
-        Utils.logger.log(Level.INFO,s);
         unUpdateDiagram();
+        return queryController.makeQueryVaporSth(Utils.QUERY_VAPOR_SOLID1,eqCurve);
+
     }
 
-    public void addVaporSolid2(float a, float b, float c, boolean isLog) {
+    public ArrayList<String> addVaporSolid2(float a, float b, float c, boolean isLog) {
         VaporSth eqCurve = new VaporSth(a,b,c,isLog);
-        String s = queryController.makeQueryVaporSth(Utils.QUERY_VAPOR_SOLID2,eqCurve);
-        Utils.logger.log(Level.INFO,s);
         unUpdateDiagram();
+        return queryController.makeQueryVaporSth(Utils.QUERY_VAPOR_SOLID2,eqCurve);
+
     }
 
-    public void addTempLV1(float temp) {
-        String s = queryController.makeQueryOther(Utils.QUERY_TLV1,temp);
-        Utils.logger.log(Level.INFO,s);
+    public ArrayList<String> addTempLV1(float temp) {
         unUpdateDiagram();
+        return queryController.makeQueryOther(Utils.QUERY_TLV1,temp);
+
     }
 
-    public void addTempLV2(float temp) {
-        String s = queryController.makeQueryOther(Utils.QUERY_TLV2,temp);
-        Utils.logger.log(Level.INFO,s);
+    public ArrayList<String> addTempLV2(float temp) {
         unUpdateDiagram();
+        return queryController.makeQueryOther(Utils.QUERY_TLV2,temp);
+
     }
 
-    public void addTempV12(float temp) {
-        String s = queryController.makeQueryOther(Utils.QUERY_TV12,temp);
-        Utils.logger.log(Level.INFO,s);
+    public ArrayList<String> addTempV12(float temp) {
         unUpdateDiagram();
+        return queryController.makeQueryOther(Utils.QUERY_TV12,temp);
+
     }
 
-    public void addLiquidSolid1(float temp) {
-        String s = queryController.makeQueryOther(Utils.QUERY_LIQUID_SOLID1,temp);
-        Utils.logger.log(Level.INFO,s);
+    public ArrayList<String> addLiquidSolid1(float temp) {
         unUpdateDiagram();
+        return queryController.makeQueryOther(Utils.QUERY_LIQUID_SOLID1,temp);
+
     }
 
-    public void addLiquidSolid2(float temp) {
-        String s = queryController.makeQueryOther(Utils.QUERY_LIQUID_SOLID2,temp);
-        Utils.logger.log(Level.INFO,s);
+    public ArrayList<String> addLiquidSolid2(float temp) {
         unUpdateDiagram();
+        return queryController.makeQueryOther(Utils.QUERY_LIQUID_SOLID2,temp);
+
     }
 
-    public void addSolid1Solid2(float temp) {
-        String s = queryController.makeQueryOther(Utils.QUERY_SOLID1_SOLID2,temp);
-        Utils.logger.log(Level.INFO,s);
+    public ArrayList<String> addSolid1Solid2(float temp) {
         unUpdateDiagram();
+        return queryController.makeQueryOther(Utils.QUERY_SOLID1_SOLID2,temp);
+
     }
 
     public void changeScale(double xMin, double xMax, double yMin, double yMax, boolean graphic) {

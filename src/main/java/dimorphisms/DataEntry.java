@@ -2,9 +2,15 @@ package dimorphisms;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 /**
@@ -34,6 +40,16 @@ public class DataEntry {
     @FXML private TextField liquidSolid1dpdt;
     @FXML private TextField liquidSolid2dpdt;
     @FXML private TextField solid1Solid2dpdt;
+    @FXML private Pane liquidVaporPane;
+    @FXML private Pane solid1VaporPane;
+    @FXML private Pane solid2VaporPane;
+    @FXML private Pane liquidSolid1Pane;
+    @FXML private Pane liquidSolid2Pane;
+    @FXML private Pane solid1Solid2Pane;
+    @FXML private Button stableDiagramButton;
+
+    private ArrayList<String> moreInformationText;
+
 
 
 
@@ -47,6 +63,7 @@ public class DataEntry {
      */
     public void setViewController(ViewController viewController){
         this.viewController = viewController;
+        moreInformationText = new ArrayList<>();
     }
 
     /**
@@ -141,7 +158,9 @@ public class DataEntry {
         float b = Float.parseFloat(liquidVaporB.getText());
         float c = Float.parseFloat(liquidVaporC.getText());
         boolean isLog = liquidVaporLog.isSelected();
-        viewController.addLiquidVapor(a, b, c, isLog);
+        updateInformation(viewController.addLiquidVapor(a, b, c, isLog));
+        liquidVaporPane.getStyleClass().add("data-entered");
+
     }
 
     /**
@@ -167,7 +186,9 @@ public class DataEntry {
         float b = Float.parseFloat(solid1VaporB.getText());
         float c = Float.parseFloat(solid1VaporC.getText());
         boolean isLog = solid1VaporLog.isSelected();
-        viewController.addSolid1Vapor(a, b, c, isLog);
+        updateInformation(viewController.addSolid1Vapor(a, b, c, isLog));
+        solid1VaporPane.getStyleClass().add("data-entered");
+
     }
 
     /**
@@ -192,7 +213,8 @@ public class DataEntry {
         float b = Float.parseFloat(solid2VaporB.getText());
         float c = Float.parseFloat(solid2VaporC.getText());
         boolean isLog = solid2VaporLog.isSelected();
-        viewController.addSolid2Vapor(a, b, c, isLog);
+        updateInformation(viewController.addSolid2Vapor(a, b, c, isLog));
+        solid2VaporPane.getStyleClass().add("data-entered");
     }
 
     /**
@@ -207,7 +229,9 @@ public class DataEntry {
         }
 
         float dpdt = Float.parseFloat(liquidSolid1dpdt.getText());
-        viewController.addLiquidSolid1(dpdt);
+        updateInformation(viewController.addLiquidSolid1(dpdt));
+        liquidSolid1Pane.getStyleClass().add("data-entered");
+
     }
 
     /**
@@ -222,7 +246,9 @@ public class DataEntry {
         }
 
         float dpdt = Float.parseFloat(liquidSolid2dpdt.getText());
-        viewController.addLiquidSolid2(dpdt);
+        updateInformation(viewController.addLiquidSolid2(dpdt));
+        liquidSolid2Pane.getStyleClass().add("data-entered");
+
     }
 
     /**
@@ -237,7 +263,9 @@ public class DataEntry {
         }
 
         float dpdt = Float.parseFloat(solid1Solid2dpdt.getText());
-        viewController.addSolid1Solid2(dpdt);
+        updateInformation(viewController.addSolid1Solid2(dpdt));
+        solid1Solid2Pane.getStyleClass().add("data-entered");
+
     }
 
     @FXML
@@ -246,7 +274,9 @@ public class DataEntry {
             showErrorDialogText(Utils.SOLID_1_SOLID_2_ERR,"Temperature has to be a number.");
         }
         float temp = Float.parseFloat(solid1Solid2VaporTemp.getText());
-        viewController.addSolid1Solid2VaporTemp(temp);
+        updateInformation(viewController.addSolid1Solid2VaporTemp(temp));
+        solid1Solid2Pane.getStyleClass().add("data-entered");
+
     }
 
     @FXML
@@ -255,7 +285,9 @@ public class DataEntry {
             showErrorDialogText(Utils.LIQUID_SOLID_1_ERR,"Temperature has to be a number.");
         }
         float temp = Float.parseFloat(liquidSolid1VaporTemp.getText());
-        viewController.addLiquidSolid1VaporTemp(temp);
+        updateInformation(viewController.addLiquidSolid1VaporTemp(temp));
+        liquidSolid1Pane.getStyleClass().add("data-entered");
+
     }
 
     @FXML
@@ -264,7 +296,9 @@ public class DataEntry {
             showErrorDialogText(Utils.LIQUID_SOLID_2_ERR,"Temperature has to be a number.");
         }
         float temp = Float.parseFloat(liquidSolid2VaporTemp.getText());
-        viewController.addLiquidSolid2VaporTemp(temp);
+        updateInformation(viewController.addLiquidSolid2VaporTemp(temp));
+        liquidSolid2Pane.getStyleClass().add("data-entered");
+
     }
 
     /**
@@ -350,5 +384,115 @@ public class DataEntry {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private void updateInformation(ArrayList<String> information) {
+        moreInformationText = new ArrayList<>();
+        for (String info: information) {
+            String[] values = info.split(" ");
+            switch (values[0]) {
+                case Utils.QUERY_PLV1:
+                    moreInformationText.add("Found triple point LV1: " + values[1] + " K,  " + values[2] + " MPa");
+                    break;
+                case Utils.QUERY_PLV2:
+                    moreInformationText.add("Found triple point LV2: " + values[1] + " K,  " + values[2] + " MPa");
+                    break;
+                case Utils.QUERY_PL12:
+                    moreInformationText.add("Found triple point L12: " + values[1] + " K,  " + values[2] + " MPa");
+                    break;
+                case Utils.QUERY_PV12:
+                    moreInformationText.add("Found triple point V12: " + values[1] + " K,  " + values[2] + " MPa");
+                    break;
+
+                case Utils.QUERY_LIQUID_VAPOR:
+                    liquidVaporA.setText(values[1]);
+                    liquidVaporB.setText(values[2]);
+                    liquidVaporC.setText(values[3]);
+                    liquidVaporLn.setSelected(true);
+                    liquidVaporPane.getStyleClass().add("data-calculated");
+                    break;
+
+                case Utils.QUERY_VAPOR_SOLID1:
+                    solid1VaporA.setText(values[1]);
+                    solid1VaporB.setText(values[2]);
+                    solid1VaporC.setText(values[3]);
+                    solid1VaporPane.getStyleClass().add("data-calculated");
+                    break;
+
+                case Utils.QUERY_VAPOR_SOLID2:
+                    solid2VaporA.setText(values[1]);
+                    solid2VaporB.setText(values[2]);
+                    solid2VaporC.setText(values[3]);
+                    solid2VaporPane.getStyleClass().add("data-calculated");
+                    break;
+
+                case Utils.QUERY_LIQUID_SOLID1:
+                    liquidSolid1dpdt.setText(values[1]);
+                    liquidSolid1Pane.getStyleClass().add("data-calculated");
+                    break;
+
+                case Utils.QUERY_LIQUID_SOLID2:
+                    liquidSolid2dpdt.setText(values[1]);
+                    liquidSolid2Pane.getStyleClass().add("data-calculated");
+                    break;
+
+                case Utils.QUERY_SOLID1_SOLID2:
+                    solid1Solid2dpdt.setText(values[1]);
+                    solid1Solid2Pane.getStyleClass().add("data-calculated");
+                    break;
+
+                case Utils.QUERY_TLV1:
+                    liquidSolid1VaporTemp.setText(values[1]);
+                    liquidSolid1Pane.getStyleClass().add("data-calculated");
+                    break;
+
+                case Utils.QUERY_TLV2:
+                    liquidSolid2VaporTemp.setText(values[1]);
+                    liquidSolid2Pane.getStyleClass().add("data-calculated");
+                    break;
+
+                case Utils.QUERY_TV12:
+                    solid1Solid2VaporTemp.setText(values[1]);
+                    solid1Solid2Pane.getStyleClass().add("data-calculated");
+                    break;
+                case Utils.QUERY_ERROR_CONFLICT:
+                    return;
+
+                case Utils.QUERY_ERROR_UNEXPECTED:
+                    return;
+
+                case Utils.ACTIVATE_STABLE_DIAGRAM:
+                    stableDiagramButton.setDisable(false);
+                    break;
+
+                default:
+                    break;
+
+            }
+        }
+    }
+
+    @FXML
+    public void onViewMoreInformationPressed(){
+        if (moreInformationText.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("More Information");
+            alert.setHeaderText(null);
+            alert.setContentText("There is no additional information to show.");
+            alert.showAndWait();
+
+        } else {
+            Dialog dialog = new Dialog();
+            VBox vBox = new VBox(8);
+            for (String info: moreInformationText) {
+                vBox.getChildren().add(new Label(info));
+            }
+            dialog.getDialogPane().setContent(vBox);
+            dialog.setTitle("More Information");
+            dialog.setHeaderText("Information about triple points:");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        }
+
     }
 }

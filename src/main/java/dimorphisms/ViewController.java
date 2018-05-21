@@ -5,11 +5,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 /**
@@ -26,7 +28,7 @@ public class ViewController extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        primaryStage.getIcons().add(new Image("/startIcon.png"));
+         primaryStage.getIcons().add(new Image("/startIcon.png"));
         this.primaryStage = primaryStage;
         domainController = new DomainController();
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -35,7 +37,7 @@ public class ViewController extends Application {
         fooController.setViewController(this);
 
         primaryStage.setTitle("Main Menu");
-        mainMenuScene = new Scene(p,715,415);
+        mainMenuScene = new Scene(p,800,500);
         mainMenuScene.getStylesheets().add("/mainMenuStyle.css");
         primaryStage.setScene(mainMenuScene);
         primaryStage.show();
@@ -59,12 +61,13 @@ public class ViewController extends Application {
     public void newMaterial(String materialName) throws IOException {
 
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                GridPane pane = fxmlLoader.load(getClass().getResource("/DataEntry.fxml").openStream());
+                AnchorPane pane = fxmlLoader.load(getClass().getResource("/DataEntry.fxml").openStream());
                 DataEntry dataEntry = (DataEntry) fxmlLoader.getController();
                 dataEntry.setViewController(this);
                 dataEntry.setMaterialName(materialName);
                 primaryStage.setTitle("Data Entry");
-                dataEntryScene = new Scene(pane, 715, 415);
+                dataEntryScene = new Scene(pane, 800, 500);
+                dataEntryScene.getStylesheets().add("/dataEntryStyle.css");
                 primaryStage.setScene(dataEntryScene);
                 primaryStage.show();
                 domainController.newMaterial(materialName);
@@ -72,7 +75,7 @@ public class ViewController extends Application {
                 Pane p = fxmlLoader.load(getClass().getResource("/GraphicView.fxml").openStream());
                 GraphicView fooController = (GraphicView) fxmlLoader.getController();
                 fooController.setViewController(this, true);
-                graphicViewScene = new Scene(p,715,415);
+                graphicViewScene = new Scene(p,800,500);
                 graphicViewScene.getStylesheets().add("/chartStyle.css");
 
     }
@@ -99,7 +102,7 @@ public class ViewController extends Application {
 
         primaryStage.close();
         primaryStage.setTitle("Stable Diagram");
-        Scene stableDiagramScene = new Scene(p,715,415);
+        Scene stableDiagramScene = new Scene(p,800,500);
         stableDiagramScene.getStylesheets().add("/stabDiagramStyle.css");
 
         primaryStage.setScene(stableDiagramScene);
@@ -130,9 +133,8 @@ public class ViewController extends Application {
      * @param isLog the is log
      * @return the boolean
      */
-    public boolean addSolid1Vapor(float a, float b, float c, boolean isLog) {
-        domainController.addVaporSolid1(a,b,c,isLog);
-        return true;
+    public ArrayList<String> addSolid1Vapor(float a, float b, float c, boolean isLog) {
+        return domainController.addVaporSolid1(a,b,c,isLog);
     }
 
     /**
@@ -144,9 +146,8 @@ public class ViewController extends Application {
      * @param isLog the is log
      * @return the boolean
      */
-    public boolean addSolid2Vapor(float a, float b, float c, boolean isLog) {
-        domainController.addVaporSolid2(a,b,c,isLog);
-        return true;
+    public ArrayList<String> addSolid2Vapor(float a, float b, float c, boolean isLog) {
+        return domainController.addVaporSolid2(a,b,c,isLog);
     }
 
     /**
@@ -158,9 +159,8 @@ public class ViewController extends Application {
      * @param isLog the is log
      * @return the boolean
      */
-    public boolean addLiquidVapor(float a, float b, float c, boolean isLog) {
-        domainController.addLiquidVapor(a,b,c,isLog);
-        return true;
+    public ArrayList<String> addLiquidVapor(float a, float b, float c, boolean isLog) {
+        return domainController.addLiquidVapor(a,b,c,isLog);
     }
 
     /**
@@ -169,9 +169,8 @@ public class ViewController extends Application {
      * @param dpdt the dpdt
      * @return the boolean
      */
-    public boolean addLiquidSolid1(float dpdt) {
-        domainController.addLiquidSolid1(dpdt);
-        return true;
+    public ArrayList<String> addLiquidSolid1(float dpdt) {
+        return domainController.addLiquidSolid1(dpdt);
     }
 
     /**
@@ -180,9 +179,8 @@ public class ViewController extends Application {
      * @param dpdt the dpdt
      * @return the boolean
      */
-    public boolean addLiquidSolid2(float dpdt) {
-        domainController.addLiquidSolid2(dpdt);
-        return true;
+    public ArrayList<String> addLiquidSolid2(float dpdt) {
+        return domainController.addLiquidSolid2(dpdt);
     }
 
     /**
@@ -191,9 +189,8 @@ public class ViewController extends Application {
      * @param dpdt the dpdt
      * @return the boolean
      */
-    public boolean addSolid1Solid2(float dpdt) {
-        domainController.addSolid1Solid2(dpdt);
-        return true;
+    public ArrayList<String> addSolid1Solid2(float dpdt) {
+        return domainController.addSolid1Solid2(dpdt);
     }
 
     public boolean saveMaterial() {
@@ -208,16 +205,16 @@ public class ViewController extends Application {
         return domainController.getLogGraphic();
     }
 
-    public void addLiquidSolid1VaporTemp(float temp) {
-        domainController.addTempLV1(temp);
+    public ArrayList<String> addLiquidSolid1VaporTemp(float temp) {
+        return domainController.addTempLV1(temp);
     }
 
-    public void addLiquidSolid2VaporTemp(float temp) {
-        domainController.addTempLV2(temp);
+    public ArrayList<String> addLiquidSolid2VaporTemp(float temp) {
+        return domainController.addTempLV2(temp);
     }
 
-    public void addSolid1Solid2VaporTemp(float temp) {
-        domainController.addTempV12(temp);
+    public ArrayList<String> addSolid1Solid2VaporTemp(float temp) {
+        return domainController.addTempV12(temp);
     }
 
     public void changeScale(double xMin, double xMax, double yMin, double yMax, boolean graphic) {

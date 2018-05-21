@@ -2,6 +2,7 @@ package dimorphisms;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -9,6 +10,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 import java.util.Optional;
 
@@ -116,17 +119,21 @@ public class GraphicView {
                 break;
         }
         Dialog dialog = new Dialog();
-        GridPane grid = new GridPane();
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(0, 10, 0, 10));
-        grid.add(new Label(text), 0, 0);
-        grid.add(new ImageView(image), 0, 1);
         dialog.setTitle("P-T topology information");
-        dialog.setHeaderText(text);
-        dialog.getDialogPane().setContent(new VBox(8,new Label(Utils.TOPOLOGY_TEXT),new ImageView(image),new Label(Utils.TOPOLOGY_ADITIONAL_INFO)));
+        dialog.getDialogPane().getStylesheets().add(getClass().getResource("/mainMenuStyle.css").toExternalForm());
+        dialog.getDialogPane().setHeaderText(text);
+        Text text1 = new Text(Utils.TOPOLOGY_TEXT);
+        Text text2 = new Text(Utils.TOPOLOGY_ADITIONAL_INFO);
+        text1.prefWidth(550);
+        text1.setTextAlignment(TextAlignment.JUSTIFY);
+        text2.prefWidth(550);
+        text1.setTextAlignment(TextAlignment.JUSTIFY);
+        VBox vBox = new VBox(8,text1,new ImageView(image),text2);
+        vBox.setAlignment(Pos.CENTER);
+        dialog.getDialogPane().setContent(vBox);
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
-        dialog.getDialogPane().setPrefSize(550, 600);
+        dialog.getDialogPane().setPrefSize(550,600);
+        dialog.getDialogPane().setMaxSize(550, 600);
         dialog.show();
     }
 

@@ -59,7 +59,7 @@ public class Utils {
 
     public static final String QUERY_CURVE_LIQUID_SOLID1 = "curve-liquid-solid1";
 
-    public static final String QUERY_CURVE_LIQUID_SOLID2 = "curve-vapor-solid2";
+    public static final String QUERY_CURVE_LIQUID_SOLID2 = "curve-liquid-solid2";
 
     public static final String QUERY_CURVE_SOLID1_SOLID2 = "curve-solid1-solid2";
 
@@ -133,7 +133,9 @@ public class Utils {
 
     public static final String TOPOLOGY_TEXT_4 = "The topology of this material is overall monotropic. As we can see, Vapor-Solid1-Solid2 and Liquid-Solid1-Solid2 triple points are meta-stable and as a result, the whole Solid2 phase is meta-stable.";
 
-    public static final String TOPOLOGY_TEXT = "In the following image we can see a qualitative description of the stability of material.";
+    public static final String TOPOLOGY_TEXT = "In the following image we can see a qualitative description of the stability of the material.";
 
     public static final String TOPOLOGY_ADITIONAL_INFO = "The phases I and II may be in different positions with respect to the real stable diagram.";
+
+    public static final String ACTIVATE_STABLE_DIAGRAM = "stable-activate";
 }

@@ -7,18 +7,6 @@ import java.util.List;
 
 import static java.lang.Math.log;
 
-/* TODO
-    New Structure:
-     QueryController -> Father of the domain. Keeps track of program's state.
-     This is the program nucleus, all main calls should be processed here.
- */
-
-/* TODO
-    change var names:
-        liquid-solidX cannot refer to dP/dT, better say dPdTLiquidSolidX
-        curve-liquid-solidX has to refer to liquid-solidX
- */
-
 public class QueryController {
 
     private List<String> queries;
@@ -46,10 +34,15 @@ public class QueryController {
         return materialProperties;
     }
 
-    public String makeQueryVaporSth(String query, VaporSth eqCurve) {
+    public ArrayList<String> makeQueryVaporSth(String query, VaporSth eqCurve) {
         //Check if we have conflicts
+        ArrayList<String> result = new ArrayList<>();
         if (queries.contains("#" + query)) {
-            return Utils.QUERY_ERROR_CONFLICT;
+            result.add(Utils.QUERY_ERROR_CONFLICT);
+            /* TODO
+            determine conflicts
+             */
+            return result;
         }
         if (queries.contains(query)) {
             removeCalculatedQueries();
@@ -58,26 +51,36 @@ public class QueryController {
         switch (query) {
             case Utils.QUERY_LIQUID_VAPOR:
                 addLiquidVapor(eqCurve,true);
-                return Utils.QUERY_SUCCESS;
+                break;
 
             case Utils.QUERY_VAPOR_SOLID1:
                 addVaporSolid1(eqCurve,true);
-                return Utils.QUERY_SUCCESS;
+                break;
 
             case Utils.QUERY_VAPOR_SOLID2:
                 addVaporSolid2(eqCurve,true);
-                return Utils.QUERY_SUCCESS;
+                break;
 
             default:
-                return Utils.QUERY_ERROR_UNEXPECTED;
+                result.add(Utils.QUERY_ERROR_UNEXPECTED);
+                return result;
         }
 
+        result.add(Utils.QUERY_SUCCESS);
+        result.addAll(getCalculatedElements());
+        if (queries.size() == 17) result.add(Utils.ACTIVATE_STABLE_DIAGRAM);
+        return result;
     }
 
-    public String makeQueryOther(String query, double value) {
+    public ArrayList<String> makeQueryOther(String query, double value) {
         //Check if we have conflicts
+        ArrayList<String> result = new ArrayList<>();
         if (queries.contains("#" + query)) {
-            return Utils.QUERY_ERROR_CONFLICT;
+            result.add(Utils.QUERY_ERROR_CONFLICT);
+            /* TODO
+            determine conflicts
+             */
+            return result;
         }
         if (queries.contains(query)) {
             removeCalculatedQueries();
@@ -86,32 +89,37 @@ public class QueryController {
         switch (query) {
             case Utils.QUERY_LIQUID_SOLID1:
                 addLiquidSolid1(value, true);
-                return Utils.QUERY_SUCCESS;
+                break;
 
             case Utils.QUERY_LIQUID_SOLID2:
                 addLiquidSolid2(value, true);
-                return Utils.QUERY_SUCCESS;
+                break;
 
             case Utils.QUERY_SOLID1_SOLID2:
                 addSolid1Solid2(value, true);
-                return Utils.QUERY_SUCCESS;
+                break;
 
             case Utils.QUERY_TLV1:
                 addTLV1(value, true);
-                return Utils.QUERY_SUCCESS;
+                break;
 
             case Utils.QUERY_TLV2:
                 addTLV2(value, true);
-                return Utils.QUERY_SUCCESS;
+                break;
 
             case Utils.QUERY_TV12:
                 addTV12(value, true);
-                return Utils.QUERY_SUCCESS;
+                break;
 
             default:
-                return Utils.QUERY_ERROR_UNEXPECTED;
+                result.add(Utils.QUERY_ERROR_UNEXPECTED);
+                return result;
 
         }
+        result.add(Utils.QUERY_SUCCESS);
+        result.addAll(getCalculatedElements());
+        if (queries.size() == 17) result.add(Utils.ACTIVATE_STABLE_DIAGRAM);
+        return result;
     }
 
     public LineChart getLinearGraphic() {
@@ -519,155 +527,71 @@ public class QueryController {
     public void autoScale() {
         graphic.autoScale();
     }
-/*
-    void recalcula(){
-        if (v1vA != 0 && v2vA != 0 && v12t == 0) {
-            if ((v1log.isSelected() && v2log.isSelected()) || (v1ln.isSelected() && v2ln.isSelected())){
-                v12t = (v1vB-v2vB)/(v1vA-v2vA);
-                if (v1log.isSelected()) v12p = pow(10,v1vA - v1vB/v12t);
-                else v12p = exp(v1vA - v1vB/v12t);
-            }else if (v1log.isSelected() && v2ln.isSelected()){
-                v12t = (v1vB*log(10)-v2vB)/(v1vA*log(10)-v2vA);
-                v12p = exp(v2vA - v2vB/v12t);
-            }else{
-                v12t = (v1vB-v2vB*log(10))/(v1vA-v2vA*log(10));
-                v12p = exp(v1vA - v1vB/v12t);
-            }
-            grafic.agregarPunt("v12", v12t, v12p);
-            grafic.esPunt(num);
-            ++num;
-            info12v.setText("12V: T = " + String.valueOf(v12t) + " K, P = " + String.valueOf(v12p) + " Pa");
-            recalcula();
-        }
-        else if (v1vA != 0 && vlvA != 0 && lv1t == 0) {
-            if ((v1log.isSelected() && lvlog.isSelected()) || (v1ln.isSelected() && lvln.isSelected())){
-                lv1t = (v1vB-vlvB)/(v1vA-vlvA);
-                if (v1log.isSelected()) lv1p = pow(10,v1vA - v1vB/lv1t);
-                else lv1p = exp(v1vA - v1vB/lv1t);
-            }else if (v1log.isSelected() && lvln.isSelected()){
-                lv1t = (v1vB*log(10)-vlvB)/(v1vA*log(10)-vlvA);
-                lv1p = exp(vlvA - vlvB/lv1t);
-            }else{
-                lv1t = (v1vB-vlvB*log(10))/(v1vA-vlvA*log(10));
-                lv1p = exp(v1vA - v1vB/lv1t);
-            }
-            grafic.agregarPunt("lv1", lv1t, lv1p);
-            grafic.esPunt(num);
-            ++num;
-            info1lv.setText("1LV: T = " + String.valueOf(lv1t) + " K, P = " + String.valueOf(lv1p) + " Pa");
-            recalcula();
-        }
-        else if (vlvA != 0 && v2vA != 0 && lv2t == 0) {
-            if ((lvlog.isSelected() && v2log.isSelected()) || (lvln.isSelected() && v2ln.isSelected())){
-                lv2t = (vlvB-v2vB)/(vlvA-v2vA);
-                if (lvlog.isSelected()) lv2p = pow(10,vlvA - vlvB/lv2t);
-                else lv2p = exp(vlvA - vlvB/lv2t);
-            }else if (lvlog.isSelected() && v2ln.isSelected()){
-                lv2t = (vlvB*log(10)-v2vB)/(vlvA*log(10)-v2vA);
-                lv2p = exp(v2vA - v2vB/lv2t);
-            }else{
-                lv2t = (vlvB-v2vB*log(10))/(vlvA-v2vA*log(10));
-                lv2p = exp(v2vA - v2vB/lv2t);
-            }
-            grafic.agregarPunt("lv2", lv2t, lv2p);
-            grafic.esPunt(num);
-            ++num;
-            info2lv.setText("2LV: T = " + String.valueOf(lv2t) + " K, P = "+ String.valueOf(lv2p)+ " Pa");
-            recalcula();
-        }
-        else if (lv1t != 0 && lv2t != 0 && vlvA == 0){
-            lvln.setSelected(true);
-            vlvB = (log(lv1p/lv2p))/((1/lv2t)-(1/lv1t));
-            vlvA = log(lv1p) + vlvB/lv1t;
-            lvA.setText(String.valueOf(vlvA));
-            lvB.setText(String.valueOf(vlvB));
-            String s = "e^(" + String.valueOf(vlvA) + " - " + String.valueOf(vlvB) + "/x)";
-            Funcio f = new Funcio(s);
-            double x[] = f.rang(4, 1000, 1);
-            double y[] = f.eval(x);
-            grafic.agregarGrafic("lv", x, y);
-            grafic.esRecta(num);
-            ++num;
-            recalcula();
-        }
 
-        else if(v12t != 0 && lv1t != 0 && v1vA == 0){
-            v1ln.setSelected(true);
-            v1vB = (log(lv1p/v12p))/((1/v12t)-(1/lv1t));
-            v1vA = log(lv1p) + v1vB/lv1t;
-            v1A.setText(String.valueOf(v2vA));
-            v1B.setText(String.valueOf(v2vB));
-            String s = "e^(" + String.valueOf(v1vA) + " - " + String.valueOf(v1vB) + "/x)";
-            Funcio f = new Funcio(s);
-            double x[] = f.rang(4, 1000, 1);
-            double y[] = f.eval(x);
-            grafic.agregarGrafic("v1", x, y);
-            grafic.esRecta(num);
-            ++num;
-            recalcula();
+    private ArrayList<String> getCalculatedElements() {
+        ArrayList<String> result = new ArrayList<>();
+        for (String query: queries) {
+            if (query.charAt(0) == '#') {
+                switch (query.substring(1)) {
+                    case Utils.QUERY_PLV1:
+                        result.add(Utils.QUERY_PLV1 + " " + String.format ("%.2f",materialProperties.getTempLV1())
+                                + String.format("%6.0e",materialProperties.getPressLV1()));
+                        break;
+                    case Utils.QUERY_PLV2:
+                        result.add(Utils.QUERY_PLV2 + " " + String.format ("%.2f", materialProperties.getTempLV2())
+                                 + String.format("%6.0e",materialProperties.getPressLV2()));
+                        break;
+                    case Utils.QUERY_PL12:
+                        result.add(Utils.QUERY_PL12 + " " + String.format ("%.2f", materialProperties.getTempL12())
+                                 + String.format("%6.0e",materialProperties.getPressL12()));
+                        break;
+                    case Utils.QUERY_PV12:
+                        result.add(Utils.QUERY_PV12 + " " + String.format ("%.2f", materialProperties.getTempV12())
+                                 + String.format("%6.0e",materialProperties.getPressV12()));
+                        break;
+
+                    case Utils.QUERY_LIQUID_VAPOR:
+                        result.add(Utils.QUERY_LIQUID_VAPOR + " " + materialProperties.getVaporLiquid().toString());
+                        break;
+
+                    case Utils.QUERY_VAPOR_SOLID1:
+                        result.add(Utils.QUERY_VAPOR_SOLID1 + " " + materialProperties.getVaporSolid1().toString());
+                        break;
+
+                    case Utils.QUERY_VAPOR_SOLID2:
+                        result.add(Utils.QUERY_VAPOR_SOLID2 + " " + materialProperties.getVaporSolid2().toString());
+                        break;
+
+                    case Utils.QUERY_LIQUID_SOLID1:
+                        result.add(Utils.QUERY_LIQUID_SOLID1 + " " + String.format ("%.2f", materialProperties.getLiquidSolid1()));
+                        break;
+
+                    case Utils.QUERY_LIQUID_SOLID2:
+                        result.add(Utils.QUERY_LIQUID_SOLID2 + " " + String.format ("%.2f", materialProperties.getLiquidSolid2()));
+                        break;
+
+                    case Utils.QUERY_SOLID1_SOLID2:
+                        result.add(Utils.QUERY_SOLID1_SOLID2 + " " + String.format ("%.2f", materialProperties.getSolid1Solid2()));
+                        break;
+
+                    case Utils.QUERY_TLV1:
+                        result.add(Utils.QUERY_TLV1 + " " + String.format ("%.2f", materialProperties.getTempLV1()));
+                        break;
+
+                    case Utils.QUERY_TLV2:
+                        result.add(Utils.QUERY_TLV2 + " " + String.format ("%.2f", materialProperties.getTempLV2()));
+                        break;
+
+                    case Utils.QUERY_TV12:
+                        result.add(Utils.QUERY_TV12 + " " + String.format ("%.2f", materialProperties.getTempV12()));
+                        break;
+                    default:
+                        break;
+
+                }
+            }
         }
-        else if(v12t != 0 && lv2t != 0 && v2vA == 0){
-            v2ln.setSelected(true);
-            v2vB = (log(lv2p/v12p))/((1/v12t)-(1/lv2t));
-            v2vA = log(lv2p) + v2vB/lv2t;
-            v2A.setText(String.valueOf(v2vA));
-            v2B.setText(String.valueOf(v2vB));
-            String s = "e^(" + String.valueOf(v2vA) + " - " + String.valueOf(v2vB) + "/x)";
-            Funcio f = new Funcio(s);
-            double x[] = f.rang(4, 1000, 1);
-            double y[] = f.eval(x);
-            grafic.agregarGrafic("v2", x, y);
-            grafic.esRecta(num);
-            ++num;
-            recalcula();
-        }
-        else if (pl1 != 0 && pl2 != 0 && l12t == 0){
-            l12t = ((pl1*lv1t) - (pl2*lv2t) + lv2p - lv1p)/(pl1-pl2);
-            l12p = pl1*l12t - pl1*lv1t + lv1p;
-            grafic.agregarPunt("l12", l12t, l12p);
-            grafic.esPunt(num);
-            ++num;
-            info12l.setText("12L: T = " + String.valueOf(l12t) + " K, P = " + String.valueOf(l12p) + " Pa");
-            recalcula();
-        }
-        else if (l12t != 0 && v12t != 0 && p12 == 0){
-            p12 = (l12p - v12p)/(l12t - v12t);
-            String s = String.valueOf(p12) + "*x - " + String.valueOf(p12) +
-                    "*" + String.valueOf(l12t) + " +" + String.valueOf(l12p);
-            Funcio f = new Funcio(s);
-            double x[] = f.rang(0,1000,100);
-            double y[] = f.eval(x);
-            grafic.agregarGrafic("12", x, y);
-            grafic.esRecta(num);
-            ++num;
-            recalcula();
-        }
-        else if (l12t != 0 && lv1t != 0 && pl1 == 0){
-            pl1 = (l12p - lv1p)/(l12t - lv1t);
-            String s = String.valueOf(pl1) + "*x - " + String.valueOf(pl1) +
-                    "*" + String.valueOf(l12t) + " +" + String.valueOf(l12p);
-            Funcio f = new Funcio(s);
-            double x[] = f.rang(0,1000,100);
-            double y[] = f.eval(x);
-            grafic.agregarGrafic("l1", x, y);
-            grafic.esRecta(num);
-            ++num;
-            recalcula();
-        }
-        else if (l12t != 0 && lv2t != 0 && pl2 == 0){
-            pl2 = (l12p - lv2p)/(l12t - lv2t);
-            String s = String.valueOf(pl2) + "*x - " + String.valueOf(pl2) +
-                    "*" + String.valueOf(l12t) + " +" + String.valueOf(l12p);
-            Funcio f = new Funcio(s);
-            double x[] = f.rang(0,1000,100);
-            double y[] = f.eval(x);
-            grafic.agregarGrafic("l2", x, y);
-            grafic.esRecta(num);
-            ++num;
-            recalcula();
-        }
+        return result;
     }
-*/
-
 
 }

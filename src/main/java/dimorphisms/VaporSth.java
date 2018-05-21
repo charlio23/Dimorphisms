@@ -92,4 +92,9 @@ public class VaporSth {
     public void setLog(boolean log) {
         this.log = log;
     }
+
+    @Override
+    public String toString() {
+        return String.format ("%.2f", a) + " " + String.format ("%.2f", b) + " " + String.format ("%.2f", c);
+    }
 }
