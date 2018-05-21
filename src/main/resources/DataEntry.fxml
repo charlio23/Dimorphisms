@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
@@ -7,11 +9,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="493.0" prefWidth="795.0" style="-fx-background-color: #D3D3D3;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dimorphisms.DataEntry">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="493.0" prefWidth="795.0" style="-fx-background-color: #d9d9d9;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dimorphisms.DataEntry">
    <children>
       <BorderPane prefHeight="474.0" prefWidth="775.0">
          <center>
-            <GridPane hgap="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="434.0" prefWidth="725.0" style="-fx-background-color: #D3D3D3;" vgap="2.0" BorderPane.alignment="CENTER">
+            <GridPane hgap="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="434.0" prefWidth="725.0" style="-fx-background-color: #d9d9d9;" vgap="2.0" BorderPane.alignment="CENTER">
                <children>
                   <Pane fx:id="liquidVaporPane" style="-fx-border-color: black; -fx-border-radius: 1em; -fx-background-radius: 1em;" GridPane.rowIndex="1">
                      <children>
@@ -30,7 +32,7 @@
                                     <TextField fx:id="liquidVaporC" prefHeight="25.0" prefWidth="43.0" />
                                  </children>
                               </HBox>
-                              <Button mnemonicParsing="false" onAction="#onLiquidVaporAddPressed" prefWidth="80.0" style="-fx-background-color: #00bfff; -fx-background-radius: 3em;" text="Add">
+                              <Button mnemonicParsing="false" onAction="#onLiquidVaporAddPressed" prefWidth="80.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="Add" textFill="WHITE">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
@@ -64,7 +66,7 @@
                                     <TextField fx:id="solid1VaporC" prefHeight="25.0" prefWidth="43.0" />
                                  </children>
                               </HBox>
-                              <Button mnemonicParsing="false" onAction="#onSolid1VaporAddPressed" prefWidth="80.0" style="-fx-background-color: #00bfff; -fx-background-radius: 3em;" text="Add">
+                              <Button mnemonicParsing="false" onAction="#onSolid1VaporAddPressed" prefWidth="80.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="Add" textFill="WHITE">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
@@ -98,7 +100,7 @@
                                     <TextField fx:id="solid2VaporC" prefHeight="25.0" prefWidth="43.0" />
                                  </children>
                               </HBox>
-                              <Button mnemonicParsing="false" onAction="#onSolid2VaporAddPressed" prefWidth="80.0" style="-fx-background-color: #00bfff; -fx-background-radius: 3em;" text="Add">
+                              <Button mnemonicParsing="false" onAction="#onSolid2VaporAddPressed" prefWidth="80.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="Add" textFill="WHITE">
                                  <effect>
                                     <DropShadow />
                                  </effect>
@@ -115,7 +117,7 @@
                         </VBox>
                      </children>
                   </Pane>
-                  <Label fx:id="materialName" text="Dimorphism_name" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                  <Label fx:id="materialName" alignment="CENTER" contentDisplay="CENTER" maxWidth="400.0" minWidth="400.0" prefHeight="26.0" prefWidth="400.0" text="Dimorphism_name" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
@@ -129,7 +131,7 @@
                                  <children>
                                     <Label text="TS1-L-V" />
                                     <TextField fx:id="liquidSolid1VaporTemp" prefHeight="25.0" prefWidth="43.0" />
-                                    <Button mnemonicParsing="false" onAction="#onLiquidSolid1VaporTempAddPressed" prefWidth="50.0" style="-fx-background-color: #00bfff; -fx-background-radius: 3em;" text="Add">
+                                    <Button mnemonicParsing="false" onAction="#onLiquidSolid1VaporTempAddPressed" prefWidth="50.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="Add" textFill="WHITE">
                                        <effect>
                                           <DropShadow />
                                        </effect>
@@ -146,7 +148,7 @@
                                  <children>
                                     <Label text="dp/dT" />
                                     <TextField fx:id="liquidSolid1dpdt" prefHeight="25.0" prefWidth="43.0" />
-                                    <Button mnemonicParsing="false" onAction="#onLiquidSolid1AddPressed" prefWidth="50.0" style="-fx-background-color: #00bfff; -fx-background-radius: 3em;" text="Add">
+                                    <Button mnemonicParsing="false" onAction="#onLiquidSolid1AddPressed" prefWidth="50.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="Add" textFill="WHITE">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
@@ -170,7 +172,7 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="110.0" prefWidth="240.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#onViewMoreInformationPressed" prefWidth="160.0" style="-fx-background-color: #00bfff; -fx-background-radius: 3em;" text="More Information">
+                              <Button mnemonicParsing="false" onAction="#onViewMoreInformationPressed" prefWidth="160.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="More Information" textFill="WHITE">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
@@ -189,7 +191,7 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="110.0" prefWidth="240.0" spacing="20.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#onViewGraphicPressed" prefWidth="150.0" style="-fx-background-color: #00bfff; -fx-background-radius: 3em;" text="View Graphic">
+                              <Button mnemonicParsing="false" onAction="#onViewGraphicPressed" prefWidth="150.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="View Graphic" textFill="WHITE">
                                  <effect>
                                     <DropShadow />
                                  </effect>
@@ -199,7 +201,7 @@
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font></Button>
-                              <Button fx:id="stableDiagramButton" disable="true" mnemonicParsing="false" onAction="#onStableDiagramPressed" prefWidth="150.0" style="-fx-background-color: #00bfff; -fx-background-radius: 3em;" text="Stable Diagram">
+                              <Button fx:id="stableDiagramButton" disable="true" mnemonicParsing="false" onAction="#onStableDiagramPressed" prefWidth="150.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="Stable Diagram" textFill="WHITE">
                                  <effect>
                                     <DropShadow />
                                  </effect>
@@ -220,7 +222,7 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="110.0" prefWidth="240.0" spacing="20.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#onSavePressed" prefWidth="80.0" style="-fx-background-color: #00bfff; -fx-background-radius: 3em;" text="Save">
+                              <Button mnemonicParsing="false" onAction="#onSavePressed" prefWidth="80.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="Save" textFill="WHITE">
                                  <effect>
                                     <DropShadow />
                                  </effect>
@@ -231,7 +233,7 @@
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#onExitPressed" prefWidth="80.0" style="-fx-background-color: #00bfff; -fx-background-radius: 3em;" text="Exit">
+                              <Button mnemonicParsing="false" onAction="#onExitPressed" prefWidth="80.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="Exit" textFill="WHITE">
                                  <effect>
                                     <DropShadow />
                                  </effect>
@@ -257,7 +259,7 @@
                                  <children>
                                     <Label text="TS2-L-V" />
                                     <TextField fx:id="liquidSolid2VaporTemp" prefHeight="25.0" prefWidth="43.0" />
-                                    <Button mnemonicParsing="false" onAction="#onLiquidSolid2VaporTempAddPressed" prefWidth="50.0" style="-fx-background-color: #00bfff; -fx-background-radius: 3em;" text="Add">
+                                    <Button mnemonicParsing="false" onAction="#onLiquidSolid2VaporTempAddPressed" prefWidth="50.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="Add" textFill="WHITE">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
@@ -274,7 +276,7 @@
                                  <children>
                                     <Label text="dp/dT" />
                                     <TextField fx:id="liquidSolid2dpdt" prefHeight="25.0" prefWidth="43.0" />
-                                    <Button mnemonicParsing="false" onAction="#onLiquidSolid2AddPressed" prefWidth="50.0" style="-fx-background-color: #00bfff; -fx-background-radius: 3em;" text="Add">
+                                    <Button mnemonicParsing="false" onAction="#onLiquidSolid2AddPressed" prefWidth="50.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="Add" textFill="WHITE">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
@@ -303,7 +305,7 @@
                                  <children>
                                     <Label text="TS1-S2-V" />
                                     <TextField fx:id="solid1Solid2VaporTemp" prefHeight="25.0" prefWidth="43.0" />
-                                    <Button mnemonicParsing="false" onAction="#onSolid1Solid2VaporTempAddPressed" prefWidth="50.0" style="-fx-background-color: #00bfff; -fx-background-radius: 3em;" text="Add">
+                                    <Button mnemonicParsing="false" onAction="#onSolid1Solid2VaporTempAddPressed" prefWidth="50.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="Add" textFill="WHITE">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
@@ -320,7 +322,7 @@
                                  <children>
                                     <Label text="dp/dT" />
                                     <TextField fx:id="solid1Solid2dpdt" prefHeight="25.0" prefWidth="43.0" />
-                                    <Button mnemonicParsing="false" onAction="#onSolid1Solid2AddPressed" prefWidth="50.0" style="-fx-background-color: #00bfff; -fx-background-radius: 3em;" text="Add">
+                                    <Button mnemonicParsing="false" onAction="#onSolid1Solid2AddPressed" prefWidth="50.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="Add" textFill="WHITE">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
@@ -364,11 +366,24 @@
             <AnchorPane prefHeight="434.0" prefWidth="35.0" BorderPane.alignment="CENTER" />
          </right>
          <bottom>
-            <AnchorPane prefHeight="32.0" prefWidth="775.0" BorderPane.alignment="CENTER" />
+            <AnchorPane prefHeight="35.0" prefWidth="795.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="35.0" prefWidth="795.0" spacing="15.0">
+                     <children>
+                        <Separator prefWidth="300.0" style="-fx-background-color: #3f3f3f;" />
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@startIcon.png" />
+                           </image>
+                        </ImageView>
+                        <Separator prefWidth="300.0" style="-fx-background-color: #3f3f3f;" />
+                     </children>
+                  </HBox>
+               </children></AnchorPane>
          </bottom>
       </BorderPane>
    </children>
    <effect>
-      <InnerShadow color="#0099eb" height="112.07" radius="55.535" width="112.07" />
+      <InnerShadow choke="0.18" color="#3f3f3f" height="155.75" radius="77.84" width="157.61" />
    </effect>
 </AnchorPane>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
@@ -8,13 +9,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #D3D3D3;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dimorphisms.MainMenu">
+<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #d9d9d9;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dimorphisms.MainMenu">
    <children>
       <BorderPane prefHeight="500.0" prefWidth="800.0">
          <center>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="520.0" spacing="50.0" style="-fx-background-color: #D3D3D3;" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="520.0" spacing="75.0" style="-fx-background-color: #d9d9d9;" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Dimorphisms">
+                  <Label text="Dimorphisms" textFill="#3f3f3f">
                      <font>
                         <Font name="SansSerif Bold" size="25.0" />
                      </font>
@@ -22,7 +23,7 @@
                         <Insets />
                      </VBox.margin>
                   </Label>
-                  <Button id="bevel-grey" mnemonicParsing="false" onAction="#onNewPressed" prefWidth="80.0" style="-fx-background-color: #00bfff; -fx-background-radius: 3em;" text="New" VBox.vgrow="ALWAYS">
+                  <Button id="bevel-grey" mnemonicParsing="false" onAction="#onNewPressed" prefWidth="80.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="New" textFill="WHITE" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="SansSerif Bold" size="13.0" />
                      </font>
@@ -33,7 +34,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button id="bevel-grey" mnemonicParsing="false" onAction="#onLoadPressed" prefWidth="80.0" style="-fx-background-color: #00bfff; -fx-background-radius: 3em;" text="Load">
+                  <Button id="bevel-grey" mnemonicParsing="false" onAction="#onLoadPressed" prefWidth="80.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="Load" textFill="WHITE">
                      <effect>
                         <DropShadow />
                      </effect>
@@ -52,7 +53,20 @@
             </VBox>
          </center>
          <bottom>
-            <AnchorPane opacity="0.0" prefHeight="30.0" prefWidth="700.0" BorderPane.alignment="CENTER" />
+            <AnchorPane prefHeight="30.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="35.0" prefWidth="795.0" spacing="15.0">
+                     <children>
+                        <Separator prefWidth="300.0" style="-fx-background-color: #3f3f3f;" />
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@startIcon.png" />
+                           </image>
+                        </ImageView>
+                        <Separator prefWidth="300.0" style="-fx-background-color: #3f3f3f;" />
+                     </children>
+                  </HBox>
+               </children></AnchorPane>
          </bottom>
          <left>
             <AnchorPane opacity="0.0" prefHeight="200.0" prefWidth="25.0" BorderPane.alignment="CENTER" />
@@ -66,6 +80,6 @@
       </BorderPane>
    </children>
    <effect>
-      <InnerShadow color="#0099eb" height="118.29" radius="58.67" width="118.39" />
+      <InnerShadow color="#3f3f3f" height="118.34" radius="58.682500000000005" width="118.39" />
    </effect>
 </AnchorPane>
