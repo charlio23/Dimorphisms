@@ -72,7 +72,7 @@ public class ViewController extends Application {
                 primaryStage.show();
                 domainController.newMaterial(materialName);
                 fxmlLoader = new FXMLLoader();
-                Pane p = fxmlLoader.load(getClass().getResource("/GraphicView.fxml").openStream());
+                AnchorPane p = fxmlLoader.load(getClass().getResource("/GraphicView.fxml").openStream());
                 GraphicView fooController = (GraphicView) fxmlLoader.getController();
                 fooController.setViewController(this, true);
                 graphicViewScene = new Scene(p,800,500);
@@ -197,7 +197,7 @@ public class ViewController extends Application {
         return domainController.saveMaterial();
     }
 
-    public Object getLinearGraphic(boolean graphic) {
+    public LineChart getLinearGraphic(boolean graphic) {
         return domainController.getLinearGraphic(graphic);
     }
 

@@ -5,7 +5,11 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
+
 import java.util.ArrayList;
+
+import static java.lang.StrictMath.abs;
+import static java.lang.StrictMath.round;
 
 public class DiagramGenerator {
 
@@ -41,6 +45,7 @@ public class DiagramGenerator {
     private boolean stabilityL12;
 
     private LineChart<Number,Number> stableDiagramLinear;
+    private ArrayList<XYChart.Series<Number,Number>> stableDiagramData;
     private LineChart<Number,Number> stableDiagramLogPositive;
     private LineChart<Number,Number> stableDiagramLogNegative;
     /**
@@ -71,6 +76,7 @@ public class DiagramGenerator {
     }
 
     private void generateStableDiagram(){
+        stableDiagramData = new ArrayList<>();
         NumberAxis xAxis = new NumberAxis();
         xAxis.setLabel("T (K)");
         NumberAxis yAxis = new NumberAxis();
@@ -85,6 +91,7 @@ public class DiagramGenerator {
         addStabilityLiquid();
         addTriplePoints();
         setTopology();
+        stableDiagramLinear.getData().addAll(stableDiagramData);
         updateCss();
         updated = true;
     }
@@ -377,13 +384,17 @@ public class DiagramGenerator {
         double[] values = FuncHelper.getArrayFromVaporCurve(tempIni, tempFin, curve);
         XYChart.Series<Number,Number> seriesTotal = new XYChart.Series<>();
         double temperature = tempIni;
-        double step = (tempFin - tempIni)/Utils.DATA_SIZE;
-        for (double value: values) {
-            XYChart.Data<Number, Number> point = new XYChart.Data<>(temperature, value);
-            seriesTotal.getData().add(point);
+        int size = Utils.DATA_SIZE;
+        double step;
+        while (abs((tempFin - tempIni)/size) < Utils.MINIMUM_STEP) size = size/2;
+        step = (tempFin - tempIni)/size;
+        for (int i = 1; i < values.length-1; ++i) {
+            if (values[i] > 1e6) break;
             temperature += step;
+            XYChart.Data<Number, Number> point = new XYChart.Data<>(temperature, values[i]);
+            seriesTotal.getData().add(point);
         }
-        stableDiagramLinear.getData().add(seriesTotal);
+        stableDiagramData.add(seriesTotal);
         stabilities.add(stability);
     }
 
@@ -391,20 +402,24 @@ public class DiagramGenerator {
         double[] values = FuncHelper.getArrayFromLine(tempIni, tempFin, pressIni, curve);
         XYChart.Series<Number,Number> seriesTotal = new XYChart.Series<>();
         double temperature = tempIni;
-        double step = (tempFin - tempIni)/Utils.DATA_SIZE;
-        for (double value: values) {
-            XYChart.Data<Number, Number> point = new XYChart.Data<>(temperature, value);
-            seriesTotal.getData().add(point);
+        int size = Utils.DATA_SIZE;
+        double step;
+        while (abs((tempFin - tempIni)/size) < Utils.MINIMUM_STEP) size = size/2;
+        step = (tempFin - tempIni)/size;
+        for (int i = 1; i < values.length-1; ++i) {
             temperature += step;
+            XYChart.Data<Number, Number> point = new XYChart.Data<>(temperature, values[i]);
+            seriesTotal.getData().add(point);
+
         }
-        stableDiagramLinear.getData().add(seriesTotal);
+        stableDiagramData.add(seriesTotal);
         stabilities.add(stability);
     }
 
     private void addPoint(double temp, double press) {
         XYChart.Series<Number,Number> seriesLinear = new XYChart.Series<>();
         seriesLinear.getData().add(new XYChart.Data<>(temp, press));
-        stableDiagramLinear.getData().add(seriesLinear);
+        stableDiagramData.add(seriesLinear);
     }
 
     private void setTopology() {
@@ -442,6 +457,7 @@ public class DiagramGenerator {
     }
 
     public void setScale(double xMin, double xMax, double yMin, double yMax){
+/*
         NumberAxis xAxis = (NumberAxis) stableDiagramLinear.getXAxis();
         NumberAxis yAxis = (NumberAxis) stableDiagramLinear.getYAxis();
         xAxis.setAutoRanging(false);
@@ -450,6 +466,17 @@ public class DiagramGenerator {
         xAxis.setUpperBound(xMax);
         yAxis.setLowerBound(yMin);
         yAxis.setUpperBound(yMax);
+*/
+        NumberAxis xAxis = new NumberAxis("T (K)",xMin,xMax,round((xMax - xMin)/10));
+        NumberAxis yAxis = new NumberAxis("P (MPa)",yMin,yMax,round((yMax - yMin)/10));
+        stableDiagramLinear = new LineChart<>(xAxis,yAxis);
+        stableDiagramLinear.setCreateSymbols(false);
+        stableDiagramLinear.setLegendVisible(false);
+        stableDiagramLinear.setAnimated(false);
+        stableDiagramLinear.getData().addAll(stableDiagramData);
+        updateCss();
+
+
     }
 
     public void autoScale() {
