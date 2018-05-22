@@ -9,11 +9,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="493.0" prefWidth="795.0" style="-fx-background-color: #d9d9d9;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dimorphisms.DataEntry">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="493.0" prefWidth="795.0" style="-fx-background-color: #E5E4E2;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dimorphisms.DataEntry">
    <children>
       <BorderPane prefHeight="474.0" prefWidth="775.0">
          <center>
-            <GridPane hgap="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="434.0" prefWidth="725.0" style="-fx-background-color: #d9d9d9;" vgap="2.0" BorderPane.alignment="CENTER">
+            <GridPane hgap="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="434.0" prefWidth="725.0" style="-fx-background-color: #E5E4E2;" vgap="2.0" BorderPane.alignment="CENTER">
                <children>
                   <Pane fx:id="liquidVaporPane" style="-fx-border-color: black; -fx-border-radius: 1em; -fx-background-radius: 1em;" GridPane.rowIndex="1">
                      <children>

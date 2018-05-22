@@ -543,7 +543,7 @@ public class QueryController {
                         break;
                     case Utils.QUERY_PL12:
                         result.add(Utils.QUERY_PL12 + " " + String.format ("%.2f", materialProperties.getTempL12())
-                                 + String.format("%6.0e",materialProperties.getPressL12()));
+                               + " "  + String.format("%6.0e",materialProperties.getPressL12()));
                         break;
                     case Utils.QUERY_PV12:
                         result.add(Utils.QUERY_PV12 + " " + String.format ("%.2f", materialProperties.getTempV12())

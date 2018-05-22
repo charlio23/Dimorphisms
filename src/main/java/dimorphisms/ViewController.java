@@ -217,8 +217,9 @@ public class ViewController extends Application {
         return domainController.addTempV12(temp);
     }
 
-    public void changeScale(double xMin, double xMax, double yMin, double yMax, boolean graphic) {
+    public boolean changeScale(double xMin, double xMax, double yMin, double yMax, boolean graphic) {
         domainController.changeScale(xMin, xMax, yMin, yMax, graphic);
+        return true;
     }
 
     public void autoScale(boolean graphic) {

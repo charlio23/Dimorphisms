@@ -9,11 +9,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #d9d9d9;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dimorphisms.MainMenu">
+<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #E5E4E2;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dimorphisms.MainMenu">
    <children>
       <BorderPane prefHeight="500.0" prefWidth="800.0">
          <center>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="520.0" spacing="75.0" style="-fx-background-color: #d9d9d9;" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="520.0" spacing="75.0" style="-fx-background-color: #E5E4E2;" BorderPane.alignment="CENTER">
                <children>
                   <Label text="Dimorphisms" textFill="#3f3f3f">
                      <font>

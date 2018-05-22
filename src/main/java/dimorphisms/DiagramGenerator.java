@@ -78,6 +78,7 @@ public class DiagramGenerator {
         stableDiagramLinear = new LineChart<>(xAxis,yAxis);
         stableDiagramLinear.setCreateSymbols(false);
         stableDiagramLinear.setLegendVisible(false);
+        stableDiagramLinear.setAnimated(false);
         stabilities = new ArrayList<>();
         addLiquidVapor();
         addStabilityVapor();

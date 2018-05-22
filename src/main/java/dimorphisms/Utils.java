@@ -111,11 +111,11 @@ public class Utils {
 
     public static final double TEMPERATURE_FINAL = 2000;
 
-    public static final double TEMPERATURE_STEP = 0.5;
+    public static final double TEMPERATURE_STEP = 1;
 
     public static final int TEMPERATURE_SIZE = (int) ((TEMPERATURE_FINAL-TEMPERATURE_ORIGIN)/TEMPERATURE_STEP);
 
-    public static final int DATA_SIZE = 1000;
+    public static final int DATA_SIZE = 300;
 
     public static final int STABLE = 0;
 
