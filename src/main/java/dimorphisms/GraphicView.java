@@ -1,14 +1,12 @@
 package dimorphisms;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -33,14 +31,14 @@ public class GraphicView {
     public void setViewController(ViewController viewController, boolean graphic) {
         this.viewController = viewController;
         this.graphic = graphic;
-        graphicPane.setCenter(viewController.getLinearGraphic(graphic));
+        graphicPane.setCenter((LineChart) viewController.getLinearGraphic(graphic));
         if (graphic) viewTopology.setVisible(false);
         else viewTopology.setVisible(true);
     }
 
     @FXML
     public void onLinearScalePress(){
-        graphicPane.setCenter(viewController.getLinearGraphic(graphic));
+        graphicPane.setCenter((LineChart) viewController.getLinearGraphic(graphic));
     }
 
     @FXML
@@ -85,6 +83,8 @@ public class GraphicView {
             double yMin = Double.parseDouble(data[2]);
             double yMax = Double.parseDouble(data[3]);
             viewController.changeScale(xMin, xMax, yMin, yMax,graphic);
+            graphicPane.setCenter((LineChart) viewController.getLinearGraphic(graphic));
+
         }
     }
 

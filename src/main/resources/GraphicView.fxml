@@ -1,18 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="415.0" prefWidth="715.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dimorphisms.GraphicView">
+<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #E5E4E2;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dimorphisms.GraphicView">
    <children>
-      <BorderPane fx:id="graphicPane" layoutX="195.0" layoutY="18.0" prefHeight="379.0" prefWidth="505.0" />
-       <Button layoutX="83.0" layoutY="342.0" mnemonicParsing="false" onAction="#onBackPressed" text="Back" />
-      <Button layoutX="75.0" layoutY="102.0" mnemonicParsing="false" onAction="#onLinearScalePress" text="Linear" />
-      <Button layoutX="84.0" layoutY="143.0" mnemonicParsing="false" onAction="#onLogScalePress" text="Log" />
-      <Button layoutX="46.0" layoutY="203.0" mnemonicParsing="false" onAction="#onChangeScalePress" text="Change Scale" />
-      <Button layoutX="57.0" layoutY="238.0" mnemonicParsing="false" onAction="#onAutoScalePress" text="Auto Scale" />
-      <Button fx:id="viewTopology" layoutX="44.0" layoutY="281.0" mnemonicParsing="false" onAction="#onViewTopologyPressed" text="View Topology" />
+      <BorderPane prefHeight="500.0" prefWidth="800.0">
+         <left>
+            <VBox alignment="CENTER" prefHeight="435.0" prefWidth="140.0" spacing="40.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onLinearScalePress" prefWidth="130.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="Linear" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#onLogScalePress" prefWidth="130.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="Log" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#onChangeScalePress" prefWidth="130.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="Change Scale" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#onAutoScalePress" prefWidth="130.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="Auto Scale" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Button>
+                  <Button fx:id="viewTopology" mnemonicParsing="false" onAction="#onViewTopologyPressed" prefWidth="130.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="View Topology" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Button>
+                   <Button mnemonicParsing="false" onAction="#onBackPressed" prefWidth="130.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="Back" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Button>
+               </children>
+               <BorderPane.margin>
+                  <Insets left="30.0" right="10.0" />
+               </BorderPane.margin>
+            </VBox>
+         </left>
+         <bottom>
+            <AnchorPane prefHeight="30.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="35.0" prefWidth="795.0" spacing="15.0">
+                     <children>
+                        <Separator prefWidth="300.0" style="-fx-background-color: #3f3f3f;" />
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@startIcon.png" />
+                           </image>
+                        </ImageView>
+                        <Separator prefWidth="300.0" style="-fx-background-color: #3f3f3f;" />
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </bottom>
+         <top>
+            <AnchorPane prefHeight="30.0" prefWidth="800.0" BorderPane.alignment="CENTER" />
+         </top>
+         <right>
+            <AnchorPane prefHeight="435.0" prefWidth="30.0" BorderPane.alignment="CENTER" />
+         </right>
+         <center>
+            <BorderPane fx:id="graphicPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
    </children>
+   <effect>
+      <InnerShadow color="#3f3f3f" height="118.15" radius="58.575" width="118.15" />
+   </effect>
 </AnchorPane>
