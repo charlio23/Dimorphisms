@@ -138,4 +138,6 @@ public class Utils {
     public static final String TOPOLOGY_ADITIONAL_INFO = "The phases I and II may be in different positions with respect to the real stable diagram.";
 
     public static final String ACTIVATE_STABLE_DIAGRAM = "stable-activate";
+
+    public static final double MINIMUM_STEP = 1e-2;
 }

@@ -197,7 +197,7 @@ public class ViewController extends Application {
         return domainController.saveMaterial();
     }
 
-    public LineChart getLinearGraphic(boolean graphic) {
+    public Object getLinearGraphic(boolean graphic) {
         return domainController.getLinearGraphic(graphic);
     }
 

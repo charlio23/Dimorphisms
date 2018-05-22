@@ -51,7 +51,7 @@ public class DomainController {
         return true;
     }
 
-    public LineChart getLinearGraphic(boolean graphic) {
+    public Object getLinearGraphic(boolean graphic) {
         if (graphic) {
             return queryController.getLinearGraphic();
         } else {

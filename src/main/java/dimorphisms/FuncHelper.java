@@ -1,6 +1,7 @@
 package dimorphisms;
 
 import static java.lang.Math.log;
+import static java.lang.StrictMath.abs;
 import static java.lang.StrictMath.exp;
 import static java.lang.StrictMath.pow;
 
@@ -78,7 +79,10 @@ public class FuncHelper {
     public static double[] getArrayFromVaporCurve(double init, double fin, VaporSth eqCurve) {
         double[] result = new double[Utils.DATA_SIZE];
         double temperature = init;
-        double step = (fin - init)/Utils.DATA_SIZE;
+        int size = Utils.DATA_SIZE;
+        double step;
+        while (abs((fin - init)/size) < Utils.MINIMUM_STEP) size = size/2;
+        step = (fin - init)/size;
         for (int i = 0; i < Utils.DATA_SIZE; ++i) {
             double value = eqCurve.getA() - eqCurve.getB()/(eqCurve.getC() + temperature);
             result[i] = exp(value);
@@ -101,7 +105,10 @@ public class FuncHelper {
     public static double[] getArrayFromLine(double init, double fin, double pressIni ,double curve) {
         double[] result = new double[Utils.DATA_SIZE];
         double temperature = init;
-        double step = (fin - init)/Utils.DATA_SIZE;
+        int size = Utils.DATA_SIZE;
+        double step;
+        while (abs((fin - init)/size) < Utils.MINIMUM_STEP) size = size/2;
+        step = (fin - init)/size;
         for (int i = 0; i < Utils.DATA_SIZE; ++i) {
             double value = curve*(temperature - init) + pressIni;
             result[i] = value;
