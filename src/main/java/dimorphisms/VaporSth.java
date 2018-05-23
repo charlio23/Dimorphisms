@@ -95,6 +95,6 @@ public class VaporSth {
 
     @Override
     public String toString() {
-        return String.format ("%.2f", a) + " " + String.format ("%.2f", b) + " " + String.format ("%.2f", c);
+        return String.format ("%.2f", a) + ";" + String.format ("%.2f", b) + ";" + String.format ("%.2f", c);
     }
 }

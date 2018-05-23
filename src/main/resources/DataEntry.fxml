@@ -342,6 +342,14 @@
                         </VBox>
                      </children>
                   </Pane>
+                  <Label contentDisplay="RIGHT" text="P = [MPa]   T = [K]" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets right="5.0" />
+                     </GridPane.margin>
+                  </Label>
                </children>
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="250.0" />

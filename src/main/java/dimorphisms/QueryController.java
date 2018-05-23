@@ -534,56 +534,56 @@ public class QueryController {
             if (query.charAt(0) == '#') {
                 switch (query.substring(1)) {
                     case Utils.QUERY_PLV1:
-                        result.add(Utils.QUERY_PLV1 + " " + String.format ("%.2f",materialProperties.getTempLV1())
-                                + String.format("%6.0e",materialProperties.getPressLV1()));
+                        result.add(Utils.QUERY_PLV1 + ";" + String.format ("%.2f",materialProperties.getTempLV1())
+                               + ";" + String.format("%6.0e",materialProperties.getPressLV1()));
                         break;
                     case Utils.QUERY_PLV2:
-                        result.add(Utils.QUERY_PLV2 + " " + String.format ("%.2f", materialProperties.getTempLV2())
-                                 + String.format("%6.0e",materialProperties.getPressLV2()));
+                        result.add(Utils.QUERY_PLV2 + ";" + String.format ("%.2f", materialProperties.getTempLV2())
+                               + ";"  + String.format("%6.0e",materialProperties.getPressLV2()));
                         break;
                     case Utils.QUERY_PL12:
-                        result.add(Utils.QUERY_PL12 + " " + String.format ("%.2f", materialProperties.getTempL12())
-                               + " "  + String.format("%6.0e",materialProperties.getPressL12()));
+                        result.add(Utils.QUERY_PL12 + ";" + String.format ("%.2f", materialProperties.getTempL12())
+                               + ";"  + String.format("%6.0e",materialProperties.getPressL12()));
                         break;
                     case Utils.QUERY_PV12:
-                        result.add(Utils.QUERY_PV12 + " " + String.format ("%.2f", materialProperties.getTempV12())
-                                 + String.format("%6.0e",materialProperties.getPressV12()));
+                        result.add(Utils.QUERY_PV12 + ";" + String.format ("%.2f", materialProperties.getTempV12())
+                               + ";" + String.format("%6.0e",materialProperties.getPressV12()));
                         break;
 
                     case Utils.QUERY_LIQUID_VAPOR:
-                        result.add(Utils.QUERY_LIQUID_VAPOR + " " + materialProperties.getVaporLiquid().toString());
+                        result.add(Utils.QUERY_LIQUID_VAPOR + ";" + materialProperties.getVaporLiquid().toString());
                         break;
 
                     case Utils.QUERY_VAPOR_SOLID1:
-                        result.add(Utils.QUERY_VAPOR_SOLID1 + " " + materialProperties.getVaporSolid1().toString());
+                        result.add(Utils.QUERY_VAPOR_SOLID1 + ";" + materialProperties.getVaporSolid1().toString());
                         break;
 
                     case Utils.QUERY_VAPOR_SOLID2:
-                        result.add(Utils.QUERY_VAPOR_SOLID2 + " " + materialProperties.getVaporSolid2().toString());
+                        result.add(Utils.QUERY_VAPOR_SOLID2 + ";" + materialProperties.getVaporSolid2().toString());
                         break;
 
                     case Utils.QUERY_LIQUID_SOLID1:
-                        result.add(Utils.QUERY_LIQUID_SOLID1 + " " + String.format ("%.2f", materialProperties.getLiquidSolid1()));
+                        result.add(Utils.QUERY_LIQUID_SOLID1 + ";" + String.format ("%.2f", materialProperties.getLiquidSolid1()));
                         break;
 
                     case Utils.QUERY_LIQUID_SOLID2:
-                        result.add(Utils.QUERY_LIQUID_SOLID2 + " " + String.format ("%.2f", materialProperties.getLiquidSolid2()));
+                        result.add(Utils.QUERY_LIQUID_SOLID2 + ";" + String.format ("%.2f", materialProperties.getLiquidSolid2()));
                         break;
 
                     case Utils.QUERY_SOLID1_SOLID2:
-                        result.add(Utils.QUERY_SOLID1_SOLID2 + " " + String.format ("%.2f", materialProperties.getSolid1Solid2()));
+                        result.add(Utils.QUERY_SOLID1_SOLID2 + ";" + String.format ("%.2f", materialProperties.getSolid1Solid2()));
                         break;
 
                     case Utils.QUERY_TLV1:
-                        result.add(Utils.QUERY_TLV1 + " " + String.format ("%.2f", materialProperties.getTempLV1()));
+                        result.add(Utils.QUERY_TLV1 + ";" + String.format ("%.2f", materialProperties.getTempLV1()));
                         break;
 
                     case Utils.QUERY_TLV2:
-                        result.add(Utils.QUERY_TLV2 + " " + String.format ("%.2f", materialProperties.getTempLV2()));
+                        result.add(Utils.QUERY_TLV2 + ";" + String.format ("%.2f", materialProperties.getTempLV2()));
                         break;
 
                     case Utils.QUERY_TV12:
-                        result.add(Utils.QUERY_TV12 + " " + String.format ("%.2f", materialProperties.getTempV12()));
+                        result.add(Utils.QUERY_TV12 + ";" + String.format ("%.2f", materialProperties.getTempV12()));
                         break;
                     default:
                         break;

@@ -27,8 +27,7 @@ public class ViewController extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
-         primaryStage.getIcons().add(new Image("/startIcon.png"));
+         primaryStage.getIcons().add(new Image(getClass().getResource("/startIcon.png").toExternalForm()));
         this.primaryStage = primaryStage;
         domainController = new DomainController();
         FXMLLoader fxmlLoader = new FXMLLoader();

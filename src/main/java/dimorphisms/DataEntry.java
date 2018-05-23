@@ -389,7 +389,7 @@ public class DataEntry {
     private void updateInformation(ArrayList<String> information) {
         moreInformationText = new ArrayList<>();
         for (String info: information) {
-            String[] values = info.split(" ");
+            String[] values = info.split(";");
             switch (values[0]) {
                 case Utils.QUERY_PLV1:
                     moreInformationText.add("Found triple point LV1: " + values[1] + " K,  " + values[2] + " MPa");
