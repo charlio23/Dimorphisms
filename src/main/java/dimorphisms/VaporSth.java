@@ -1,5 +1,7 @@
 package dimorphisms;
 
+import java.util.Locale;
+
 /**
  * The type Vapor sth.
  */
@@ -95,6 +97,6 @@ public class VaporSth {
 
     @Override
     public String toString() {
-        return String.format ("%.2f", a) + ";" + String.format ("%.2f", b) + ";" + String.format ("%.2f", c);
+        return String.format (Locale.ROOT,"%.2f", a) + ";" + String.format (Locale.ROOT,"%.2f", b) + ";" + String.format (Locale.ROOT,"%.2f", c) + ";" + String.valueOf(log);
     }
 }

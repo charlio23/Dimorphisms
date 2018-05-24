@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
@@ -22,6 +23,9 @@
                      <effect>
                         <DropShadow />
                      </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#onLogScalePress" prefWidth="130.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="Log" textFill="WHITE">
                      <font>
@@ -30,6 +34,9 @@
                      <effect>
                         <DropShadow />
                      </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#onChangeScalePress" prefWidth="130.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="Change Scale" textFill="WHITE">
                      <font>
@@ -38,6 +45,9 @@
                      <effect>
                         <DropShadow />
                      </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#onAutoScalePress" prefWidth="130.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="Auto Scale" textFill="WHITE">
                      <font>
@@ -46,6 +56,9 @@
                      <effect>
                         <DropShadow />
                      </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button fx:id="viewTopology" mnemonicParsing="false" onAction="#onViewTopologyPressed" prefWidth="130.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="View Topology" textFill="WHITE">
                      <font>
@@ -54,6 +67,9 @@
                      <effect>
                         <DropShadow />
                      </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                    <Button mnemonicParsing="false" onAction="#onBackPressed" prefWidth="130.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="Back" textFill="WHITE">
                      <font>
@@ -62,6 +78,9 @@
                      <effect>
                         <DropShadow />
                      </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                </children>
                <BorderPane.margin>

@@ -9,34 +9,34 @@ import java.util.logging.Level;
  */
 public class DataController {
 
-    private static String path = "materialList.txt";
+    private static String path = "database.txt";
 
     /**
      * Save material boolean.
      *
-     * @param material the material
+     * @param queryController the material
      * @return the boolean
      */
-    public boolean saveMaterial(String material) {
+    public boolean saveMaterial(QueryController queryController) {
         Writer output;
 
         File f = new File(path);
         try {
-            f.createNewFile();
+            if(f.createNewFile()) {
+                Utils.logger.log(Level.CONFIG, "database file not found, creating new one...");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-
-        try(FileWriter fileWriter = new FileWriter(path,true);){
+        try(FileWriter fileWriter = new FileWriter(path,true)){
             output = new BufferedWriter(fileWriter);
-            output.append(material).append("\n");
+            output.append(queryController.dataToString()).append("\n");
             output.close();
             return true;
 
         }
         catch(Exception e) {
-            Utils.logger.log(Level.SEVERE, "no s'ha pogut guardar l'usuari");
             return false;
         }
     }
@@ -47,19 +47,21 @@ public class DataController {
      * @param name the name
      * @return the material properties
      */
-    public MaterialProperties loadMaterial(String name) {
+    public String[] loadMaterial(String name) {
         File f = new File(path);
         try {
-            f.createNewFile();
+            if(f.createNewFile()) {
+                Utils.logger.log(Level.CONFIG, "database file not found, creating new one...");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] material = line.split(" ");
+                String[] material = line.split(";");
                 if (material[0].equals(name)) {
-                    return stringToMaterial(material);
+                    return material;
                 }
             }
             return null;
@@ -78,24 +80,56 @@ public class DataController {
         ArrayList<String> names = new ArrayList<>();
         File f = new File(path);
         try {
-            f.createNewFile();
+            if(f.createNewFile()) {
+                Utils.logger.log(Level.CONFIG, "database file not found, creating new one...");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] material = line.split(" ");
+                String[] material = line.split(";");
                 names.add(material[0]);
             }
-            return null;
+            return names;
         } catch (Exception e) {
-            Utils.logger.log(Level.SEVERE,"The file 'users' could not be opened");
+            Utils.logger.log(Level.SEVERE,"The file 'database' could not be opened");
             return null;
         }
     }
 
-    private MaterialProperties stringToMaterial(String[] material) {
-        return new MaterialProperties("FOUND");
+    public void deleteMaterial(String name) {
+        File f = new File(path);
+        try {
+            if(f.createNewFile()) {
+                Utils.logger.log(Level.CONFIG, "database file not found, creating new one...");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            File tempFile = new File(f.getAbsolutePath() + ".tmp");
+            PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] material = line.split(";");
+                if (!material[0].equals(name)) {
+                    pw.println(line);
+                    pw.flush();
+                }
+            }
+            pw.close();
+            if (!f.delete()) {
+                System.out.println("Could not delete file");
+
+            }
+            //Rename the new file to the filename the original file had.
+            if (!tempFile.renameTo(f))
+                System.out.println("Could not rename file");
+
+        } catch (Exception e) {
+            Utils.logger.log(Level.SEVERE,"The file 'database' could not be opened");
+        }
     }
 }

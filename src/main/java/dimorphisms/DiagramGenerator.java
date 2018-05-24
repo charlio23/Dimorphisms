@@ -164,7 +164,7 @@ public class DiagramGenerator {
     }
 
     private void addStabilityLiquid() {
-        if (materialProperties.getPressLV2() > 0) {
+        if (materialProperties.getPressL12() > 0) {
             stabilityL12 = true;
             if (stabilityV12) {
                 //case 1
