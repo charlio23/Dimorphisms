@@ -4,6 +4,7 @@ import javafx.scene.chart.LineChart;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static java.lang.Math.log;
 
@@ -13,21 +14,12 @@ public class QueryController {
     private MaterialProperties materialProperties;
     private GraphicHelper graphic;
     private FuncHelper funcHelper;
-    private DiagramGenerator diagramGenerator;
 
     public QueryController(String name) {
         queries = new ArrayList<>();
         materialProperties = new MaterialProperties(name);
         this.graphic = new GraphicHelper();
         funcHelper = new FuncHelper(materialProperties);
-    }
-
-    public QueryController(MaterialProperties materialProperties, List<String> queries) {
-        this.materialProperties = materialProperties;
-        this.queries = queries;
-        /* TODO
-        Make queries to update graphic
-         */
     }
 
     public MaterialProperties getMaterialProperties() {
@@ -39,9 +31,6 @@ public class QueryController {
         ArrayList<String> result = new ArrayList<>();
         if (queries.contains("#" + query)) {
             result.add(Utils.QUERY_ERROR_CONFLICT);
-            /* TODO
-            determine conflicts
-             */
             return result;
         }
         if (queries.contains(query)) {
@@ -528,26 +517,26 @@ public class QueryController {
         graphic.autoScale();
     }
 
-    private ArrayList<String> getCalculatedElements() {
+    public ArrayList<String> getCalculatedElements() {
         ArrayList<String> result = new ArrayList<>();
         for (String query: queries) {
             if (query.charAt(0) == '#') {
                 switch (query.substring(1)) {
                     case Utils.QUERY_PLV1:
-                        result.add(Utils.QUERY_PLV1 + ";" + String.format ("%.2f",materialProperties.getTempLV1())
-                               + ";" + String.format("%6.0e",materialProperties.getPressLV1()));
+                        result.add(Utils.QUERY_PLV1 + ";" + String.format (Locale.ROOT,"%.2f",materialProperties.getTempLV1())
+                               + ";" + String.format(Locale.ROOT,"%6.0e",materialProperties.getPressLV1()));
                         break;
                     case Utils.QUERY_PLV2:
-                        result.add(Utils.QUERY_PLV2 + ";" + String.format ("%.2f", materialProperties.getTempLV2())
-                               + ";"  + String.format("%6.0e",materialProperties.getPressLV2()));
+                        result.add(Utils.QUERY_PLV2 + ";" + String.format (Locale.ROOT,"%.2f", materialProperties.getTempLV2())
+                               + ";"  + String.format(Locale.ROOT,"%6.0e",materialProperties.getPressLV2()));
                         break;
                     case Utils.QUERY_PL12:
-                        result.add(Utils.QUERY_PL12 + ";" + String.format ("%.2f", materialProperties.getTempL12())
-                               + ";"  + String.format("%6.0e",materialProperties.getPressL12()));
+                        result.add(Utils.QUERY_PL12 + ";" + String.format (Locale.ROOT,"%.2f", materialProperties.getTempL12())
+                               + ";"  + String.format(Locale.ROOT,"%6.0e",materialProperties.getPressL12()));
                         break;
                     case Utils.QUERY_PV12:
-                        result.add(Utils.QUERY_PV12 + ";" + String.format ("%.2f", materialProperties.getTempV12())
-                               + ";" + String.format("%6.0e",materialProperties.getPressV12()));
+                        result.add(Utils.QUERY_PV12 + ";" + String.format (Locale.ROOT,"%.2f", materialProperties.getTempV12())
+                               + ";" + String.format(Locale.ROOT,"%6.0e",materialProperties.getPressV12()));
                         break;
 
                     case Utils.QUERY_LIQUID_VAPOR:
@@ -563,27 +552,27 @@ public class QueryController {
                         break;
 
                     case Utils.QUERY_LIQUID_SOLID1:
-                        result.add(Utils.QUERY_LIQUID_SOLID1 + ";" + String.format ("%.2f", materialProperties.getLiquidSolid1()));
+                        result.add(Utils.QUERY_LIQUID_SOLID1 + ";" + String.format (Locale.ROOT,"%.2f", materialProperties.getLiquidSolid1()));
                         break;
 
                     case Utils.QUERY_LIQUID_SOLID2:
-                        result.add(Utils.QUERY_LIQUID_SOLID2 + ";" + String.format ("%.2f", materialProperties.getLiquidSolid2()));
+                        result.add(Utils.QUERY_LIQUID_SOLID2 + ";" + String.format (Locale.ROOT,"%.2f", materialProperties.getLiquidSolid2()));
                         break;
 
                     case Utils.QUERY_SOLID1_SOLID2:
-                        result.add(Utils.QUERY_SOLID1_SOLID2 + ";" + String.format ("%.2f", materialProperties.getSolid1Solid2()));
+                        result.add(Utils.QUERY_SOLID1_SOLID2 + ";" + String.format (Locale.ROOT,"%.2f", materialProperties.getSolid1Solid2()));
                         break;
 
                     case Utils.QUERY_TLV1:
-                        result.add(Utils.QUERY_TLV1 + ";" + String.format ("%.2f", materialProperties.getTempLV1()));
+                        result.add(Utils.QUERY_TLV1 + ";" + String.format (Locale.ROOT,"%.2f", materialProperties.getTempLV1()));
                         break;
 
                     case Utils.QUERY_TLV2:
-                        result.add(Utils.QUERY_TLV2 + ";" + String.format ("%.2f", materialProperties.getTempLV2()));
+                        result.add(Utils.QUERY_TLV2 + ";" + String.format (Locale.ROOT,"%.2f", materialProperties.getTempLV2()));
                         break;
 
                     case Utils.QUERY_TV12:
-                        result.add(Utils.QUERY_TV12 + ";" + String.format ("%.2f", materialProperties.getTempV12()));
+                        result.add(Utils.QUERY_TV12 + ";" + String.format (Locale.ROOT,"%.2f", materialProperties.getTempV12()));
                         break;
                     default:
                         break;
@@ -594,4 +583,52 @@ public class QueryController {
         return result;
     }
 
+    public String dataToString() {
+        String data = materialProperties.getName();
+        for(String query: queries) {
+            if (query.charAt(0) != '#') {
+                switch (query) {
+                    case Utils.QUERY_LIQUID_VAPOR:
+                        data += ";" + query + ";" + materialProperties.getVaporLiquid().toString();
+                        break;
+
+                    case Utils.QUERY_VAPOR_SOLID1:
+                        data += ";" + query + ";" + materialProperties.getVaporSolid1().toString();
+                        break;
+
+                    case Utils.QUERY_VAPOR_SOLID2:
+                        data += ";" + query + ";" + materialProperties.getVaporSolid2().toString();
+                        break;
+                    case Utils.QUERY_LIQUID_SOLID1:
+                        data += ";" + query + ";" + String.format (Locale.ROOT,"%.2f", materialProperties.getLiquidSolid1());
+                        break;
+
+                    case Utils.QUERY_LIQUID_SOLID2:
+                        data += ";" + query + ";" + String.format (Locale.ROOT,"%.2f", materialProperties.getLiquidSolid2());
+                        break;
+
+                    case Utils.QUERY_SOLID1_SOLID2:
+                        data += ";" + query + ";" + String.format (Locale.ROOT,"%.2f", materialProperties.getSolid1Solid2());
+                        break;
+                    case Utils.QUERY_TLV1:
+                        data += ";" + query + ";" + String.format (Locale.ROOT,"%.2f", materialProperties.getTempLV1());
+                        break;
+
+                    case Utils.QUERY_TLV2:
+                        data += ";" + query + ";" + String.format (Locale.ROOT,"%.2f", materialProperties.getTempLV2());
+                        break;
+
+                    case Utils.QUERY_TV12:
+                        data += ";" + query + ";" + String.format (Locale.ROOT,"%.2f", materialProperties.getTempV12());
+                        break;
+
+                }
+            }
+        }
+        return data;
+    }
+
+    public boolean isMaterialComplete() {
+        return (queries.size() == 17);
+    }
 }

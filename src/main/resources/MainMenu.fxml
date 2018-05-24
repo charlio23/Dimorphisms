@@ -45,11 +45,18 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                  <Button id="bevel-grey" layoutX="345.0" layoutY="323.0" mnemonicParsing="false" onAction="#onErasePressed" prefWidth="80.0" style="-fx-background-color: #3f3f3f; -fx-background-radius: 3em;" text="Erase" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Button>
                </children>
-               <padding>
-                  <Insets top="30.0" />
-               </padding>
             </VBox>
          </center>
          <bottom>

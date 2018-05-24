@@ -154,9 +154,9 @@ public class DataEntry {
 
         }
 
-        float a = Float.parseFloat(liquidVaporA.getText());
-        float b = Float.parseFloat(liquidVaporB.getText());
-        float c = Float.parseFloat(liquidVaporC.getText());
+        double a = Double.parseDouble(liquidVaporA.getText());
+        double b = Double.parseDouble(liquidVaporB.getText());
+        double c = Double.parseDouble(liquidVaporC.getText());
         boolean isLog = liquidVaporLog.isSelected();
         updateInformation(viewController.addLiquidVapor(a, b, c, isLog));
         liquidVaporPane.getStyleClass().add("data-entered");
@@ -182,9 +182,9 @@ public class DataEntry {
 
         }
 
-        float a = Float.parseFloat(solid1VaporA.getText());
-        float b = Float.parseFloat(solid1VaporB.getText());
-        float c = Float.parseFloat(solid1VaporC.getText());
+        double a = Double.parseDouble(solid1VaporA.getText());
+        double b = Double.parseDouble(solid1VaporB.getText());
+        double c = Double.parseDouble(solid1VaporC.getText());
         boolean isLog = solid1VaporLog.isSelected();
         updateInformation(viewController.addSolid1Vapor(a, b, c, isLog));
         solid1VaporPane.getStyleClass().add("data-entered");
@@ -209,9 +209,9 @@ public class DataEntry {
             System.out.println("Call to view");
         }
 
-        float a = Float.parseFloat(solid2VaporA.getText());
-        float b = Float.parseFloat(solid2VaporB.getText());
-        float c = Float.parseFloat(solid2VaporC.getText());
+        double a = Double.parseDouble(solid2VaporA.getText());
+        double b = Double.parseDouble(solid2VaporB.getText());
+        double c = Double.parseDouble(solid2VaporC.getText());
         boolean isLog = solid2VaporLog.isSelected();
         updateInformation(viewController.addSolid2Vapor(a, b, c, isLog));
         solid2VaporPane.getStyleClass().add("data-entered");
@@ -228,7 +228,7 @@ public class DataEntry {
             System.out.println("Call to view");
         }
 
-        float dpdt = Float.parseFloat(liquidSolid1dpdt.getText());
+        double dpdt = Double.parseDouble(liquidSolid1dpdt.getText());
         updateInformation(viewController.addLiquidSolid1(dpdt));
         liquidSolid1Pane.getStyleClass().add("data-entered");
 
@@ -245,7 +245,7 @@ public class DataEntry {
             System.out.println("Call to view");
         }
 
-        float dpdt = Float.parseFloat(liquidSolid2dpdt.getText());
+        double dpdt = Double.parseDouble(liquidSolid2dpdt.getText());
         updateInformation(viewController.addLiquidSolid2(dpdt));
         liquidSolid2Pane.getStyleClass().add("data-entered");
 
@@ -262,7 +262,7 @@ public class DataEntry {
             System.out.println("Call to view");
         }
 
-        float dpdt = Float.parseFloat(solid1Solid2dpdt.getText());
+        double dpdt = Double.parseDouble(solid1Solid2dpdt.getText());
         updateInformation(viewController.addSolid1Solid2(dpdt));
         solid1Solid2Pane.getStyleClass().add("data-entered");
 
@@ -273,7 +273,7 @@ public class DataEntry {
         if (!checkTextIsCorrect(solid1Solid2VaporTemp.getText())) {
             showErrorDialogText(Utils.SOLID_1_SOLID_2_ERR,"Temperature has to be a number.");
         }
-        float temp = Float.parseFloat(solid1Solid2VaporTemp.getText());
+        double temp = Double.parseDouble(solid1Solid2VaporTemp.getText());
         updateInformation(viewController.addSolid1Solid2VaporTemp(temp));
         solid1Solid2Pane.getStyleClass().add("data-entered");
 
@@ -284,7 +284,7 @@ public class DataEntry {
         if (!checkTextIsCorrect(liquidSolid1VaporTemp.getText())) {
             showErrorDialogText(Utils.LIQUID_SOLID_1_ERR,"Temperature has to be a number.");
         }
-        float temp = Float.parseFloat(liquidSolid1VaporTemp.getText());
+        double temp = Double.parseDouble(liquidSolid1VaporTemp.getText());
         updateInformation(viewController.addLiquidSolid1VaporTemp(temp));
         liquidSolid1Pane.getStyleClass().add("data-entered");
 
@@ -295,7 +295,7 @@ public class DataEntry {
         if (!checkTextIsCorrect(liquidSolid2VaporTemp.getText())) {
             showErrorDialogText(Utils.LIQUID_SOLID_2_ERR,"Temperature has to be a number.");
         }
-        float temp = Float.parseFloat(liquidSolid2VaporTemp.getText());
+        double temp = Double.parseDouble(liquidSolid2VaporTemp.getText());
         updateInformation(viewController.addLiquidSolid2VaporTemp(temp));
         liquidSolid2Pane.getStyleClass().add("data-entered");
 
@@ -336,6 +336,7 @@ public class DataEntry {
      */
     @FXML
     public void onSavePressed(){
+        viewController.deleteMaterial(materialName.getText());
         if (viewController.saveMaterial()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Save successful");
@@ -408,7 +409,8 @@ public class DataEntry {
                     liquidVaporA.setText(values[1]);
                     liquidVaporB.setText(values[2]);
                     liquidVaporC.setText(values[3]);
-                    liquidVaporLn.setSelected(true);
+                    liquidVaporLog.setSelected(Boolean.valueOf(values[4]));
+                    liquidVaporLn.setSelected(!(Boolean.valueOf(values[4])));
                     liquidVaporPane.getStyleClass().add("data-calculated");
                     break;
 
@@ -416,6 +418,8 @@ public class DataEntry {
                     solid1VaporA.setText(values[1]);
                     solid1VaporB.setText(values[2]);
                     solid1VaporC.setText(values[3]);
+                    solid1VaporLog.setSelected(Boolean.valueOf(values[4]));
+                    solid1VaporLn.setSelected(!(Boolean.valueOf(values[4])));
                     solid1VaporPane.getStyleClass().add("data-calculated");
                     break;
 
@@ -423,6 +427,8 @@ public class DataEntry {
                     solid2VaporA.setText(values[1]);
                     solid2VaporB.setText(values[2]);
                     solid2VaporC.setText(values[3]);
+                    solid1VaporLog.setSelected(Boolean.valueOf(values[4]));
+                    solid1VaporLn.setSelected(!(Boolean.valueOf(values[4])));
                     solid2VaporPane.getStyleClass().add("data-calculated");
                     break;
 
@@ -495,4 +501,71 @@ public class DataEntry {
         }
 
     }
+
+    public void setMaterialInfo(ArrayList<String> information) {
+        updateInformation(viewController.getUIInformation());
+        stableDiagramButton.setDisable(!viewController.isMaterialComplete());
+        for (String info : information) {
+            String[] values = info.split(";");
+            switch (values[0]) {
+                case Utils.QUERY_LIQUID_VAPOR:
+                    liquidVaporA.setText(values[1]);
+                    liquidVaporB.setText(values[2]);
+                    liquidVaporC.setText(values[3]);
+                    liquidVaporLog.setSelected(Boolean.valueOf(values[4]));
+                    liquidVaporLn.setSelected(!(Boolean.valueOf(values[4])));
+                    liquidVaporPane.getStyleClass().add("data-entered");
+                    break;
+
+                case Utils.QUERY_VAPOR_SOLID1:
+                    solid1VaporA.setText(values[1]);
+                    solid1VaporB.setText(values[2]);
+                    solid1VaporC.setText(values[3]);
+                    solid1VaporLog.setSelected(Boolean.valueOf(values[4]));
+                    solid1VaporLn.setSelected(!(Boolean.valueOf(values[4])));
+                    solid1VaporPane.getStyleClass().add("data-entered");
+                    break;
+
+                case Utils.QUERY_VAPOR_SOLID2:
+                    solid2VaporA.setText(values[1]);
+                    solid2VaporB.setText(values[2]);
+                    solid2VaporC.setText(values[3]);
+                    solid2VaporLog.setSelected(Boolean.valueOf(values[4]));
+                    solid2VaporLn.setSelected(!(Boolean.valueOf(values[4])));
+                    solid2VaporPane.getStyleClass().add("data-entered");
+                    break;
+
+                case Utils.QUERY_LIQUID_SOLID1:
+                    liquidSolid1dpdt.setText(values[1]);
+                    liquidSolid1Pane.getStyleClass().add("data-entered");
+                    break;
+
+                case Utils.QUERY_LIQUID_SOLID2:
+                    liquidSolid2dpdt.setText(values[1]);
+                    liquidSolid2Pane.getStyleClass().add("data-entered");
+                    break;
+
+                case Utils.QUERY_SOLID1_SOLID2:
+                    solid1Solid2dpdt.setText(values[1]);
+                    solid1Solid2Pane.getStyleClass().add("data-entered");
+                    break;
+
+                case Utils.QUERY_TLV1:
+                    liquidSolid1VaporTemp.setText(values[1]);
+                    liquidSolid1Pane.getStyleClass().add("data-entered");
+                    break;
+
+                case Utils.QUERY_TLV2:
+                    liquidSolid2VaporTemp.setText(values[1]);
+                    liquidSolid2Pane.getStyleClass().add("data-entered");
+                    break;
+
+                case Utils.QUERY_TV12:
+                    solid1Solid2VaporTemp.setText(values[1]);
+                    solid1Solid2Pane.getStyleClass().add("data-entered");
+                    break;
+            }
+        }
+    }
+
 }

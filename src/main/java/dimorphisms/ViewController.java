@@ -1,6 +1,8 @@
 package dimorphisms;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
@@ -27,7 +29,7 @@ public class ViewController extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-         primaryStage.getIcons().add(new Image(getClass().getResource("/startIcon.png").toExternalForm()));
+        primaryStage.getIcons().add(new Image(getClass().getResource("/startIcon.png").toExternalForm()));
         this.primaryStage = primaryStage;
         domainController = new DomainController();
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -57,6 +59,10 @@ public class ViewController extends Application {
      * @param materialName the material name
      * @throws IOException the io exception
      */
+    public  boolean checkForMaterial(String materialName) {
+        return domainController.checkMaterialName(materialName);
+    }
+
     public void newMaterial(String materialName) throws IOException {
 
                 FXMLLoader fxmlLoader = new FXMLLoader();
@@ -132,7 +138,7 @@ public class ViewController extends Application {
      * @param isLog the is log
      * @return the boolean
      */
-    public ArrayList<String> addSolid1Vapor(float a, float b, float c, boolean isLog) {
+    public ArrayList<String> addSolid1Vapor(double a, double b, double c, boolean isLog) {
         return domainController.addVaporSolid1(a,b,c,isLog);
     }
 
@@ -145,7 +151,7 @@ public class ViewController extends Application {
      * @param isLog the is log
      * @return the boolean
      */
-    public ArrayList<String> addSolid2Vapor(float a, float b, float c, boolean isLog) {
+    public ArrayList<String> addSolid2Vapor(double a, double b, double c, boolean isLog) {
         return domainController.addVaporSolid2(a,b,c,isLog);
     }
 
@@ -158,7 +164,7 @@ public class ViewController extends Application {
      * @param isLog the is log
      * @return the boolean
      */
-    public ArrayList<String> addLiquidVapor(float a, float b, float c, boolean isLog) {
+    public ArrayList<String> addLiquidVapor(double a, double b, double c, boolean isLog) {
         return domainController.addLiquidVapor(a,b,c,isLog);
     }
 
@@ -168,7 +174,7 @@ public class ViewController extends Application {
      * @param dpdt the dpdt
      * @return the boolean
      */
-    public ArrayList<String> addLiquidSolid1(float dpdt) {
+    public ArrayList<String> addLiquidSolid1(double dpdt) {
         return domainController.addLiquidSolid1(dpdt);
     }
 
@@ -178,7 +184,7 @@ public class ViewController extends Application {
      * @param dpdt the dpdt
      * @return the boolean
      */
-    public ArrayList<String> addLiquidSolid2(float dpdt) {
+    public ArrayList<String> addLiquidSolid2(double dpdt) {
         return domainController.addLiquidSolid2(dpdt);
     }
 
@@ -188,7 +194,7 @@ public class ViewController extends Application {
      * @param dpdt the dpdt
      * @return the boolean
      */
-    public ArrayList<String> addSolid1Solid2(float dpdt) {
+    public ArrayList<String> addSolid1Solid2(double dpdt) {
         return domainController.addSolid1Solid2(dpdt);
     }
 
@@ -204,15 +210,15 @@ public class ViewController extends Application {
         return domainController.getLogGraphic();
     }
 
-    public ArrayList<String> addLiquidSolid1VaporTemp(float temp) {
+    public ArrayList<String> addLiquidSolid1VaporTemp(double temp) {
         return domainController.addTempLV1(temp);
     }
 
-    public ArrayList<String> addLiquidSolid2VaporTemp(float temp) {
+    public ArrayList<String> addLiquidSolid2VaporTemp(double temp) {
         return domainController.addTempLV2(temp);
     }
 
-    public ArrayList<String> addSolid1Solid2VaporTemp(float temp) {
+    public ArrayList<String> addSolid1Solid2VaporTemp(double temp) {
         return domainController.addTempV12(temp);
     }
 
@@ -227,5 +233,43 @@ public class ViewController extends Application {
 
     public int getTopology() {
         return domainController.getTopology();
+    }
+
+    public void deleteMaterial(String name) {
+        domainController.deleteMaterial(name);
+    }
+
+    public ArrayList<String> getMaterialNames() {
+        return domainController.listMaterialNames();
+    }
+
+    public void loadMaterial(String materialName) throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        AnchorPane pane = fxmlLoader.load(getClass().getResource("/DataEntry.fxml").openStream());
+        DataEntry dataEntry = (DataEntry) fxmlLoader.getController();
+        dataEntry.setViewController(this);
+        dataEntry.setMaterialName(materialName);
+        primaryStage.setTitle("Data Entry");
+        dataEntryScene = new Scene(pane, 800, 500);
+        dataEntryScene.getStylesheets().add("/dataEntryStyle.css");
+        primaryStage.setScene(dataEntryScene);
+        primaryStage.show();
+        dataEntry.setMaterialInfo(domainController.loadMaterial(materialName));
+        fxmlLoader = new FXMLLoader();
+        AnchorPane p = fxmlLoader.load(getClass().getResource("/GraphicView.fxml").openStream());
+        GraphicView fooController = (GraphicView) fxmlLoader.getController();
+        fooController.setViewController(this, true);
+        graphicViewScene = new Scene(p,800,500);
+        graphicViewScene.getStylesheets().add("/chartStyle.css");
+
+    }
+
+    public ArrayList<String> getUIInformation(){
+        return domainController.getUIInformation();
+    }
+
+    public boolean isMaterialComplete() {
+        return domainController.isMaterialComplete();
     }
 }
